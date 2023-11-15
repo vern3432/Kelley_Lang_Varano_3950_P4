@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu Items Table</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 70%;
+            margin: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid black;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <h2>Menu Items</h2>
+    <table id="dataTable">
+        <thead>
+            <tr>
+                <th>ISBN</th>
+                <th>Book Title</th>
+                <th>Book Author</th>
+                <th>Year Of Publication</th>
+                <th>Publisher</th>
+                <th>Image URL</th>
+            </tr>
+        </thead>
+        <tbody id="dataBody"></tbody>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', fetchData);
+
+        function fetchData() {
+            fetch('http://localhost:3001/data')
+                .then(response => response.json())
+                .then(data => {
+                    var dataBody = document.getElementById('dataBody');
+
+                    data.forEach(row => {
+                        var rowHTML = '<tr>';
+                        rowHTML += '<td>' + row.ISBN + '</td>';
+                        rowHTML += '<td>' + row.Book_Title + '</td>';
+                        rowHTML += '<td>' + row.Book_Author + '</td>';
+                        rowHTML += '<td>' + row.Year_Of_Publication + '</td>';
+                        rowHTML += '<td>' + row.Publisher + '</td>';
+                        rowHTML += '<td>' + row.Image_URL_L + '</td>';
+                        rowHTML += '</tr>';
+                        dataBody.innerHTML += rowHTML;
+                    });
+                })
+                .catch(error => console.log('Error fetching data: ', error));
+        }
+    </script>
+</body>
+</html>
