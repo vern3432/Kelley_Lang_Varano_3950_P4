@@ -6,14 +6,15 @@ const port = 3001;
 
 const dbPath = path.resolve(__dirname, 'memory.db');
 const db = new sqlite3.Database(dbPath);
-const userDbPath = path.resolve(__dirname, 'user.db');
-const userDb = new sqlite3.Database(userDbPath);
+// const userDbPath = path.resolve(__dirname, 'user.db');
+// const userDb = new sqlite3.Database(userDbPath);
 
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
   next();
 });
+app.use(express.json());
 
 app.get('/data', (req, res) => {
   console.log('getting data for table')
@@ -28,18 +29,69 @@ app.get('/data', (req, res) => {
 });
 
 app.post('/signup', (req, res) => {
-  console.log('getting data for table')
-  const query = 'SELECT * FROM menuItems'; 
-  db.all(query, [], (err, rows) => {
+  console.log('request received called')
+
+  // const { username, password } = req.body;
+  // res.json(req.body);
+  // jsson=res.json(req.body)
+  // console.log(jsson)
+  const username = req.body.user_name;
+  const password = req.body.pass_word;
+
+  console.log(username)
+  // Check if username is unique
+  db.get('SELECT * FROM users WHERE username = ?', [username], (err, row) => {
     if (err) {
       res.status(500).send(err.message);
       return;
     }
-    res.json(rows);
+
+    if (row) {
+      // Username already exists
+      res.status(400).json({ error: 'Username already exists. Please choose another.' });
+    } else {
+      // Username is unique, proceed with signup
+      db.run('INSERT INTO users (username, password) VALUES (?, ?)', [username, password], (err) => {
+        if (err) {
+          res.status(500).send(err.message);
+          return;
+        }
+
+        res.status(200).json({ message: 'Signup successful. Please Login' });
+      });
+    }
   });
+  console.log("sign up successful")
 });
 
 
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);
 });
+
+
+
+
+
+
+
+
+
+// ... (the rest of your existing code)
+
+
+
+
+// app.post('/signup', (req, res) => {
+//   console.log('getting data for table')
+  
+//   const query = 'SELECT * FROM users'; 
+//   db.all(query, [], (err, rows) => {
+//     if (err) {
+//       res.status(500).send(err.message);
+//       return;
+//     }
+//     res.json(rows);
+//   });
+// });
+

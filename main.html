@@ -67,28 +67,25 @@
         function submitSignupForm() {
             const username = document.getElementById('signupUsername').value;
             const password = document.getElementById('signupPassword').value;
-            const xhr = new XMLHttpRequest();
-            xhr.open('POST', '/signup', true);
-            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-            const data = `username=${username}&password=${password}`;
-            
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState === 4) {
-                    if (xhr.status === 200) {
-                        // Successful signup, you may redirect or perform other actions
-                        alert('Sign up successful! Please log in.');
-                        // Optionally redirect to login page
-                        // window.location.href = '/login';
-                    } else {
-                        // Handle signup failure
-                        alert('Sign up failed. Please choose a different username.');
-                    }
-                }
-            };
-
-            xhr.send(data);
-        }
-
+            //username: "exampleUser",
+            ///password: "examplePassword"
+            // Make a POST request to the server
+            fetch('http://localhost:3001/signup', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({ user_name:username, pass_word:password }),
+            })
+            .then(response => response.json())
+            .then(data => {
+              alert(data.message || data.error);
+            })
+            .catch(error => {
+              console.error('Error:', error);
+              alert('An error occurred. Please try again.');
+            });
+          }
 
         
     </script>
