@@ -1,7 +1,19 @@
 const sql3 = require('better-sqlite3');
 console.log("imported")
 
-new sql3('memory2.db');
+// fs.unlink('user.db', function(err) {
+//     if(err && err.code == 'ENOENT') {
+//         // file doens't exist
+//         console.info("File doesn't exist, won't remove it.");
+//     } else if (err) {
+//         // other errors, e.g. maybe we don't have enough permission
+//         console.error("Error occurred while trying to remove file");
+//     } else {
+//         console.info(`removed`);
+//     }
+// });
+
+const   db = new sql3('memory2.db');
 console.log('db loaded')
 db.exec('DROP TABLE IF EXISTS users');
 //
