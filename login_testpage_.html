@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login and Sign-Up Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        form {
+            width: 300px;
+            margin: 50px auto;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 16px;
+        }
+
+        button {
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <form id="loginForm">
+        <h2>Login</h2>
+        <label for="loginUsername">Username:</label>
+        <input type="text" id="loginUsername" name="loginUsername" required>
+
+        <label for="loginPassword">Password:</label>
+        <input type="password" id="loginPassword" name="loginPassword" required>
+
+        <button type="button" onclick="submitLoginForm()">Login</button>
+    </form>
+
+    <hr>
+
+    <form id="signupForm">
+        <h2>Sign Up</h2>
+        <label for="signupUsername">Username:</label>
+        <input type="text" id="signupUsername" name="signupUsername" required>
+
+        <label for="signupPassword">Password:</label>
+        <input type="password" id="signupPassword" name="signupPassword" required>
+
+        <button type="button" onclick="submitSignupForm()">Sign Up</button>
+    </form>
+
+    <div>
+        <p>Or log in with Google:</p>
+        <a href="/auth/google">Login with Google</a>
+    </div>
+
+    <script>
+        function submitLoginForm() {
+            // Similar to the login script in the previous example
+            // ...
+        }
+
+        function submitSignupForm() {
+            const username = document.getElementById('signupUsername').value;
+            const password = document.getElementById('signupPassword').value;
+
+            const xhr = new XMLHttpRequest();
+            xhr.open('POST', '/signup', true);
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            
+            const data = `username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`;
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        // Successful signup, you may redirect or perform other actions
+                        alert('Sign up successful! Please log in.');
+                        // Optionally redirect to login page
+                        // window.location.href = '/login';
+                    } else {
+                        // Handle signup failure
+                        alert('Sign up failed. Please choose a different username.');
+                    }
+                }
+            };
+
+            xhr.send(data);
+        }
+    </script>
+</body>
+</html>
