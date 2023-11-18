@@ -58,6 +58,9 @@
     function submitSignupForm() {
       const username = document.getElementById('user').value;
       const password = document.getElementById('password').value;
+      const pfp = document.getElementById('pfp').value;
+      const bio = document.getElementById('Body').value;
+
       //username: "exampleUser",
       ///password: "examplePassword"
       // Make a POST request to the server
@@ -66,11 +69,20 @@
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ user_name:username, pass_word:password }),
+        body: JSON.stringify({ 
+          user_name:username, 
+          pass_word:password,
+          pfp:pfp,
+          bio:bio,
+
+        }),
       })
       .then(response => response.json())
       .then(data => {
         alert(data.message || data.error);
+        document.getElementById('user').value=username;
+        document.getElementById('password').value=password
+        submitLoginForm();
       })
       .catch(error => {
         console.error('Error:', error);
@@ -279,7 +291,7 @@
         <p class="login_button"  style="color: white;">or</p>
         <button type="button" class="signupbutton"  onclick="Signup()">Sign up</button style=" text-align: center;">
            <br>
-       <button type="button" id="signupbutton2" class="signupbutton" onclick="submitLoginForm()">Sign up!</button style=" text-align: center; =">
+       <button type="button" id="signupbutton2" class="signupbutton" onclick="submitSignupForm()">Sign up!</button style=" text-align: center; =">
 
       </form>
     </div>

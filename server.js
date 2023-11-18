@@ -36,6 +36,8 @@ app.post('/signup', (req, res) => {
   // console.log(jsson)
   const username = req.body.user_name;
   const password = req.body.pass_word;
+  const pfp = req.body.pfp;
+  const bio = req.body.bio;
 
   console.log(username)
   // Check if username is unique
@@ -50,9 +52,10 @@ app.post('/signup', (req, res) => {
       res.status(400).json({ error: 'Username already exists. Please choose another.' });
     } else {
       // Username is unique, proceed with signup
-      db.run('INSERT INTO users (username, password) VALUES (?, ?)', [username, password], (err) => {
+      db.run('INSERT INTO users (username, password,profile_url,bio) VALUES (?, ?,?,?)', [username, password,pfp,bio], (err) => {
         if (err) {
           res.status(500).send(err.message);
+          console.log("insert failed")
           return;
         }
 
