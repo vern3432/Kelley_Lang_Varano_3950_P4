@@ -13,7 +13,7 @@ console.log("imported")
 //     }
 // });
 
-const   db = new sql3('memory2.db');
+const   db = new sql3('memory.db');
 console.log('db loaded')
 db.exec('DROP TABLE IF EXISTS users');
 //

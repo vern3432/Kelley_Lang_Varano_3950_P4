@@ -1,0 +1,397 @@
+
+body,
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-family: "Raleway", sans-serif
+}
+body{
+
+  background-color: #FFFDD0;
+}
+
+
+
+.top-banner {
+  overflow-x: hidden;
+  overflow-y: hidden;
+  padding-bottom: 10px;
+  text-align: center;
+  background-color:#6d0000;
+  margin-top:-10px;
+  
+
+}
+
+
+.top-banner a, .top-banner span {
+  display: inline-block;
+}
+.banner_logo{
+  width: 30%;
+  height: auto;
+  float:left;
+  position: left;  
+
+
+}
+
+.top-banner a {
+  width: 6%;
+  padding: 15px 0;
+  text-decoration: none;
+  color: #fff;
+  color: rgba(255, 255, 255, .8);
+}
+.top-banner input{
+
+  border-radius: 5px;
+
+}
+
+.top-banner button{
+  width: 58px;
+  overflow-x:visible;
+  height: 28px;
+  line-height: 28px;
+  background-color: #a1c45a;
+  border-radius: 20px;
+}
+
+
+.top-banner a:hover {
+  color: #fff9e0;
+}
+
+.sidebar {
+  height: 100%;
+  width: 80px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: -32px;
+  background-color:#6d0000;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 50px;
+}
+
+.sidebar a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+}
+.sidebar a b{
+ visibility: hidden;
+}
+
+.sidebar a:hover {
+  color: #f1f1f1;
+}
+
+.sidebar .close_button {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+.open_button {
+  font-size: 20px;
+  cursor: pointer;
+  padding: 10px 15px;
+  border: none;
+  background-color: transparent;
+
+}
+.searchbutton:hover{
+  filter: brightness(120%);
+
+}
+.contentheader{
+  font-weight: 600;
+  background-clip: text;
+  -webkit-background-clip: text;
+
+}
+
+
+.openbtn:hover {
+  background-color: transparent;
+  filter: brightness(150%);
+
+}
+
+#sidebar_open{
+  visibility: visible;
+
+}
+#sidebar_close{
+  visibility: hidden;
+  float: right;
+
+}
+
+#main {
+  transition: margin-left .5s;
+  bottom: 0;
+  left: 0;
+}
+#sidebarclose{
+    width: 50px;
+  overflow:hidden ;
+  
+
+
+}
+
+.centered {
+  text-align: center;
+  font-family: 'Courier New', Courier, monospace;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+@media screen and (max-height: 450px) {
+  .sidebar {
+    padding-top: 15px;
+  }
+
+  .sidebar a {
+    font-size: 18px;
+  }
+}
+
+#home{
+  width: 50px;
+  overflow:hidden ;
+  margin-right:0;
+
+
+  
+}
+#home:hover{
+  filter: brightness(150%);
+
+}
+#Post{
+  width: 50px;
+  overflow:hidden ;
+  margin-right:0;
+
+
+  
+}
+#Post:hover{
+  filter: brightness(150%);
+
+}
+
+#friend{
+  width: 50px;
+  overflow:hidden ;
+  margin-right:0;
+
+
+  
+}
+#friend:hover{
+  filter: brightness(150%);
+
+}
+
+#profile{
+  width: 45px;
+  overflow:hidden ;
+  margin-right:0;
+
+
+  
+}
+#profile:hover{
+  filter: brightness(150%);
+
+}
+.thumbnail{
+  float: left;
+  max-width: 320px;
+  width: 100%;
+  border-radius: 10px;
+
+  
+
+
+
+
+}
+
+
+/* Add something to sidebar that shrinks these  */
+.postcontainer{
+  border: 2px solid black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #818181;
+  background-size: 10% auto;
+  width: 65%;
+  border-radius: 25px;
+  overflow: hidden;
+  margin-left: 45px;
+
+}
+
+.pagecontent h1{
+  margin-left: 45px;
+
+}
+.pagecontent form{
+  margin-left: 45px;
+
+}
+.pagecontent h1{
+  margin-left: 45px;
+
+  
+}
+#pagecontent{
+    margin-left: 50px;
+    float: inline-start;
+
+
+}
+
+#pagetitle{
+  margin-left: 45px;
+
+
+}
+.postcontainer_title{
+  float: right;
+  padding: 15px;
+
+}
+.title{
+
+  font-size: 20px;
+  padding-left: 20px;
+  font-size: 20px;
+  padding-left: 20px;
+  float: right;
+}
+.date{
+
+  font-size: 20px;
+  padding-left: 20px;
+  padding-top: 20%;
+  font-size: 20px;
+  padding-left: 20px;
+  
+}
+
+.friend_bar{
+  position: relative;
+  margin-top:-10px;
+  float:right;
+  top:50px;
+}
+.pfp{
+  border-radius: 25px;
+  width: 70px;
+
+
+}
+#friends_label{
+  background-color:crimson;
+  background-size:cover;
+  margin-top:-19px;
+  float:left;
+  top:0px;
+  text-decoration: none;
+  border-radius: 10px;
+  
+
+
+}
+#friend_menu_text{
+  color: #444;
+
+}
+#friend_container{
+padding-top: 10px;
+
+}
+.subs_bar{
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+#subs_label{
+  background-color:crimson;
+  background-size:cover;
+  margin-top:-30px;
+  float:left;
+  top:0px;
+  text-decoration: none;
+  border-radius: 10px;
+
+
+}
+#pagecontent h3{
+  margin-left: 45px;
+
+
+}
+#pagecontent h1{
+  margin-left: 45px;
+
+
+}
+#pagecontent iframe{
+  margin-left: 10px;
+
+
+}
+#pagecontent p{
+  margin-left: 45px;
+
+
+}
+
+
+
+
+
+.tablink {
+  background-color: #555;
+  color: white;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  font-size: 17px;
+  width: 25%;
+}
+
+.tablink:hover {
+  background-color: #777;
+}
+
+/* Style the tab content (and add height:100% for full page content) */
+.tabcontent {
+  color: white;
+  display: none;
+  padding: 100px 20px;
+  height: 100%;
+}
+
+#Home {background-color: gray;}
+#News {background-color: gray;}

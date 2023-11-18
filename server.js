@@ -29,8 +29,7 @@ app.get('/data', (req, res) => {
 });
 
 app.post('/signup', (req, res) => {
-  console.log('request received called')
-
+  console.log(' sign up request received called')
   // const { username, password } = req.body;
   // res.json(req.body);
   // jsson=res.json(req.body)
@@ -63,6 +62,40 @@ app.post('/signup', (req, res) => {
   });
   console.log("sign up successful")
 });
+
+//login
+app.post('/login', (req, res) => {
+  console.log('log in request received called')
+  // const { username, password } = req.body;
+  // res.json(req.body);
+  // jsson=res.json(req.body)
+  // console.log(jsson)
+  const username = req.body.user_name;
+  const password = req.body.pass_word;
+
+  console.log(username)
+  // Check if username is unique
+  db.get('SELECT * FROM users WHERE (username, password) IN ( VALUES (?, ?))', [username,password], (err, row) => {
+    if (err) {
+      res.status(400).send("errror 400");
+      console.log('error was sent')
+      return;
+    }
+
+    if (row) {
+      // Username already exists
+      console.log('row condition met')
+      res.status(200).json({ message: 'Login successful. Loading Page' });
+      console.log('login in scccesful')
+    }
+  });
+  console.log("Login proccessed")
+});
+
+
+
+
+
 
 
 app.listen(port, () => {

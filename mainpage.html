@@ -1,0 +1,76 @@
+
+<!--I relaly want to add a top by with a title and maybe like a settings at the top rihgt. Dark Mode? wWould just make pages look complete  -->
+<!-- Search bar? That could be a cool thing. Could use very basic horspool search of all post titles. Perhaps master index of posts should include id and title.   -->
+<!-- Tab on Search Bar that Lets You Search for Users?? -->
+<!-- Notes for server side: There is a link format for retrieving youtbe thumnails. We could either download this servise or just link them. Later is probably easier, will require a lot of requests but im guesing it wont be a problem unless -->
+<!--  Format is as follow: 
+https://www.youtube.com/watch?v=AD5aAd8Oy84-------_>https://img.youtube.com/vi/AD5aAd8Oy84/mqdefault.jpg
+note identifier shared between links
+this is only for Medium Quality (320x180). Should be all we need for thumnails. 
+Im thinking these links should be stored in whatever json we generate to contain posts. on that note, need to determine how data will be stored in jsons and where in relation to poster and time. 
+-->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Youtube-Repost</title>
+    <link rel="stylesheet" href="./styleA.css">
+    
+</head>
+<div class="top-banner">
+  <!-- <img class="banner_logo" src="templogo.png" alt=""> -->
+  <form action=""></form>   <input type="text" id="fname" name="fname"><button class="searchbutton">Search</button >
+  <select name="searchtab" id="searchtype">
+    <option value="Posts">Posts</option>
+    <option value="Users">Users</option>
+
+  </select>
+
+</div>
+<div id="sidebarcontainer">
+  <div id="full_SideBar" class="sidebar">
+    <script src="sidebar.js"></script>
+
+    <a href="feed.html">
+      <img id="home" class="icon" src="homepage.png" alt="" />
+      <b class="sidebar_text" id="home" style="font-size: 23px">Home</b>
+      <br />
+    </a>
+
+    <a href="./makepost.html">
+      <img id="Post" class="icon" src="post3.png" alt="" />
+      <b class="sidebar_text" id="Post" style="font-size: 23px">Post</b>
+      <br />
+    </a>
+    <a href="./friendspage.html">
+      <img id="friend" class="icon" src="friends2.png" alt="" />
+      <b class="sidebar_text" id="friend" style="font-size: 23px">Friends</b>
+      <br />
+    </a>
+    <a onclick="loadcurrUserPage()">
+      <img id="profile" class="icon" src="profile2.png" alt="" />
+      <b class="sidebar_text" id="friend" style="font-size: 23px">Profile</b>
+      <br />
+    </a>
+    
+   <a href="google.com">
+
+    <img id="closenav"    class="icon" src="" alt=""> <b class="sidebar_text"  id="Post" style="  font-size: 23px;" ></b> <br>
+
+   </a>
+   <div id="main">
+    <button id="sidebar_close"  class="open_button"   onclick="closeNav()"><img src="sidebarclose2.png" alt="" id="sidebarclose"> </button>  
+    <br>
+    <button id="sidebar_open" class="open_button" onclick="openNav()"><img src="sidebarclose2.png" alt="" id="sidebarclose" style="  transform: scaleX(-1);"> </button>  
+
+  </div>
+    
+    
+  </div>
+
+  <div id="main">
+    <!-- <button class="open_button" onclick="openNav()"><img src="sidebarclose2.png" alt="" id="sidebarclose"> </button>   -->
+  
+  </div>
+</div>
