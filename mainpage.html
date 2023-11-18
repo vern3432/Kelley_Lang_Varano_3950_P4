@@ -69,14 +69,128 @@ Im thinking these links should be stored in whatever json we generate to contain
     
   </div>
 
+
+
   <div id="main">
     <!-- <button class="open_button" onclick="openNav()"><img src="sidebarclose2.png" alt="" id="sidebarclose"> </button>   -->
   
   </div>
 </div>
+<script>
+// function tabcount(m){
+//   n=m/20
+//   for(let i=0;i<=n;i)
+//   var div = document.getElementById("bottom_tabs").createElement('button');
+//   div.innerHTML = str;
+//   while (div.children.length > 0) {
+//     el.appendChild(div.children[0]);
+//   }
+// }
+// var html = '<h1 id="title">Some Title</h1><span style="display:inline-block; width=100px;">Some arbitrary text</span>';
+// appendHtml(document.body, html);
 
-<body id="pagecontent">
+// lets just do a next and last, seems easier. 
+function tabcount_by20(start,total){
+}
+function submitSignupForm(num_start) {
   
+
+      //username: "exampleUser",
+      ///password: "examplePassword"
+      // Make a POST request to the server
+      fetch('http://localhost:3001/tab_page_request', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ start:num_start, finish:(num_start+20) }),
+      })
+      .then(response => response.json())
+                .then(data => {
+                    var dataBody = document.getElementById('pagecontent');
+                    data.forEach(row => {
+                      console.log(row.ISBN)
+                        var rowHTML = '<div>';
+                        rowHTML += '<br>' + row.ISBN ;
+                        rowHTML += '<br>' + row.Book_Title ;
+                        rowHTML += '<br>' + row.Book_Author ;
+                        rowHTML += '<br>' + row.Year_Of_Publication ;
+                        rowHTML += '<br>' + row.Image_URL_S ;
+                        rowHTML += '<br>' + row.Image_URL_M;
+                        rowHTML += '<br>' + row.Image_URL_L ;
+                        rowHTML += '<br>';
+                        rowHTML += '</div>';
+                        dataBody.innerHTML += rowHTML;
+                    });
+                })
+                .catch(error => console.log('Error fetching data: ', error));
+    }
+    submitSignupForm(1)
+
+
+
+
+</script>
+<body id="pagecontent">
+  <div id="bottom_tabs">
+
+    <!-- <button type="button">Click Me!</button> -->
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+    a {
+      text-decoration: none;
+      display: inline-block;
+      padding: 8px 16px;
+    }
+    
+    a:hover {
+      background-color: #0B504F;
+      color: white;
+    }
+    
+    .previous {
+      background-color: #f1f1f1;
+      color: black;
+    }
+    
+    .next {
+      background-color: #f1f1f1;
+      color: black;
+    }
+    
+    .round {
+      border-radius: 50%;
+    }
+    </style>
+    </head>
+    <body>
+    
+    
+    <a href="#" class="previous">&laquo; Previous</a>
+    <a href="#" class="next">Next &raquo;</a>
+<!--     
+    <a href="#" class="previous round">&#8249;</a>
+    <a href="#" class="next round">&#8250;</a>
+       -->
+    </body>
+    </html> 
+    
+
+
+
+
+
+
+
+
+
+
+
+  </div>
 </body>
 
 </html>

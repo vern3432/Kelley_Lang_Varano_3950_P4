@@ -96,6 +96,32 @@ app.post('/login', (req, res) => {
 });
 
 
+app.post('/tab_page_request', (req, res) => {
+  console.log('getting data for table:tab_page_request')
+  const num_start = req.body.start;
+  const finish = req.body.finish;
+ console.log(num_start)
+ console.log(finish)
+
+  const query = 'SELECT * FROM menuItems limit '+ num_start.toString()+','+finish.toString(); 
+  console.log(query)
+  db.all(query, [], (err, rows) => {
+    if (err) {
+      res.status(500).send(err.message);
+      return;
+    }
+    console.log("sending")
+    res.json(rows);
+  });
+
+
+  
+});
+
+
+
+
+
 
 
 
