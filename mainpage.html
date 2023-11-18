@@ -107,7 +107,7 @@ function submitTab(num_start) {
       })
       .then(response => response.json())
                 .then(data => {
-                    var dataBody = document.getElementById('pagecontent');
+                    var dataBody = document.getElementById('books_container');
                     dataBody.innerHTML='<button onclick="prev()" class="previous">&laquo; Previous</button><button onclick="next()" class="next">Next &raquo;</button>'
                     data.forEach(row => {
                       // console.log(row.ISBN)
@@ -172,47 +172,43 @@ function submitTab(num_start) {
     // localStorage.getItem("counter",null)
 
 </script>
-
+<style>
+  a {
+    text-decoration: none;
+    display: inline-block;
+    padding: 8px 16px;
+  }
+  
+  a:hover {
+    background-color: #0B504F;
+    color: white;
+  }
+  
+  .previous {
+    background-color: #f1f1f1;
+    color: black;
+  }
+  
+  .next {
+    background-color: #f1f1f1;
+    color: black;
+  }
+  
+  .round {
+    border-radius: 50%;
+  }
+  </style>
 <body id="pagecontent">
-  <div id="bottom_tabs">
+  <div id="books_container">
+
     <!-- <button type="button">Click Me!</button> -->
 
-    <!DOCTYPE html>
-    <html>
-    <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <style>
-    a {
-      text-decoration: none;
-      display: inline-block;
-      padding: 8px 16px;
-    }
-    
-    a:hover {
-      background-color: #0B504F;
-      color: white;
-    }
-    
-    .previous {
-      background-color: #f1f1f1;
-      color: black;
-    }
-    
-    .next {
-      background-color: #f1f1f1;
-      color: black;
-    }
-    
-    .round {
-      border-radius: 50%;
-    }
-    </style>
-    </head>
-    <body>
+
 <!--     
     <a href="#" class="previous round">&#8249;</a>
     <a href="#" class="next round">&#8250;</a>
        -->
+      </div>
     </body>
     <!-- submitTab(localStorage.getItem('counter')) -->
 
