@@ -92,8 +92,7 @@ Im thinking these links should be stored in whatever json we generate to contain
 // lets just do a next and last, seems easier. 
 function tabcount_by20(start,total){
 }
-function submitSignupForm(num_start) {
-    localStorage.setItem("counter",1)
+function submitTab(num_start) {
 
 
       //username: "exampleUser",
@@ -111,7 +110,7 @@ function submitSignupForm(num_start) {
                     var dataBody = document.getElementById('pagecontent');
                     dataBody.innerHTML='<button onclick="prev()" class="previous">&laquo; Previous</button><button onclick="next()" class="next">Next &raquo;</button>'
                     data.forEach(row => {
-                      console.log(row.ISBN)
+                      // console.log(row.ISBN)
                         var rowHTML = '<div id="books">';
                         rowHTML +="<div id='book'>"
                         rowHTML += '<img src="' + row.Image_URL_L+'">' ;
@@ -131,30 +130,44 @@ function submitSignupForm(num_start) {
                 .catch(error => console.log('Error fetching data: ', error));
     }
     console.log(localStorage.getItem("counter"))
-    submitSignupForm(localStorage.getItem("counter"))
+    submitTab(localStorage.getItem("counter"))
 
     function next(){
-      if(localStorage.getItem('counter')+20>100000000){
+      if(parseInt(localStorage.getItem('counter'))+20>100000000){
         console.log("max reached")
+        console.log(localStorage.getItem('counter'))
+
       }
     else{
-      localStorage.setItem("counter",localStorage.getItem('counter')+20)
-      submitSignupForm(localStorage.getItem('counter'))
+      localStorage.setItem("counter",parseInt(localStorage.getItem('counter'))+20)
+      console.log(localStorage.getItem('counter'))
+      submitTab(parseInt(localStorage.getItem('counter')))
     }
   }
   function prev(){
-    if(localStorage.getItem('counter')-20<0){
-      console.log("max reached")
+    if((parseInt(localStorage.getItem('counter'))-20)<0){
+      console.log("min reached")
+      console.log(localStorage.getItem('counter'))
+
       }
     else{
-      localStorage.setItem("counter",localStorage.getItem('counter')-20)
-      submitSignupForm(localStorage.getItem('counter'))
+      localStorage.setItem("counter",parseInt(localStorage.getItem('counter'))-20)
+      console.log(localStorage.getItem('counter'))
+      submitTab(localStorage.getItem('counter'))
 
     }
 
 
 
   }
+  if(localStorage.getItem('counter')){
+
+
+  }else{
+    localStorage.setItem("counter",1)
+
+  }
+
 
     // localStorage.getItem("counter",null)
 
@@ -201,7 +214,7 @@ function submitSignupForm(num_start) {
     <a href="#" class="next round">&#8250;</a>
        -->
     </body>
-    <!-- submitSignupForm(localStorage.getItem('counter')) -->
+    <!-- submitTab(localStorage.getItem('counter')) -->
 
 
     </html> 
