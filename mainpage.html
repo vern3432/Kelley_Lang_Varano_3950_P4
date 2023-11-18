@@ -93,7 +93,8 @@ Im thinking these links should be stored in whatever json we generate to contain
 function tabcount_by20(start,total){
 }
 function submitSignupForm(num_start) {
-  
+    localStorage.setItem("counter",1)
+
 
       //username: "exampleUser",
       ///password: "examplePassword"
@@ -108,32 +109,59 @@ function submitSignupForm(num_start) {
       .then(response => response.json())
                 .then(data => {
                     var dataBody = document.getElementById('pagecontent');
+                    dataBody.innerHTML='<button onclick="prev()" class="previous">&laquo; Previous</button><button onclick="next()" class="next">Next &raquo;</button>'
                     data.forEach(row => {
                       console.log(row.ISBN)
-                        var rowHTML = '<div>';
+                        var rowHTML = '<div id="books">';
+                        rowHTML +="<div id='book'>"
+                        rowHTML += '<img src="' + row.Image_URL_L+'">' ;
                         rowHTML += '<br>' + row.ISBN ;
                         rowHTML += '<br>' + row.Book_Title ;
                         rowHTML += '<br>' + row.Book_Author ;
                         rowHTML += '<br>' + row.Year_Of_Publication ;
-                        rowHTML += '<br>' + row.Image_URL_S ;
-                        rowHTML += '<br>' + row.Image_URL_M;
-                        rowHTML += '<br>' + row.Image_URL_L ;
-                        rowHTML += '<br>';
-                        rowHTML += '</div>';
+                        //rowHTML += '<br>' + row.Image_URL_S ;
+                        //rowHTML += '<br>' + row.Image_URL_M;
+                        //rowHTML += '<br>' + row.Image_URL_L ;
+                        //rowHTML += '<br>';
+                        rowHTML +="</div>"
+
                         dataBody.innerHTML += rowHTML;
                     });
                 })
                 .catch(error => console.log('Error fetching data: ', error));
     }
-    submitSignupForm(1)
+    console.log(localStorage.getItem("counter"))
+    submitSignupForm(localStorage.getItem("counter"))
+
+    function next(){
+      if(localStorage.getItem('counter')+20>100000000){
+        console.log("max reached")
+      }
+    else{
+      localStorage.setItem("counter",localStorage.getItem('counter')+20)
+      submitSignupForm(localStorage.getItem('counter'))
+    }
+  }
+  function prev(){
+    if(localStorage.getItem('counter')-20<0){
+      console.log("max reached")
+      }
+    else{
+      localStorage.setItem("counter",localStorage.getItem('counter')-20)
+      submitSignupForm(localStorage.getItem('counter'))
+
+    }
 
 
 
+  }
+
+    // localStorage.getItem("counter",null)
 
 </script>
+
 <body id="pagecontent">
   <div id="bottom_tabs">
-
     <!-- <button type="button">Click Me!</button> -->
 
     <!DOCTYPE html>
@@ -168,15 +196,14 @@ function submitSignupForm(num_start) {
     </style>
     </head>
     <body>
-    
-    
-    <a href="#" class="previous">&laquo; Previous</a>
-    <a href="#" class="next">Next &raquo;</a>
 <!--     
     <a href="#" class="previous round">&#8249;</a>
     <a href="#" class="next round">&#8250;</a>
        -->
     </body>
+    <!-- submitSignupForm(localStorage.getItem('counter')) -->
+
+
     </html> 
     
 
