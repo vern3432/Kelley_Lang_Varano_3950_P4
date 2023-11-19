@@ -110,7 +110,7 @@ function search(){
       .then(response => response.json())
                 .then(data => {
                     var dataBody = document.getElementById('books_container');
-                    dataBody.innerHTML='<button onclick="prev()" class="previous">&laquo; Previous</button><button onclick="next()" class="next">Next &raquo;</button>'
+                    dataBody.innerHTML='<p1>Search Results for:'+search_term+'</p1><br><button onclick="prev()" class="previous">&laquo; Previous</button><button onclick="next()" class="next">Next &raquo;</button>'
                     var buttoncounter=1;
                     data.forEach(row => {
                       // console.log(row.ISBN)
@@ -138,8 +138,6 @@ function search(){
     }
 
 function submitTab(num_start) {
-
-
       //username: "exampleUser",
       ///password: "examplePassword"
       // Make a POST request to the server
