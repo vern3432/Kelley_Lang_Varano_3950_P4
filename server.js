@@ -121,7 +121,9 @@ app.post('/tab_page_request', (req, res) => {
 app.post('/search', (req, res) => {
   console.log('getting data for table:search')
   const search_term = req.body.search_term;
-  const type='Book_Title'
+  const type = req.body.type;
+
+  // const type='Book_Title'
  console.log(search_term)
 ///expression [ NOT ] SIMILAR TO pattern [ ESCAPE 'escape_char' ]
 //  const query = 'SELECT * FROM menuItems where '+type+' SIMILAR TO pattern '+ search_term;

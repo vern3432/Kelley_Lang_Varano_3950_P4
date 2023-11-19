@@ -22,9 +22,9 @@ Im thinking these links should be stored in whatever json we generate to contain
   <!-- <img class="banner_logo" src="templogo.png" alt=""> -->
   <form action=""></form>   <input type="text" id="fname" name="fname"><button class="searchbutton" onclick="search()">Search</button >
  <select name="searchtab" id="searchtype">
-    <option value="Posts">Title</option>
-    <option value="Users">Author</option>
-    <option value="Posts">Year</option>
+    <option value="Book_Title">Title</option>
+    <option value="Book_Author">Author</option>
+    <option value="Year_Of_Publication">Year</option>
 
   </select> -
 
@@ -95,9 +95,9 @@ function tabcount_by20(start,total){
 }
 
 
-function search(){
+function search(){searchtype
   const search_term= document.getElementById('fname').value;
-
+  const type=document.getElementById('searchtype').value;
       fetch('http://localhost:3001/search', {
         method: 'POST',
         headers: {
@@ -105,7 +105,9 @@ function search(){
         },
         body: JSON.stringify({ 
   
-          search_term:search_term,}),
+          search_term:search_term,
+          type:type,
+        }),
       })
       .then(response => response.json())
                 .then(data => {
@@ -120,10 +122,10 @@ function search(){
                         rowHTML += '<br>' + row.ISBN ;
                         rowHTML += '<br>' + row.Book_Title ;
                         rowHTML += '<br>' + row.Book_Author ;
-                        rowHTML += '<br>' + row.Year_Of_Publication ;
+                        rowHTML += '<br>' + row.Year_Of_Publication+'<br>';
                         //remeber to add function that calls collection list so that we can precheck this box. I think that it should probably just laod a users collection on login. 
                         //Then provide a remove from colleciton option 
-                        rowHTML += '<button id="button'+buttoncounter+' onclick="addCollection('+buttoncounter+','+row.ISBN+')">'+'Add to Collection +'+'</button>';
+                        rowHTML += '<br> <button id="button'+buttoncounter+' onclick="addCollection('+buttoncounter+','+row.ISBN+')">'+'Add to Collection +'+'</button>';
                         buttoncounter=+1
                         //rowHTML += '<br>' + row.Image_URL_S ;
                         //rowHTML += '<br>' + row.Image_URL_M;
