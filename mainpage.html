@@ -20,12 +20,13 @@ Im thinking these links should be stored in whatever json we generate to contain
 </head>
 <div class="top-banner">
   <!-- <img class="banner_logo" src="templogo.png" alt=""> -->
-  <form action=""></form>   <input type="text" id="fname" name="fname"><button class="searchbutton">Search</button >
-  <!-- <select name="searchtab" id="searchtype">
-    <option value="Posts">Posts</option>
-    <option value="Users">Users</option>
+  <form action=""></form>   <input type="text" id="fname" name="fname"><button class="searchbutton" onclick="search()">Search</button >
+ <select name="searchtab" id="searchtype">
+    <option value="Posts">Title</option>
+    <option value="Users">Author</option>
+    <option value="Posts">Year</option>
 
-  </select> -->
+  </select> -
 
 </div>
 <div id="sidebarcontainer">
@@ -92,6 +93,50 @@ Im thinking these links should be stored in whatever json we generate to contain
 // lets just do a next and last, seems easier. 
 function tabcount_by20(start,total){
 }
+
+
+function search(){
+  const search_term= document.getElementById('fname').value;
+
+      fetch('http://localhost:3001/search', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ 
+  
+          search_term:search_term,}),
+      })
+      .then(response => response.json())
+                .then(data => {
+                    var dataBody = document.getElementById('books_container');
+                    dataBody.innerHTML='<button onclick="prev()" class="previous">&laquo; Previous</button><button onclick="next()" class="next">Next &raquo;</button>'
+                    var buttoncounter=1;
+                    data.forEach(row => {
+                      // console.log(row.ISBN)
+                        var rowHTML = '<div id="books">';
+                        rowHTML +="<div id='book'>"
+                        rowHTML += '<img src="' + row.Image_URL_L+'">' ;
+                        rowHTML += '<br>' + row.ISBN ;
+                        rowHTML += '<br>' + row.Book_Title ;
+                        rowHTML += '<br>' + row.Book_Author ;
+                        rowHTML += '<br>' + row.Year_Of_Publication ;
+                        //remeber to add function that calls collection list so that we can precheck this box. I think that it should probably just laod a users collection on login. 
+                        //Then provide a remove from colleciton option 
+                        rowHTML += '<button id="button'+buttoncounter+' onclick="addCollection('+buttoncounter+','+row.ISBN+')">'+'Add to Collection +'+'</button>';
+                        buttoncounter=+1
+                        //rowHTML += '<br>' + row.Image_URL_S ;
+                        //rowHTML += '<br>' + row.Image_URL_M;
+                        //rowHTML += '<br>' + row.Image_URL_L ;
+                        //rowHTML += '<br>';
+                        rowHTML +="</div>"
+
+                        dataBody.innerHTML += rowHTML;
+                    });
+                })
+                .catch(error => console.log('Error fetching data: ', error));
+    }
+
 function submitTab(num_start) {
 
 
@@ -109,6 +154,7 @@ function submitTab(num_start) {
                 .then(data => {
                     var dataBody = document.getElementById('books_container');
                     dataBody.innerHTML='<button onclick="prev()" class="previous">&laquo; Previous</button><button onclick="next()" class="next">Next &raquo;</button>'
+                    var buttoncounter=1;
                     data.forEach(row => {
                       // console.log(row.ISBN)
                         var rowHTML = '<div id="books">';
@@ -118,6 +164,10 @@ function submitTab(num_start) {
                         rowHTML += '<br>' + row.Book_Title ;
                         rowHTML += '<br>' + row.Book_Author ;
                         rowHTML += '<br>' + row.Year_Of_Publication ;
+                        //remeber to add function that calls collection list so that we can precheck this box. I think that it should probably just laod a users collection on login. 
+                        //Then provide a remove from colleciton option 
+                        rowHTML += '<button id="button'+buttoncounter+' onclick="addCollection('+buttoncounter+','+row.ISBN+')">'+'Add to Collection +'+'</button>';
+                        buttoncounter=+1
                         //rowHTML += '<br>' + row.Image_URL_S ;
                         //rowHTML += '<br>' + row.Image_URL_M;
                         //rowHTML += '<br>' + row.Image_URL_L ;
