@@ -140,6 +140,7 @@ function search(){searchtype
     }
 
 function submitTab(num_start) {
+    console.log( 'collection log:'+localStorage.getItem('collection_log'))
       //username: "exampleUser",
       ///password: "examplePassword"
       // Make a POST request to the server
@@ -242,7 +243,7 @@ if(localStorage.getItem('collection_log')){
 
 }else{
   //later make this return to login, will do this for testing purposes
-  localStorage.setItem("collection_log",[2005018])
+  localStorage.setItem("collection_log",['2005018','887841740','080652121X','452264464'])
 
 }
 
