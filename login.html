@@ -106,7 +106,7 @@
       .then(response => response.json())
       .then(data => {
         console.log("data is likely error")
-        localStorage.setItem("post_request",username)
+        localStorage.setItem("curr_user",username)
         localStorage.setItem("user_request",null);
         localStorage.setItem("post_request",null)
         window.open('mainpage.html',"_self");

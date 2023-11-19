@@ -166,14 +166,24 @@ function submitTab(num_start) {
                         rowHTML += '<br>' + row.Year_Of_Publication ;
                         //remeber to add function that calls collection list so that we can precheck this box. I think that it should probably just laod a users collection on login. 
                         //Then provide a remove from colleciton option 
-                        rowHTML += '<button id="button'+buttoncounter+' onclick="addCollection('+buttoncounter+','+row.ISBN+')">'+'Add to Collection +'+'</button>';
+                        console.log()
+
+                        if(localStorage.getItem('collection_log').includes(row.ISBN)){
+                          rowHTML += '<button style="background-color: crimson;color: white;border-radius: 10px;" id="button'+buttoncounter+' onclick="addCollection('+buttoncounter+','+row.ISBN+')">'+'Remove From Collection-'+'</button>';
+                          console.log(' inclued')
+
+
+                        }else{
+                          console.log('not inclued')
+                          rowHTML += '<button id="button" style="border-radius:10px;" '+buttoncounter+' onclick="addCollection('+buttoncounter+','+row.ISBN+')">'+'Add to Collection +'+'</button>';
+                          
+                        }
                         buttoncounter=+1
                         //rowHTML += '<br>' + row.Image_URL_S ;
                         //rowHTML += '<br>' + row.Image_URL_M;
                         //rowHTML += '<br>' + row.Image_URL_L ;
                         //rowHTML += '<br>';
                         rowHTML +="</div>"
-
                         dataBody.innerHTML += rowHTML;
                     });
                 })
@@ -217,6 +227,24 @@ function submitTab(num_start) {
     localStorage.setItem("counter",1)
 
   }
+
+  if(localStorage.getItem('curr_user')){
+
+
+}else{
+  //later make this return to login, will do this for testing purposes
+  localStorage.setItem("curr_user",'aidan')
+
+}
+
+if(localStorage.getItem('collection_log')){
+
+
+}else{
+  //later make this return to login, will do this for testing purposes
+  localStorage.setItem("collection_log",[2005018])
+
+}
 
 
     // localStorage.getItem("counter",null)
