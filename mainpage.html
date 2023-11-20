@@ -78,6 +78,7 @@ Im thinking these links should be stored in whatever json we generate to contain
   </div>
 </div>
 <script>
+  console.log(parseInt(localStorage.getItem('counter')))
 // function tabcount(m){
 //   n=m/20
 //   for(let i=0;i<=n;i)
@@ -149,7 +150,7 @@ function submitTab(num_start) {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ start:num_start, finish:(num_start+20) }),
+        body: JSON.stringify({ start:parseInt(num_start), finish:(parseInt(num_start)+20) }),
       })
       .then(response => response.json())
                 .then(data => {
