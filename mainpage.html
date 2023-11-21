@@ -33,7 +33,7 @@ Im thinking these links should be stored in whatever json we generate to contain
   <div id="full_SideBar" class="sidebar">
     <script src="sidebar.js"></script>
 
-    <a href="feed.html">
+    <a href="mainpage.html">
       <img id="home" class="icon" src="homepage.png" alt="" />
       <b class="sidebar_text" id="home" style="font-size: 23px">Home</b>
       <br />
@@ -129,8 +129,6 @@ function search(){searchtype
                         if(localStorage.getItem('collection_log').includes(row.ISBN)){
                           rowHTML += '<button style="background-color: crimson;color: white;border-radius: 10px;" id="button'+buttoncounter+' onclick="addCollection('+buttoncounter+','+row.ISBN+')">'+'Remove From Collection-'+'</button>';
                           console.log(' inclued')
-
-
                         }else{
                           console.log('not inclued')
                           rowHTML += '<button id="button'+buttoncounter+'" style="border-radius:10px;" '+' onclick="addCollection('+buttoncounter+','+row.ISBN+')">'+'Add to Collection +'+'</button>';
@@ -198,7 +196,6 @@ function submitTab(num_start) {
                 })
                 .catch(error => console.log('Error fetching data: ', error));
     }
-    console.log(localStorage.getItem("counter"))
     submitTab(localStorage.getItem("counter"))
 
     function next(){
@@ -283,7 +280,9 @@ function addCollection(buttoncounter,ISBN){
       HTMLOBJCET=document.getElementById("button"+buttoncounter)
       HTMLOBJCET.style='background-color: crimson;color: white;border-radius: 10px;'
       HTMLOBJCET.innerHTML='Remove From Collection-'
-      HTMLOBJCET.oncick="removeCollection("+buttoncounter+","+ISBN+")"
+      // HTMLOBJCET.oncick="removeCollection("+buttoncounter+","+ISBN+")"
+      click="removeCollection("+buttoncounter+","+ISBN+");"
+      HTMLOBJCET.setAttribute( "onClick", click );
       // = '<button id="button'+buttoncounter+'" style="background-color: crimson;color: white;border-radius: 10px;" '+' onclick="addCollection('+buttoncounter+','+ISBN+')">'+'Remove From Collection-'+'</button>';
 
     
@@ -313,12 +312,16 @@ function removeCollection(buttoncounter,ISBN){
       });
       console.log("button"+buttoncounter)
       HTMLOBJCET=document.getElementById("button"+buttoncounter)
-      HTMLOBJCET.style='background-color: crimson;color: white;border-radius: 10px;'
-      HTMLOBJCET.innerHTML='Remove From Collection-'
-      HTMLOBJCET.oncick="removeCollection("+buttoncounter+","+ISBN+")"
+      HTMLOBJCET.style=''
+      HTMLOBJCET.style='border-radius:10px;'
+      HTMLOBJCET.innerHTML='Add to Collection +'
+      click="addCollection("+buttoncounter+","+ISBN+");"
+      HTMLOBJCET.setAttribute( "onClick", click );
+
       // = '<button id="button'+buttoncounter+'" style="background-color: crimson;color: white;border-radius: 10px;" '+' onclick="addCollection('+buttoncounter+','+ISBN+')">'+'Remove From Collection-'+'</button>';
 
-    
+      //'<button id="button'+buttoncounter+'" style="border-radius:10px;" '+' onclick="addCollection('+buttoncounter+','+row.ISBN+')">'+'Add to Collection +'+'</button>';
+
     }
 </script>
 
