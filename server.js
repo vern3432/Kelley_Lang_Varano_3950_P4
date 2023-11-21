@@ -87,9 +87,9 @@ app.post('/login', (req, res) => {
     if (row) {
       // Username already exists
       console.log('row condition met')
-      // res.status(200).json({ message: 'Login successful. Loading Page' });
-     
+      res.sendStatus(200).json({ message: 'Login successful. Loading Page' });
       console.log('login in scccesful')
+      res
     }else{ console.log("login failed");
 }
   });

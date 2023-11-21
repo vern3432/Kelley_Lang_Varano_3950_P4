@@ -82,7 +82,7 @@
         alert(data.message || data.error);
         document.getElementById('user').value=username;
         document.getElementById('password').value=password
-        submitLoginForm();
+        // submitLoginForm();
       })
       .catch(error => {
         console.error('Error:', error);
@@ -105,17 +105,17 @@
       })
       .then(response => response.json())
       .then(data => {
+        alert(data.message || data.error);
         console.log("data is likely error")
         localStorage.setItem("curr_user",username)
         localStorage.setItem("user_request",null);
-        localStorage.setItem("post_request",null)
+         localStorage.setItem("post_request",null)
         window.open('mainpage.html',"_self");
 
-        ///alert(data.message || data.error);
       })
       .catch(error => {
         console.error('Error:', error);
-        alert('Error with login.Please Try again');
+        alert(error);
       });
     }
 
