@@ -179,6 +179,7 @@ function submitTab(num_start) {
                         if(localStorage.getItem('collection_log').includes(row.ISBN)){
                           rowHTML += '<button style="background-color: crimson;color: white;border-radius: 10px;" id="button'+buttoncounter+' onclick="addCollection('+buttoncounter+','+row.ISBN+')">'+'Remove From Collection-'+'</button>';
                           console.log(' inclued')
+                          console.log(row.ISBN)
 
 
                         }else{
@@ -251,13 +252,13 @@ if(localStorage.getItem('collection_log')){
 
 }else{
   //later make this return to login, will do this for testing purposes
-  localStorage.setItem("collection_log",['2005018','887841740','080652121X','452264464','486284735'])
-
+  calStorage.setItem("collection_log",['451406923','743439740','2005018','887841740','080652121X','452264464','486284735'])
 }
 
 
+
     // localStorage.getItem("counter",null)
-function addCollection(ISBN){
+function addCollection(button,ISBN){
       user_forsend=localStorage.getItem('curr_user')
       fetch('http://localhost:3001/addCollection', {
         method: 'POST',
