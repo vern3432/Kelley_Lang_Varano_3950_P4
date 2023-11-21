@@ -283,19 +283,46 @@ function addCollection(buttoncounter,ISBN){
       HTMLOBJCET=document.getElementById("button"+buttoncounter)
       HTMLOBJCET.style='background-color: crimson;color: white;border-radius: 10px;'
       HTMLOBJCET.innerHTML='Remove From Collection-'
-      HTMLOBJCET.oncick="addCollection("+buttoncounter+","+ISBN+")"
+      HTMLOBJCET.oncick="removeCollection("+buttoncounter+","+ISBN+")"
       // = '<button id="button'+buttoncounter+'" style="background-color: crimson;color: white;border-radius: 10px;" '+' onclick="addCollection('+buttoncounter+','+ISBN+')">'+'Remove From Collection-'+'</button>';
 
     
     }
+    ///need to update localling stored collection value
     
-function removeCollection(ISBN){
+function removeCollection(buttoncounter,ISBN){
+  user_forsend=localStorage.getItem('curr_user')
+      fetch('http://localhost:3001/removeCollection', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ 
+          user_name:user_forsend, 
+          ISBN:ISBN, 
 
-  
-}
+        }),
+      })
+      .then(response => response.json())
+      .then(data => {
+        alert(data.message || data.error);
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        alert('A Local error occurred. Please try again.');
+      });
+      console.log("button"+buttoncounter)
+      HTMLOBJCET=document.getElementById("button"+buttoncounter)
+      HTMLOBJCET.style='background-color: crimson;color: white;border-radius: 10px;'
+      HTMLOBJCET.innerHTML='Remove From Collection-'
+      HTMLOBJCET.oncick="removeCollection("+buttoncounter+","+ISBN+")"
+      // = '<button id="button'+buttoncounter+'" style="background-color: crimson;color: white;border-radius: 10px;" '+' onclick="addCollection('+buttoncounter+','+ISBN+')">'+'Remove From Collection-'+'</button>';
+
+    
+    }
 </script>
 
-<button onclick="addCollection('testvalue')">TESTTTTTTTTTT</button>
+<!-- <button onclick="addCollection('testvalue')">TESTTTTTTTTTT</button> -->
 <style>
   a {
     text-decoration: none;
