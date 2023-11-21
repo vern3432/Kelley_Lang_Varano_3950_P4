@@ -146,6 +146,27 @@ app.post('/addCollection', (req, res) => {
 });
 });
 
+app.post('/removeCollection', (req, res) => {
+  console.log('collection add began t')
+  const user_name = req.body.user_name;
+  const ISBN = req.body.ISBN;
+ console.log(user_name)
+ console.log(ISBN)
+ db.get('SELECT collection FROM users WHERE (username) IN ( VALUES (?))', [user_name], (err, row) => {
+  if (err) {
+    res.status(400).send("errror 400");
+    console.log('error was sent')
+    return;
+  }
+  if (row) {
+    // Username already exists
+    console.log('row codition met:'+row)
+    console.log("update ran")
+  }else{ console.log("login failed");
+}
+});
+});
+
 app.post('/search', (req, res) => {
   console.log('getting data for table:search')
   const search_term = req.body.search_term;
