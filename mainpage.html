@@ -1,14 +1,4 @@
 
-<!--I relaly want to add a top by with a title and maybe like a settings at the top rihgt. Dark Mode? wWould just make pages look complete  -->
-<!-- Search bar? That could be a cool thing. Could use very basic horspool search of all post titles. Perhaps master index of posts should include id and title.   -->
-<!-- Tab on Search Bar that Lets You Search for Users?? -->
-<!-- Notes for server side: There is a link format for retrieving youtbe thumnails. We could either download this servise or just link them. Later is probably easier, will require a lot of requests but im guesing it wont be a problem unless -->
-<!--  Format is as follow: 
-https://www.youtube.com/watch?v=AD5aAd8Oy84-------_>https://img.youtube.com/vi/AD5aAd8Oy84/mqdefault.jpg
-note identifier shared between links
-this is only for Medium Quality (320x180). Should be all we need for thumnails. 
-Im thinking these links should be stored in whatever json we generate to contain posts. on that note, need to determine how data will be stored in jsons and where in relation to poster and time. 
--->
 <!DOCTYPE html>
 <html>
 
@@ -92,10 +82,8 @@ Im thinking these links should be stored in whatever json we generate to contain
 // appendHtml(document.body, html);
 
 // lets just do a next and last, seems easier. 
-function tabcount_by20(start,total){
-}
-
-
+// function tabcount_by20(start,total){
+// }
 function search(){searchtype
   const search_term= document.getElementById('fname').value;
   const type=document.getElementById('searchtype').value;
@@ -274,7 +262,7 @@ function addCollection(buttoncounter,ISBN){
       })
       .catch(error => {
         console.error('Error:', error);
-        alert('A Local error occurred. Please try again.');
+        // alert('A Local error occurred. Please try again.');
       });
       console.log("button"+buttoncounter)
       HTMLOBJCET=document.getElementById("button"+buttoncounter)
@@ -308,7 +296,7 @@ function removeCollection(buttoncounter,ISBN){
       })
       .catch(error => {
         console.error('Error:', error);
-        alert('A Local error occurred. Please try again.');
+        // alert('A Local error occurred. Please try again.');
       });
       console.log("button"+buttoncounter)
       HTMLOBJCET=document.getElementById("button"+buttoncounter)
@@ -385,3 +373,39 @@ function removeCollection(buttoncounter,ISBN){
 
 </html>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--I relaly want to add a top by with a title and maybe like a settings at the top rihgt. Dark Mode? wWould just make pages look complete  -->
+<!-- Search bar? That could be a cool thing. Could use very basic horspool search of all post titles. Perhaps master index of posts should include id and title.   -->
+<!-- Tab on Search Bar that Lets You Search for Users?? -->
+<!-- Notes for server side: There is a link format for retrieving youtbe thumnails. We could either download this servise or just link them. Later is probably easier, will require a lot of requests but im guesing it wont be a problem unless -->
+<!--  Format is as follow: 
+https://www.youtube.com/watch?v=AD5aAd8Oy84-------_>https://img.youtube.com/vi/AD5aAd8Oy84/mqdefault.jpg
+note identifier shared between links
+this is only for Medium Quality (320x180). Should be all we need for thumnails. 
+Im thinking these links should be stored in whatever json we generate to contain posts. on that note, need to determine how data will be stored in jsons and where in relation to poster and time. 
+-->
