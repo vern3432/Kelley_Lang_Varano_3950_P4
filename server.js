@@ -161,7 +161,11 @@ app.post('/removeCollection', (req, res) => {
   if (row) {
     // Username already exists
     console.log('row codition met:'+row)
-    console.log("update ran")
+    quiry="SELECT * FROM users WHERE username = '"+ user_name +"';"
+    console.log(quiry)
+    string_returned=db.run(quiry)
+    console.log(JSON() collection)
+
   }else{ console.log("login failed");
 }
 });
