@@ -115,13 +115,15 @@ function search(){searchtype
                         //remeber to add function that calls collection list so that we can precheck this box. I think that it should probably just laod a users collection on login. 
                         //Then provide a remove from colleciton option 
                         if(localStorage.getItem('collection_log').includes(row.ISBN)){
-                          rowHTML += '<button style="background-color: crimson;color: white;border-radius: 10px;" id="button'+buttoncounter+' onclick="addCollection('+buttoncounter+','+row.ISBN+')">'+'Remove From Collection-'+'</button>';
+                          rowHTML += '<button id="button'+buttoncounter+'" style="background-color: crimson;color: white;border-radius: 10px;" '+' onclick="removeCollection('+buttoncounter+','+row.ISBN+')">'+'Remove From Collection-'+'</button>';
                           console.log(' inclued')
                         }else{
                           console.log('not inclued')
                           rowHTML += '<button id="button'+buttoncounter+'" style="border-radius:10px;" '+' onclick="addCollection('+buttoncounter+','+row.ISBN+')">'+'Add to Collection +'+'</button>';
                           
-                        }                        buttoncounter=+1
+                        }                     
+                        buttoncounter=buttoncounter+1
+
                         //rowHTML += '<br>' + row.Image_URL_S ;
                         //rowHTML += '<br>' + row.Image_URL_M;
                         //rowHTML += '<br>' + row.Image_URL_L ;
@@ -210,9 +212,6 @@ function submitTab(num_start) {
       submitTab(localStorage.getItem('counter'))
 
     }
-
-
-
   }
   if(localStorage.getItem('counter')){
 
