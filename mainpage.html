@@ -125,8 +125,16 @@ function search(){searchtype
                         rowHTML += '<br>' + row.Year_Of_Publication+'<br>';
                         //remeber to add function that calls collection list so that we can precheck this box. I think that it should probably just laod a users collection on login. 
                         //Then provide a remove from colleciton option 
-                        rowHTML += '<br> <button id="button'+buttoncounter+' onclick="addCollection('+buttoncounter+','+row.ISBN+')">'+'Add to Collection +'+'</button>';
-                        buttoncounter=+1
+                        if(localStorage.getItem('collection_log').includes(row.ISBN)){
+                          rowHTML += '<button style="background-color: crimson;color: white;border-radius: 10px;" id="button'+buttoncounter+' onclick="addCollection('+buttoncounter+','+row.ISBN+')">'+'Remove From Collection-'+'</button>';
+                          console.log(' inclued')
+
+
+                        }else{
+                          console.log('not inclued')
+                          rowHTML += '<button id="button" style="border-radius:10px;" '+buttoncounter+' onclick="addCollection('+buttoncounter+','+row.ISBN+')">'+'Add to Collection +'+'</button>';
+                          
+                        }                        buttoncounter=+1
                         //rowHTML += '<br>' + row.Image_URL_S ;
                         //rowHTML += '<br>' + row.Image_URL_M;
                         //rowHTML += '<br>' + row.Image_URL_L ;
@@ -167,8 +175,6 @@ function submitTab(num_start) {
                         rowHTML += '<br>' + row.Year_Of_Publication ;
                         //remeber to add function that calls collection list so that we can precheck this box. I think that it should probably just laod a users collection on login. 
                         //Then provide a remove from colleciton option 
-                        console.log()
-
                         if(localStorage.getItem('collection_log').includes(row.ISBN)){
                           rowHTML += '<button style="background-color: crimson;color: white;border-radius: 10px;" id="button'+buttoncounter+' onclick="addCollection('+buttoncounter+','+row.ISBN+')">'+'Remove From Collection-'+'</button>';
                           console.log(' inclued')
@@ -240,10 +246,11 @@ function submitTab(num_start) {
 
 if(localStorage.getItem('collection_log')){
 
+  // localStorage.setItem("collection_log",['2005018','887841740','080652121X','452264464','486284735'])
 
 }else{
   //later make this return to login, will do this for testing purposes
-  localStorage.setItem("collection_log",['2005018','887841740','080652121X','452264464'])
+  localStorage.setItem("collection_log",['2005018','887841740','080652121X','452264464','486284735'])
 
 }
 
