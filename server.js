@@ -67,35 +67,35 @@ app.post('/signup', (req, res) => {
 });
 
 //login
+
+//  db.get('SELECT * FROM users WHERE (username, password) IN ( VALUES (?, ?))', [username,password], (err, row) => {
+
 app.post('/login', (req, res) => {
-  console.log('log in request received called')
+  console.log(' sign up request received called')
   // const { username, password } = req.body;
   // res.json(req.body);
   // jsson=res.json(req.body)
   // console.log(jsson)
   const username = req.body.user_name;
   const password = req.body.pass_word;
+  // const pfp = req.body.pfp;
+  // const bio = req.body.bio;
 
   console.log(username)
   // Check if username is unique
   db.get('SELECT * FROM users WHERE (username, password) IN ( VALUES (?, ?))', [username,password], (err, row) => {
     if (err) {
-      res.status(400).send("errror 400");
-      console.log('error was sent')
+      res.status(500).send(err.message);
       return;
     }
-    if (row) {
+    else if (row) {
       // Username already exists
-      console.log('row condition met')
-      res.sendStatus(200).json({ message: 'Login successful. Loading Page' });
-      console.log('login in scccesful')
-      res
-    }else{ console.log("login failed");
-}
+      console.log("row found")
+      res.status(200).json({ message: 'Login successful.Directing to main page' });
+    } 
   });
-  console.log("Login proccessed")
+  console.log("log up successful")
 });
-
 
 app.post('/tab_page_request', (req, res) => {
   console.log('getting data for table:tab_page_request')
@@ -103,7 +103,6 @@ app.post('/tab_page_request', (req, res) => {
   const finish = req.body.finish;
  console.log(num_start)
  console.log(finish)
-
   const query = 'SELECT * FROM menuItems limit '+ num_start.toString()+','+finish.toString(); 
   console.log(query)
   db.all(query, [], (err, rows) => {
