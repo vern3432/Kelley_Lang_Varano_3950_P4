@@ -305,7 +305,7 @@ function removeCollection(buttoncounter,ISBN){
       })
       .then(response => response.json())
       .then(data => {
-        alert(data.message || data.error);
+        console.log(JSON.stringify(data.collection))
       })
       .catch(error => {
         console.error('Error:', error);

@@ -161,11 +161,24 @@ app.post('/removeCollection', (req, res) => {
   if (row) {
     // Username already exists
     console.log('row codition met:'+row)
-    quiry="SELECT * FROM users WHERE username = '"+ user_name +"';"
-    console.log(quiry)
-    string_returned=db.run(quiry)
-    console.log(JSON() collection)
-
+    // quiry="SELECT * FROM users WHERE username = '"+ user_name +"';"
+    // console.log(quiry)
+    string_returned=JSON.stringify(row.collection)
+    array=string_returned.split(',')
+    for_send_assing=""
+    for(let i=0;i<array.length;i++){
+        if(array[i]==ISBN){
+        }else{
+          console.log(i)
+          console.log(array[i])
+          for_send_assing=for_send_assing+array[i]+','
+        }}
+        for_send_assing = for_send_assing.replace('"', '');
+        for_send_assing = for_send_assing.replace('"', '');
+        console.log(for_send_assing)
+        forrun='UPDATE users SET collection='+'"'+for_send_assing+'"'+' WHERE username= '+'"'+user_name+'"';
+        console.log(forrun)
+        db.run(forrun)
   }else{ console.log("login failed");
 }
 });
