@@ -99,7 +99,7 @@ app.post('/login', (req, res) => {
 
 app.post('/tab_page_request', (req, res) => {
   console.log('getting data for table:tab_page_request')
-  const num_start = req.body.start;
+  const num_start = parseInt(req.body.start);
   const finish = req.body.finish;
  console.log(num_start)
  console.log(finish)
@@ -117,6 +117,29 @@ app.post('/tab_page_request', (req, res) => {
 
 
   
+});
+
+app.post('/addCollection', (req, res) => {
+  console.log('collection add began t')
+  const user_name = req.body.user_name;
+  const ISBN = req.body.ISBN;
+ console.log(user_name)
+ console.log(ISBN)
+ db.get('SELECT collection FROM users WHERE (username) IN ( VALUES (?))', [user_name], (err, result) => {
+  if (err) {
+    res.status(400).send("errror 400");
+    console.log('error was sent')
+    return;
+  }
+  if (result) {
+    // Username already exists
+    console.log('row codition met:'+result.toString())
+    updaterow=result+","+ISBN;
+    db.run('UPDATE users SET collection ="'+updaterow+'" WHERE username='+'"'+user_name+'"')
+    console.log("update ran")
+  }else{ console.log("login failed");
+}
+});
 });
 
 app.post('/search', (req, res) => {

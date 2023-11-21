@@ -257,8 +257,36 @@ if(localStorage.getItem('collection_log')){
 
 
     // localStorage.getItem("counter",null)
+function addCollection(ISBN){
+      user_forsend=localStorage.getItem('curr_user')
+      fetch('http://localhost:3001/addCollection', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ 
+          user_name:user_forsend, 
+          ISBN:ISBN, 
 
+        }),
+      })
+      .then(response => response.json())
+      .then(data => {
+        alert(data.message || data.error);
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        alert('A Local error occurred. Please try again.');
+      });
+    }
+    
+function removeCollection(ISBN){
+
+  
+}
 </script>
+
+<button onclick="addCollection('testvalue')">TESTTTTTTTTTT</button>
 <style>
   a {
     text-decoration: none;
