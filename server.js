@@ -125,17 +125,21 @@ app.post('/addCollection', (req, res) => {
   const ISBN = req.body.ISBN;
  console.log(user_name)
  console.log(ISBN)
- db.get('SELECT collection FROM users WHERE (username) IN ( VALUES (?))', [user_name], (err, result) => {
+ db.get('SELECT * FROM users WHERE (username) IN ( VALUES (?))', [user_name], (err, row) => {
   if (err) {
     res.status(400).send("errror 400");
     console.log('error was sent')
     return;
   }
-  if (result) {
+  if (row) {
     // Username already exists
-    console.log('row codition met:'+result.toString())
-    updaterow=result+","+ISBN;
-    db.run('UPDATE users SET collection ="'+updaterow+'" WHERE username='+'"'+user_name+'"')
+    console.log('row codition met:'+row.toString())
+    // updaterow=row+","+ISBN;
+    // db.run('UPDATE users SET collection ="'+updaterow+'" WHERE username='+'"'+user_name+'"')
+    forrun='UPDATE users SET collection = collection || '+'"'+','+ISBN+'"'+' WHERE username='+'"'+user_name+'"';
+    console.log(forrun)
+    db.run(forrun)
+
     console.log("update ran")
   }else{ console.log("login failed");
 }
