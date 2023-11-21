@@ -258,7 +258,7 @@ if(localStorage.getItem('collection_log')){
 
 
     // localStorage.getItem("counter",null)
-function addCollection(button,ISBN){
+function addCollection(buttoncounter,ISBN){
       user_forsend=localStorage.getItem('curr_user')
       fetch('http://localhost:3001/addCollection', {
         method: 'POST',
@@ -279,6 +279,14 @@ function addCollection(button,ISBN){
         console.error('Error:', error);
         alert('A Local error occurred. Please try again.');
       });
+      console.log("button"+buttoncounter)
+      HTMLOBJCET=document.getElementById("button"+buttoncounter)
+      HTMLOBJCET.style='background-color: crimson;color: white;border-radius: 10px;'
+      HTMLOBJCET.innerHTML='Remove From Collection-'
+      HTMLOBJCET.oncick="addCollection("+buttoncounter+","+ISBN+")"
+      // = '<button id="button'+buttoncounter+'" style="background-color: crimson;color: white;border-radius: 10px;" '+' onclick="addCollection('+buttoncounter+','+ISBN+')">'+'Remove From Collection-'+'</button>';
+
+    
     }
     
 function removeCollection(ISBN){
