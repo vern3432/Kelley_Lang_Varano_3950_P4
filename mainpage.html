@@ -68,6 +68,8 @@
   </div>
 </div>
 <script>
+  localStorage.setItem("password",'123')
+
   console.log(parseInt(localStorage.getItem('counter')))
 // function tabcount(m){
 //   n=m/20
@@ -101,7 +103,7 @@ function search(){
       .then(response => response.json())
                 .then(data => {
                     var dataBody = document.getElementById('books_container');
-                    dataBody.innerHTML='<p1>Search Results for:'+search_term+'</p1><br><button onclick="prev()" class="previous">&laquo; Previous</button><button onclick="next()" class="next">Next &raquo;</button>'
+                    dataBody.innerHTML='<p1>Search Results for:'+search_term+'</p1><br>'
                     var buttoncounter=1;
                     data.forEach(row => {
                       // console.log(row.ISBN)
@@ -230,6 +232,15 @@ function submitTab(num_start) {
 
 }
 
+if(localStorage.getItem('password')){
+
+
+}else{
+  //later make this return to login, will do this for testing purposes
+  localStorage.setItem("password",'123')
+
+}
+
 if(localStorage.getItem('collection_log')){
 
   // localStorage.setItem("collection_log",['2005018','887841740','080652121X','452264464','486284735'])
@@ -310,6 +321,57 @@ function removeCollection(buttoncounter,ISBN){
       //'<button id="button'+buttoncounter+'" style="border-radius:10px;" '+' onclick="addCollection('+buttoncounter+','+row.ISBN+')">'+'Add to Collection +'+'</button>';
 
     }
+
+
+
+    function updatelocalCollectionlist() {
+      const username = localStorage.getItem("user");
+      const password = localStorage.getItem("passsword");
+      console.log(username)
+
+      console.log(password)
+      //username: "exampleUser",
+      ///password: "examplePassword"
+      // Make a POST request to the server
+      fetch('http://localhost:3001/updatelocalCollectionlist', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ user_name:username, pass_word:password }),
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data)
+        console.log("data was sent? ")
+
+        // alert(data.message || data.error);
+
+
+        // localStorage.setItem("post_request",username)
+        // localStorage.setItem("user_request",null);
+        // // // submitLoginForm();
+        // // alert("success:")
+        // window.open('mainpage.html',"_self");
+
+      })
+      .catch(error => {
+        console.log('update failed')
+        console.log('Error:', error);
+        alert(error)
+
+      });
+    }
+
+
+
+
+
+
+
+
+
+
 </script>
 
 <!-- <button onclick="addCollection('testvalue')">TESTTTTTTTTTT</button> -->
@@ -369,7 +431,7 @@ function removeCollection(buttoncounter,ISBN){
 
   </div>
 </body>
-
+<button onclick="updatelocalCollectionlist()">update</button>
 </html>
 
 

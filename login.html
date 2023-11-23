@@ -106,14 +106,19 @@
       .then(response => response.json())
       .then(data => {
         alert(data.message || data.error);
-        // document.getElementById('user').value=username;
-        // document.getElementById('password').value=password
-        // submitLoginForm();
-        // window.open('mainpage.html',"_self");
+        localStorage.setItem("user",username)
+        localStorage.setItem("password",password);
+        localStorage.setItem("user_request",null);
+        // // submitLoginForm();
+        // alert("success:")
+        window.open('mainpage.html',"_self");
+
 
       })
       .catch(error => {
-        console.error('Error:', error);
+        console.log('Error:', error);
+        alert(error)
+
       });
     }
   //  console.log('storage change')
