@@ -478,16 +478,15 @@ function selectorFill(form,type){
   if(localStorage.getItem(type)){
 
     console.log("if reached")
-      console.log(JSON.parse(localStorage.getItem(type)))
-      var temparray=JSON.parse(localStorage.getItem(type))
+    console.log(localStorage.getItem(type))
+      var temparray=localStorage.getItem(type).split(",")
       object.innerHTML = '';
       temparray.forEach(function(item){
         var option = document.createElement('option');
-        option.value = item;
+        option.value = item.replaceAll('"',"");
         object.appendChild(option);
   });
-  return 
-      
+    return 
     }else{
   fetch('http://localhost:3001/selectorFill', {
         method: 'POST',
