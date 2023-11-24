@@ -245,7 +245,6 @@ body{
   border-radius: 25px;
   overflow: hidden;
   margin-left: 45px;
-
 }
 
 .pagecontent h1{
@@ -254,15 +253,11 @@ body{
 }
 .pagecontent form{
   margin-left: 45px;
-
 }
-.pagecontent h1{
-  margin-left: 45px;
 
-  
-}
+
 #pagecontent{
-    margin-left: 50px;
+    margin-left: 60px;
     float: inline-start;
 
 

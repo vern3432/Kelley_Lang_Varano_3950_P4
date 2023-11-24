@@ -1,0 +1,95 @@
+
+<!DOCTYPE html>
+<html>
+    <div  style="display: flex;">
+    <input type="text" name="city" list="cityname" id="filterSelector">
+    <datalist id="cityname">
+
+    </datalist>
+    <select  id="typeSelector" onchange="selectorFill('cityname',document.getElementById('typeSelector').value)">
+      <option value="Book_Author">Author</option>
+      <option value="Year_Of_Publication">Year</option>
+    </select> -
+  </div>
+
+  selectorFill('cityname',document.getElementById('typeSelector').value)
+
+'  <div  style="display: flex;"> <input type="text" name="city" list="cityname" id="filterSelector"> <datalist id="cityname"> </datalist> <select  id="typeSelector" onchange=""> <option value="Book_Author">Author</option> <option value="Year_Of_Publication">Year</option> </select> - </div>
+'
+
+
+<script>
+
+
+</script>
+
+
+<input name="car" list="anrede" />
+<datalist id="anrede"></datalist>
+
+<script>
+var mycars = ["butts","butts","butts"]
+var list = document.getElementById('anrede');
+
+mycars.forEach(function(item){
+   var option = document.createElement('option');
+   option.value = item;
+   list.appendChild(option);
+});
+</script>
+
+
+
+
+
+
+
+<button onclick="selectorFill('cityname','Book_Title')">ctest click</button>
+
+
+
+
+  </div>
+</body>
+<!-- <button onclick="updatelocalCollectionlist()">update</button> -->
+
+<script>
+function selectorFill(form,type){
+  var object=document.getElementById(form);
+  formHtml=object.innerHTML
+  var array=[]
+
+  fetch('http://localhost:3001/selectorFill', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ 
+            type:type}),
+      })
+      .then(response => response.json())
+      .then(data => {
+        // console.log(JSON.stringify(data))
+        for(let i=0;i<(data).length;i++){
+          array.push(JSON.stringify(data[i][type]))
+        }
+        object.innerHTML = '';
+        array.forEach(function(item){
+        var option = document.createElement('option');
+        option.value = item;
+        object.appendChild(option);
+  });
+        console.log(array)
+      })
+      .catch(error => {
+        console.log('update failed')
+        console.log('Error:', error);
+        alert(error)
+
+      });
+
+
+ 
+
+}
+</script>

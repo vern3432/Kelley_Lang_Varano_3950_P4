@@ -1,4 +1,10 @@
+<!-- To To 
+Browsing filters
+  -Year drop down menu
+  -Drop down which will add them too little bubbles above and can be indivdually deleted
+  -
 
+-->
 <!DOCTYPE html>
 <html>
 
@@ -24,24 +30,24 @@
     <script src="sidebar.js"></script>
 
     <a href="mainpage.html">
-      <img id="home" class="icon" src="homepage.png" alt="" />
-      <b class="sidebar_text" id="home" style="font-size: 23px">Home</b>
+      <img id="home" class="icon" src="./home_white.png" alt="" />
+      <b class="sidebar_text" id="home" style="font-size: 23px;color: #ffffff;">Home</b>
       <br />
     </a>
 
     <a href="./makepost.html">
-      <img id="Post" class="icon" src="post3.png" alt="" />
-      <b class="sidebar_text" id="Post" style="font-size: 23px">Post</b>
+      <img id="Post" class="icon" src="./make_post_white.png" alt="" />
+      <b class="sidebar_text" id="Post" style="font-size: 23px;color: #ffffff;">Post</b>
       <br />
     </a>
     <a href="./friendspage.html">
-      <img id="friend" class="icon" src="friends2.png" alt="" />
-      <b class="sidebar_text" id="friend" style="font-size: 23px">Friends</b>
+      <img id="friend" class="icon" src="./collcetion_save_white.png" alt="" />
+      <b class="sidebar_text" id="friend" style="font-size: 23px;color: #ffffff;">My Collection</b>
       <br />
     </a>
     <a onclick="loadcurrUserPage()">
-      <img id="profile" class="icon" src="profile2.png" alt="" />
-      <b class="sidebar_text" id="friend" style="font-size: 23px">Profile</b>
+      <img id="profile" class="icon" src="./profile_white.png" alt="" />
+      <b class="sidebar_text" id="friend" style="font-size: 23px;color: #ffffff;">My Page</b>
       <br />
     </a>
     
@@ -68,24 +74,10 @@
   </div>
 </div>
 <script>
-  localStorage.setItem("password",'123')
+  // localStorage.setItem("password",'123')
 
   console.log(parseInt(localStorage.getItem('counter')))
-// function tabcount(m){
-//   n=m/20
-//   for(let i=0;i<=n;i)
-//   var div = document.getElementById("bottom_tabs").createElement('button');
-//   div.innerHTML = str;
-//   while (div.children.length > 0) {
-//     el.appendChild(div.children[0]);
-//   }
-// }
-// var html = '<h1 id="title">Some Title</h1><span style="display:inline-block; width=100px;">Some arbitrary text</span>';
-// appendHtml(document.body, html);
 
-// lets just do a next and last, seems easier. 
-// function tabcount_by20(start,total){
-// }
 function search(){
   const search_term= document.getElementById('fname').value;
   const type=document.getElementById('searchtype').value;
@@ -140,9 +132,7 @@ function search(){
 
 function submitTab(num_start) {
     console.log( 'collection log:'+localStorage.getItem('collection_log'))
-      //username: "exampleUser",
-      ///password: "examplePassword"
-      // Make a POST request to the server
+
       fetch('http://localhost:3001/tab_page_request', {
         method: 'POST',
         headers: {
@@ -153,12 +143,14 @@ function submitTab(num_start) {
       .then(response => response.json())
                 .then(data => {
                     var dataBody = document.getElementById('books_container');
-                    dataBody.innerHTML='<button onclick="prev()" class="previous">&laquo; Previous</button><button onclick="next()" class="next">Next &raquo;</button>'
+                    
+                    dataBody.innerHTML='<div  style="display: flex;"> <input type="text" name="city" list="cityname" id="filterSelector"> <datalist id="cityname"> </datalist> <select  id="typeSelector"> <option value="Book_Author">Author</option> <option value="Year_Of_Publication">Year</option> </select> - </div><div class="button-container" style="  display: flex;"><button  style="  margin-left: 40px;" onclick="skipback()">&laquo;</button> <button class="tabbutton" onclick="prev()" class="previous">&laquo; Previous</button><button onclick="next()" class="next">Next &raquo;</button><button  onclick="skipforward()">&raquo;</button></div>'
+                   
                     var buttoncounter=1;
                     data.forEach(row => {
                       // console.log(row.ISBN)
-                        var rowHTML = '<div id="books">';
-                        rowHTML +="<div id='book'>"
+                        var rowHTML = '<div id="books" style="  margin-left: 45px;" >';
+                        rowHTML +="<div id='book' >"
                         rowHTML += '<img src="' + row.Image_URL_L+'">' ;
                         rowHTML += '<br>' + row.ISBN ;
                         rowHTML += '<br>' + row.Book_Title ;
@@ -184,6 +176,8 @@ function submitTab(num_start) {
                         //rowHTML += '<br>';
                         rowHTML +="</div>"
                         dataBody.innerHTML += rowHTML;
+                        document.getElementById("typeSelector").setAttribute('onchange',"selectorFill('cityname',document.getElementById('typeSelector').value)")
+
                     });
                 })
                 .catch(error => console.log('Error fetching data: ', error));
@@ -202,6 +196,22 @@ function submitTab(num_start) {
       submitTab(parseInt(localStorage.getItem('counter')))
     }
   }
+
+  function skipback(){
+    localStorage.setItem("counter",parseInt(1))
+      submitTab(parseInt(localStorage.getItem('counter')))
+
+        }
+
+
+function skipforward(){
+  localStorage.setItem("counter",parseInt(200))
+      console.log(localStorage.getItem('counter'))
+      submitTab(localStorage.getItem('counter'))
+
+        }
+
+
   function prev(){
     if((parseInt(localStorage.getItem('counter'))-20)<0){
       console.log("min reached")
@@ -281,6 +291,7 @@ function addCollection(buttoncounter,ISBN){
       // HTMLOBJCET.oncick="removeCollection("+buttoncounter+","+ISBN+")"
       click="removeCollection("+buttoncounter+","+ISBN+");"
       HTMLOBJCET.setAttribute( "onClick", click );
+      updatelocalCollectionlist()
       // = '<button id="button'+buttoncounter+'" style="background-color: crimson;color: white;border-radius: 10px;" '+' onclick="addCollection('+buttoncounter+','+ISBN+')">'+'Remove From Collection-'+'</button>';
 
     
@@ -315,6 +326,7 @@ function removeCollection(buttoncounter,ISBN){
       HTMLOBJCET.innerHTML='Add to Collection +'
       click="addCollection("+buttoncounter+","+ISBN+");"
       HTMLOBJCET.setAttribute( "onClick", click );
+      updatelocalCollectionlist()
 
       // = '<button id="button'+buttoncounter+'" style="background-color: crimson;color: white;border-radius: 10px;" '+' onclick="addCollection('+buttoncounter+','+ISBN+')">'+'Remove From Collection-'+'</button>';
 
@@ -342,23 +354,12 @@ function removeCollection(buttoncounter,ISBN){
       })
       .then(response => response.json())
       .then(data => {
-        console.log(data)
         var collection_array=(JSON.stringify(data.collection)).replaceAll('"', "").split(",")
         collection_array = collection_array.filter(function(item) { 
               return item.length > 2;
             });
         localStorage.setItem("collection_log",collection_array)
         console.log(collection_array)
-        console.log("data was sent? ")
-
-        // alert(data.message || data.error);
-
-
-        // localStorage.setItem("post_request",username)
-        // localStorage.setItem("user_request",null);
-        // // // submitLoginForm();
-        // // alert("success:")
-        // window.open('mainpage.html',"_self");
 
       })
       .catch(error => {
@@ -369,7 +370,25 @@ function removeCollection(buttoncounter,ISBN){
       });
     }
 
+function breadcrumb(type,text){
 
+
+
+}
+
+////incorprating beggining code for sorting by differnt methods
+//Methods needed: 
+//You must show her the list of books
+// in groups of 20 results at a time, listed alphabetically by (first) author first and title
+// second. She should have the same capability from the listings page to add books to her
+// collection. Additionally, she should also be able to filter (narrow) her browsing using
+
+// 1
+
+// check boxes that allow her to select only certain authors and publication years. So if
+// she’s browsing the list of all books and checks the “1999” publication year check box,
+// her shown results should update to be only the books published in 1999. The user
+// should be able to check more than one box for each attribute.
 
 
 
@@ -425,21 +444,72 @@ function removeCollection(buttoncounter,ISBN){
     </html> 
     
 
+    <div style="display: flex;">
+      <input type="text" name="city" list="cityname" id="filterSelector">
+      <datalist id="cityname">
+        <!-- <option value="Boston">
+        <option value="Cambridge">
+   -->
+      </datalist>
+      <select  id="typeSelector">
+        <option value="Book_Author">Author</option>
+        <option value="Year_Of_Publication">Year</option>
+      </select> -
+    </div>
+  
 
-
-
-
-
-
+<button onclick="selectorFill('cityname','Book_Author')">ctest click</button>
 
 
 
 
   </div>
 </body>
-<button onclick="updatelocalCollectionlist()">update</button>
+<!-- <button onclick="updatelocalCollectionlist()">update</button> -->
 </html>
 
+<script>
+function selectorFill(form,type){
+  var object=document.getElementById(form);
+  formHtml=object.innerHTML
+  var array=[]
+
+  fetch('http://localhost:3001/selectorFill', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ 
+            type:type}),
+      })
+      .then(response => response.json())
+      .then(data => {
+        // console.log(JSON.stringify(data))
+        for(let i=0;i<(data).length;i++){
+          array.push(JSON.stringify(data[i][type]))
+        }
+        object.innerHTML = '';
+        array.forEach(function(item){
+        var option = document.createElement('option');
+        option.value = item;
+        object.appendChild(option);
+  });
+        console.log(array)
+      })
+      .catch(error => {
+        console.log('update failed')
+        console.log('Error:', error);
+        alert(error)
+
+      });
+
+
+ 
+
+}
+  // selectorFill("cityname","year")
+
+</script>
 
 
 
@@ -456,14 +526,42 @@ function removeCollection(buttoncounter,ISBN){
 
 
 
+<script>
+          // alert(data.message || data.error);
+
+
+        // localStorage.setItem("post_request",username)
+        // localStorage.setItem("user_request",null);
+        // // // submitLoginForm();
+        // // alert("success:")
+        // window.open('mainpage.html',"_self");
+
+  // function tabcount(m){
+//   n=m/20
+//   for(let i=0;i<=n;i)
+//   var div = document.getElementById("bottom_tabs").createElement('button');
+//   div.innerHTML = str;
+//   while (div.children.length > 0) {
+//     el.appendChild(div.children[0]);
+//   }
+// }
+// var html = '<h1 id="title">Some Title</h1><span style="display:inline-block; width=100px;">Some arbitrary text</span>';
+// appendHtml(document.body, html);
+
+// lets just do a next and last, seems easier. 
+// function tabcount_by20(start,total){
+// }
+</script>
 
 
 
 
 
-
-
-
+<!-- 
+//username: "exampleUser",
+///password: "examplePassword"
+// Make a POST request to the server
+ -->
 
 
 <!--I relaly want to add a top by with a title and maybe like a settings at the top rihgt. Dark Mode? wWould just make pages look complete  -->

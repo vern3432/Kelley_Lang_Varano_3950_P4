@@ -103,10 +103,11 @@ app.post('/tab_page_request', (req, res) => {
   const finish = req.body.finish;
  console.log(num_start)
  console.log(finish)
-  const query = 'SELECT * FROM menuItems limit '+ num_start.toString()+','+finish.toString(); 
+  const query = 'SELECT * FROM menuItems'+' ORDER BY Book_Author,Book_Title limit '+ num_start.toString()+','+finish.toString(); 
   console.log(query)
   db.all(query, [], (err, rows) => {
     if (err) {
+      console.log(err)
       res.status(500).send(err.message);
       return;
     }
@@ -117,6 +118,31 @@ app.post('/tab_page_request', (req, res) => {
 
   
 });
+
+
+
+app.post('/selectorFill', (req, res) => {
+  const type = req.body.type;
+ console.log(type)
+  const query = 'SELECT '+type+ ' FROM menuItems'+' ORDER BY Book_Author,Book_Title';
+  console.log(query)
+  db.all(query, [], (err, rows) => {
+    if (err) {
+      console.log(err)
+      res.status(500).send(err.message);
+      return;
+    }
+    console.log("sending")
+    res.json(rows);
+  });
+
+
+  
+});
+
+
+
+
 
 app.post('/addCollection', (req, res) => {
   console.log('collection add began t')
