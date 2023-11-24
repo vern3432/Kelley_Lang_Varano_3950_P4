@@ -144,8 +144,7 @@ function submitTab(num_start) {
                 .then(data => {
                     var dataBody = document.getElementById('books_container');
                     
-                    dataBody.innerHTML='<div  style="display: flex;"> <input type="text" name="city" list="cityname" id="filterSelector"> <datalist id="cityname"> </datalist> <select  id="typeSelector"> <option value="Book_Author">Author</option> <option value="Year_Of_Publication">Year</option> </select> - </div><div class="button-container" style="  display: flex;"><button  style="  margin-left: 40px;" onclick="skipback()">&laquo;</button> <button class="tabbutton" onclick="prev()" class="previous">&laquo; Previous</button><button onclick="next()" class="next">Next &raquo;</button><button  onclick="skipforward()">&raquo;</button></div>'
-                   
+                    dataBody.innerHTML='<div  style="display: flex;"> <input type="text" name="city" list="cityname" id="filterSelector"> <datalist id="cityname"> </datalist> <select  id="typeSelector" onchange=""> <option value="Book_Author">Author</option> <option value="Year_Of_Publication">Year</option> </select> - </div><div class="button-container" style="  display: flex;"><button  style="  margin-left: 40px;" onclick="skipback()">&laquo;</button> <button class="tabbutton" onclick="prev()" class="previous">&laquo; Previous</button><button onclick="next()" class="next">Next &raquo;</button><button  onclick="skipforward()">&raquo;</button></div>'
                     var buttoncounter=1;
                     data.forEach(row => {
                       // console.log(row.ISBN)
@@ -176,7 +175,10 @@ function submitTab(num_start) {
                         //rowHTML += '<br>';
                         rowHTML +="</div>"
                         dataBody.innerHTML += rowHTML;
-                        document.getElementById("typeSelector").setAttribute('onchange',"selectorFill('cityname',document.getElementById('typeSelector').value)")
+//                    dataBody.innerHTML='<div  style="display: flex;"> <input type="text" name="city" list="cityname" id="filterSelector"> <datalist id="cityname"> </datalist> <select  id="typeSelector" onchange=""> <option value="Book_Author">Author</option> <option value="Year_Of_Publication">Year</option> </select> - </div><div class="button-container" style="  display: flex;"><button  style="  margin-left: 40px;" onclick="skipback()">&laquo;</button> <button class="tabbutton" onclick="prev()" class="previous">&laquo; Previous</button><button onclick="next()" class="next">Next &raquo;</button><button  onclick="skipforward()">&raquo;</button></div>'
+
+                        //                        document.getElementById("typeSelector").onchange =   selectorFill('cityname',document.getElementById('typeSelector').value)
+                        document.getElementById( "typeSelector" ).setAttribute( "onchange", "selectorFill('cityname',document.getElementById('typeSelector').value)" );
 
                     });
                 })
@@ -473,7 +475,20 @@ function selectorFill(form,type){
   var object=document.getElementById(form);
   formHtml=object.innerHTML
   var array=[]
+  if(localStorage.getItem(type)){
 
+    console.log("if reached")
+      console.log(JSON.parse(localStorage.getItem(type)))
+      var temparray=JSON.parse(localStorage.getItem(type))
+      object.innerHTML = '';
+      temparray.forEach(function(item){
+        var option = document.createElement('option');
+        option.value = item;
+        object.appendChild(option);
+  });
+  return 
+      
+    }else{
   fetch('http://localhost:3001/selectorFill', {
         method: 'POST',
         headers: {
@@ -494,6 +509,7 @@ function selectorFill(form,type){
         option.value = item;
         object.appendChild(option);
   });
+        localStorage.setItem(type,JSON.stringify(array))
         console.log(array)
       })
       .catch(error => {
@@ -504,7 +520,7 @@ function selectorFill(form,type){
       });
 
 
- 
+    } 
 
 }
   // selectorFill("cityname","year")
