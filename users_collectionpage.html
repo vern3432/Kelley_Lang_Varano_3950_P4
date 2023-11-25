@@ -1,0 +1,140 @@
+<!-- To To 
+Browsing filters
+  -Year drop down menu
+  -Drop down which will add them too little bubbles above and can be indivdually deleted
+  -
+
+-->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Youtube-Repost</title>
+    <link rel="stylesheet" href="./styleA.css">
+    
+</head>
+<div class="top-banner">
+  <!-- <img class="banner_logo" src="templogo.png" alt=""> -->
+  <form action=""></form>   <input type="text" id="fname" name="fname"><button class="searchbutton" onclick="search()">Search</button >
+ <select name="searchtab" id="searchtype">
+    <option value="Book_Title">Title</option>
+    <option value="Book_Author">Author</option>
+    <option value="Year_Of_Publication">Year</option>
+
+  </select> -
+
+</div>
+<div id="sidebarcontainer">
+  <div id="full_SideBar" class="sidebar">
+    <script src="sidebar.js"></script>
+
+    <a href="mainpage.html">
+      <img id="home" class="icon" src="./home_white.png" alt="" />
+      <b class="sidebar_text" id="home" style="font-size: 23px;color: #ffffff;">Home</b>
+      <br />
+    </a>
+
+    <a href="./makepost.html">
+      <img id="Post" class="icon" src="./make_post_white.png" alt="" />
+      <b class="sidebar_text" id="Post" style="font-size: 23px;color: #ffffff;">Post</b>
+      <br />
+    </a>
+    <a href="./friendspage.html">
+      <img id="friend" class="icon" src="./collcetion_save_white.png" alt="" />
+      <b class="sidebar_text" id="friend" style="font-size: 23px;color: #ffffff;">My Collection</b>
+      <br />
+    </a>
+    <a onclick="loadcurrUserPage()">
+      <img id="profile" class="icon" src="./profile_white.png" alt="" />
+      <b class="sidebar_text" id="friend" style="font-size: 23px;color: #ffffff;">My Page</b>
+      <br />
+    </a>
+    
+   <a href="google.com">
+
+    <img id="closenav"    class="icon" src="" alt=""> <b class="sidebar_text"  id="Post" style="  font-size: 23px;" ></b> <br>
+
+   </a>
+   <div id="main">
+    <button id="sidebar_close"  class="open_button"   onclick="closeNav()"><img src="sidebarclose2.png" alt="" id="sidebarclose"> </button>  
+    <br>
+    <button id="sidebar_open" class="open_button" onclick="openNav()"><img src="sidebarclose2.png" alt="" id="sidebarclose" style="  transform: scaleX(-1);"> </button>  
+
+  </div>
+    
+    
+  </div>
+
+
+
+  <div id="main">
+    <!-- <button class="open_button" onclick="openNav()"><img src="sidebarclose2.png" alt="" id="sidebarclose"> </button>   -->
+  
+  </div>
+</div>
+<body id="pagecontent">
+
+</body>
+<!-- <button onclick="updatelocalCollectionlist()">update</button> -->
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+          // alert(data.message || data.error);
+
+
+        // localStorage.setItem("post_request",username)
+        // localStorage.setItem("user_request",null);
+        // // // submitLoginForm();
+        // // alert("success:")
+        // window.open('mainpage.html',"_self");
+
+  // function tabcount(m){
+//   n=m/20
+//   for(let i=0;i<=n;i)
+//   var div = document.getElementById("bottom_tabs").createElement('button');
+//   div.innerHTML = str;
+//   while (div.children.length > 0) {
+//     el.appendChild(div.children[0]);
+//   }
+// }
+// var html = '<h1 id="title">Some Title</h1><span style="display:inline-block; width=100px;">Some arbitrary text</span>';
+// appendHtml(document.body, html);
+
+// lets just do a next and last, seems easier. 
+// function tabcount_by20(start,total){
+// }
+</script>
+
+
+
+
+
+<!-- 
+//username: "exampleUser",
+///password: "examplePassword"
+// Make a POST request to the server
+ -->
+
+
+<!--I relaly want to add a top by with a title and maybe like a settings at the top rihgt. Dark Mode? wWould just make pages look complete  -->
+<!-- Search bar? That could be a cool thing. Could use very basic horspool search of all post titles. Perhaps master index of posts should include id and title.   -->
+<!-- Tab on Search Bar that Lets You Search for Users?? -->
+<!-- Notes for server side: There is a link format for retrieving youtbe thumnails. We could either download this servise or just link them. Later is probably easier, will require a lot of requests but im guesing it wont be a problem unless -->
+<!--  Format is as follow: 
+https://www.youtube.com/watch?v=AD5aAd8Oy84-------_>https://img.youtube.com/vi/AD5aAd8Oy84/mqdefault.jpg
+note identifier shared between links
+this is only for Medium Quality (320x180). Should be all we need for thumnails. 
+Im thinking these links should be stored in whatever json we generate to contain posts. on that note, need to determine how data will be stored in jsons and where in relation to poster and time. 
+-->

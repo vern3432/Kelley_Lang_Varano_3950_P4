@@ -144,7 +144,7 @@ function submitTab(num_start) {
                 .then(data => {
                     var dataBody = document.getElementById('books_container');
                     
-                    dataBody.innerHTML='<div  style="display: flex;"> <input type="text" name="city" list="cityname" id="filterSelector"> <datalist id="cityname"> </datalist> <select  id="typeSelector" onchange=""> <option value="Book_Author">Author</option> <option value="Year_Of_Publication">Year</option> </select> - </div><div class="button-container" style="  display: flex;"><button  style="  margin-left: 40px;" onclick="skipback()">&laquo;</button> <button class="tabbutton" onclick="prev()" class="previous">&laquo; Previous</button><button onclick="next()" class="next">Next &raquo;</button><button  onclick="skipforward()">&raquo;</button></div>'
+                    dataBody.innerHTML='<div  style="display: flex;"> <input style="length: 20px;" type="text" name="city" list="cityname" id="filterSelector"> <datalist id="cityname"> </datalist> <select  id="typeSelector" onchange=""> <option value="Book_Author">Author</option> <option value="Year_Of_Publication">Year</option> </select> - </div><div class="button-container" style="  display: flex;"><button  style="  margin-left: 40px;" onclick="skipback()">&laquo;</button> <button class="tabbutton" onclick="prev()" class="previous">&laquo; Previous</button><button onclick="next()" class="next">Next &raquo;</button><button  onclick="skipforward()">&raquo;</button></div>'
                     var buttoncounter=1;
                     data.forEach(row => {
                       // console.log(row.ISBN)
@@ -240,7 +240,7 @@ function skipforward(){
 
 }else{
   //later make this return to login, will do this for testing purposes
-  localStorage.setItem("curr_user",'aidan')
+  // localStorage.setItem("curr_user",'aidan')
 
 }
 
@@ -258,8 +258,7 @@ if(localStorage.getItem('collection_log')){
   // localStorage.setItem("collection_log",['2005018','887841740','080652121X','452264464','486284735'])
 
 }else{
-  //later make this return to login, will do this for testing purposes
-  calStorage.setItem("collection_log",['451406923','743439740','2005018','887841740','080652121X','452264464','486284735'])
+  updatelocalCollectionlist()
 }
 
 
