@@ -31,6 +31,27 @@
     
     }
 
+    function Signup_login(){
+        tabcontent = document.getElementsByClassName("tabcontent");
+        document.getElementsByClassName('signup')[0].style.visibility = 'invisible';
+        document.getElementsByClassName('signup')[1].style.visibility = 'invisible';
+        // document.getElementsByClassName('signup')[2].style.visibility = 'visible';
+        document.getElementsByClassName('login_button')[0].style.display = 'none';
+        document.getElementsByClassName('login_button')[1].style.display = 'none';
+        document.getElementsByClassName('login_button')[1].style.display = 'none';
+        document.getElementsByClassName('signupbutton')[0].style.display = 'none';
+        // document.getElementsByClassName('signupbutton')[0].style.display = 'none';
+        document.getElementById('signupbutton2').style.visibility = 'visible';
+
+        function user(u, p){
+          this.user = u;
+          this.pass = p;
+        }
+    ////this function should be the xml request for signup proccess . When it returns a valid sign up, redirect to feed while changing storage value of current users
+ 
+    
+    }
+
     function submitSignupForm() {
       const username = document.getElementById('signupUsername').value;
       const password = document.getElementById('signupPassword').value;
@@ -82,10 +103,11 @@
         alert(data.message || data.error);
         document.getElementById('user').value=username;
         document.getElementById('password').value=password
-        // submitLoginForm();
+        location.reload();
+
       })
       .catch(error => {
-        console.error('Error:', error);
+        alert('Error:', error);
         alert('A Local error occurred. Please try again.');
       });
     }
@@ -93,6 +115,7 @@
     function submitLoginForm() {
       const username = document.getElementById('user').value;
       const password = document.getElementById('password').value;
+      
       //username: "exampleUser",
       ///password: "examplePassword"
       // Make a POST request to the server
@@ -107,10 +130,15 @@
       .then(data => {
         alert(data.message || data.error);
         localStorage.setItem("curr_user",username)
+        localStorage.setItem("user",username)
         localStorage.setItem("password",password);
         localStorage.setItem("user_request",null);
+        localStorage.setItem("collection_log",null);
+        localStorage.setItem("Year_Of_Publication",null);
+        localStorage.setItem("current_user",null);
+
         // // submitLoginForm();
-        // alert("success:")
+        alert("success:")
         window.open('mainpage.html',"_self");
 
 

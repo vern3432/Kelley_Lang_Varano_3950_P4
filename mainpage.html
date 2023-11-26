@@ -40,7 +40,7 @@ Browsing filters
       <b class="sidebar_text" id="Post" style="font-size: 23px;color: #ffffff;">Post</b>
       <br />
     </a>
-    <a href="./friendspage.html">
+    <a href="./users_collectionpage.html">
       <img id="friend" class="icon" src="./collcetion_save_white.png" alt="" />
       <b class="sidebar_text" id="friend" style="font-size: 23px;color: #ffffff;">My Collection</b>
       <br />
@@ -75,6 +75,7 @@ Browsing filters
 </div>
 <script>
   // localStorage.setItem("password",'123')
+  updatelocalCollectionlist()
 
   console.log(parseInt(localStorage.getItem('counter')))
 
@@ -264,7 +265,7 @@ if(localStorage.getItem('password')){
 
 }else{
   //later make this return to login, will do this for testing purposes
-  localStorage.setItem("password",'123')
+  // localStorage.setItem("password",'123')
 
 }
 

@@ -40,7 +40,7 @@ Browsing filters
       <b class="sidebar_text" id="Post" style="font-size: 23px;color: #ffffff;">Post</b>
       <br />
     </a>
-    <a href="./friendspage.html">
+    <a href="./users_collectionpage.html">
       <img id="friend" class="icon" src="./collcetion_save_white.png" alt="" />
       <b class="sidebar_text" id="friend" style="font-size: 23px;color: #ffffff;">My Collection</b>
       <br />
@@ -99,13 +99,13 @@ Browsing filters
 
 
 <script>
+  window.onload=updatelocalCollectionlist();
   getCollection()
-  updatelocalCollectionlist()
-
 function getCollection(){
 
   var username=localStorage.getItem("curr_user")
   var buttoncounter=1;
+  updatelocalCollectionlist()
 
 fetch('http://localhost:3001/getMenuItems', {
   method: 'POST',
@@ -349,7 +349,7 @@ function removeCollection(buttoncounter,ISBN){
 
 
 
-<script>
+<!-- <script>
   
   // function loadCollection(){
   //   var username=localStorage.getItem("curr_user")
@@ -518,7 +518,7 @@ function removeCollection(buttoncounter,ISBN){
 //     }
 
 
-  </script>
+  </script> -->
 
 
 
@@ -557,7 +557,7 @@ function removeCollection(buttoncounter,ISBN){
 
 
 
-// <script>
+<script>
 //           // alert(data.message || data.error);
 
 
@@ -604,3 +604,4 @@ function removeCollection(buttoncounter,ISBN){
 // this is only for Medium Quality (320x180). Should be all we need for thumnails. 
 // Im thinking these links should be stored in whatever json we generate to contain posts. on that note, need to determine how data will be stored in jsons and where in relation to poster and time. 
 // -->
+</script>
