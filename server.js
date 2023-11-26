@@ -124,7 +124,7 @@ app.post('/loadCollection', (req, res) => {
   console.log('getting data for table:loadCollection')
   const username = req.body.username;
   console.log(username)
-
+///go back and make for loop async
   db.get('SELECT * FROM users WHERE (username) IN ( VALUES (?))', [username], (err, row) => {
     if (err) {
       console.log("this error")
@@ -142,8 +142,7 @@ app.post('/loadCollection', (req, res) => {
       })
       var rows= []
       console.log(array.length)
-      for(let i=0;i<array.length;i++){
-        if(array[i].length>1){
+      for(let i=0;i<=array.length;i++){
         const query = 'SELECT * FROM menuItems '+' WHERE ISBN="'+array[i]+'"';
         console.log(query)
         db.all(query, [], (err2, row2) => {
@@ -152,15 +151,17 @@ app.post('/loadCollection', (req, res) => {
             // res.status(500).send(err2.message);
           } else if(row2){
               // console.log(row2)
-              rows.push(JSON.stringify(row2))
-              console.log(i)
-              if(i==array.length-1){
+              if(i==array.length){
                 console.log("sending")
                 res.json(rows);
+
               }
+              rows.push(JSON.stringify(row2))
+              console.log(i)
+
             }
         });
-      }
+      
 
     }
     }
