@@ -300,6 +300,7 @@ app.post('/removeCollection', (req, res) => {
         forrun='UPDATE users SET collection='+'"'+for_send_assing+'"'+' WHERE username= '+'"'+user_name+'"';
         console.log(forrun)
         db.run(forrun)
+        res.send()
   }else{ console.log("login failed");
 }
 });

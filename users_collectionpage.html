@@ -101,7 +101,7 @@ Browsing filters
 <script>
   getCollection()
 function getCollection(){
-  var dataBody = document.getElementById('books_container');
+
   var username=localStorage.getItem("curr_user")
   var buttoncounter=1;
 
@@ -114,6 +114,9 @@ fetch('http://localhost:3001/getMenuItems', {
 })
   .then(response => response.json())
   .then(menuItems => {
+    var dataBody = document.getElementById('books_container');
+    dataBody.innerHTML=''
+
     menuItems.forEach(row => {
       console.log(row.ISBN)
                       // console.log(row.ISBN)
@@ -144,9 +147,6 @@ fetch('http://localhost:3001/getMenuItems', {
                         console.log(rowHTML)
                         dataBody.innerHTML += rowHTML;
                         console.log('finished:')
-
-
-
     });
   })
   .catch(error => {
@@ -160,74 +160,21 @@ fetch('http://localhost:3001/getMenuItems', {
 
 
 
-<script>
-    function loadCollection(){
-      var username=localStorage.getItem("curr_user")
-      fetch('http://localhost:3001/loadCollection', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          username:username}),
-      })
-      .then(response => response.json())
-      .then(data => {
-        console.log(data)
-        var dataBody = document.getElementById('books_container');
-          var buttoncounter=1;
-        data.forEach(row => {
-                      console.log(row.ISBN)
-                      // console.log(row.ISBN)
-                        var rowHTML = '<div id="books">';
-                        rowHTML +="<div id='book'>"
-                        rowHTML += '<img src="' + row.Image_URL_L+'">' ;
-                        rowHTML += '<br>' + row.ISBN ;
-                        rowHTML += '<br>' + row.Book_Title ;
-                        rowHTML += '<br>' + row.Book_Author ;
-                        rowHTML += '<br>' + row.Year_Of_Publication+'<br>';
-                        //remeber to add function that calls collection list so that we can precheck this box. I think that it should probably just laod a users collection on login. 
-                        //Then provide a remove from colleciton option 
-                        if(localStorage.getItem('collection_log').includes(row.ISBN)){
-                          rowHTML += '<button id="button'+buttoncounter+'" style="background-color: crimson;color: white;border-radius: 10px;" '+' onclick="removeCollection('+buttoncounter+','+row.ISBN+')">'+'Remove From Collection-'+'</button>';
-                          console.log(' inclued')
-                        }else{
-                          console.log('not inclued')
-                          rowHTML += '<button id="button'+buttoncounter+'" style="border-radius:10px;" '+' onclick="addCollection('+buttoncounter+','+row.ISBN+')">'+'Add to Collection +'+'</button>';
-                          
-                        }                     
-                        buttoncounter=buttoncounter+1
-
-                        //rowHTML += '<br>' + row.Image_URL_S ;
-                        //rowHTML += '<br>' + row.Image_URL_M;
-                        //rowHTML += '<br>' + row.Image_URL_L ;
-                        //rowHTML += '<br>';
-                        rowHTML +="</div>"
-
-                        dataBody.innerHTML += rowHTML;
-                    });
-  
-      })
-      .catch(error => {
-        console.log('update failed')
-        console.log('Error:', error);
-        alert(error)
-
-      });
-
-
-
-
-    }
 
 
 </script>
 <body id="pagecontent">
   <div id="books_container">
 
-    <Please add books to collection>
-</div>
+    <!-- <button type="button">Click Me!</button> -->
 
+
+<!--     
+    <a href="#" class="previous round">&#8249;</a>
+    <a href="#" class="next round">&#8250;</a>
+       -->
+      </div>
+    </body>
 </body>
 <!-- <button onclick="updatelocalCollectionlist()">update</button> -->
 </html>
@@ -246,89 +193,259 @@ fetch('http://localhost:3001/getMenuItems', {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <script>
-          // alert(data.message || data.error);
+  updatelocalCollectionlist()
+  loadCollection()
+  function loadCollection(){
+    var username=localStorage.getItem("curr_user")
+    fetch('http://localhost:3001/loadCollection', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        username:username}),
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log(data)
+      var dataBody = document.getElementById('books_container');
+        var buttoncounter=1;
+      data.forEach(row => {
+                    console.log(row.ISBN)
+                    // console.log(row.ISBN)
+                      var rowHTML = '<div id="books">';
+                      rowHTML +="<div id='book'>"
+                      rowHTML += '<img src="' + row.Image_URL_L+'">' ;
+                      rowHTML += '<br>' + row.ISBN ;
+                      rowHTML += '<br>' + row.Book_Title ;
+                      rowHTML += '<br>' + row.Book_Author ;
+                      rowHTML += '<br>' + row.Year_Of_Publication+'<br>';
+                      //remeber to add function that calls collection list so that we can precheck this box. I think that it should probably just laod a users collection on login. 
+                      //Then provide a remove from colleciton option 
+                      if(localStorage.getItem('collection_log').includes(row.ISBN)){
+                        rowHTML += '<button id="button'+buttoncounter+'" style="background-color: crimson;color: white;border-radius: 10px;" '+' onclick="removeCollection('+buttoncounter+','+row.ISBN+')">'+'Remove From Collection-'+'</button>';
+                        console.log(' inclued')
+                      }else{
+                        console.log('not inclued')
+                        rowHTML += '<button id="button'+buttoncounter+'" style="border-radius:10px;" '+' onclick="addCollection('+buttoncounter+','+row.ISBN+')">'+'Add to Collection +'+'</button>';
+                        
+                      }                     
+                      buttoncounter=buttoncounter+1
+
+                      //rowHTML += '<br>' + row.Image_URL_S ;
+                      //rowHTML += '<br>' + row.Image_URL_M;
+                      //rowHTML += '<br>' + row.Image_URL_L ;
+                      //rowHTML += '<br>';
+                      rowHTML +="</div>"
+
+                      dataBody.innerHTML += rowHTML;
+                  });
+
+    })
+    .catch(error => {
+      console.log('update failed')
+      console.log('Error:', error);
+      alert(error)
+
+    });
 
 
-        // localStorage.setItem("post_request",username)
-        // localStorage.setItem("user_request",null);
-        // // // submitLoginForm();
-        // // alert("success:")
-        // window.open('mainpage.html',"_self");
-
-  // function tabcount(m){
-//   n=m/20
-//   for(let i=0;i<=n;i)
-//   var div = document.getElementById("bottom_tabs").createElement('button');
-//   div.innerHTML = str;
-//   while (div.children.length > 0) {
-//     el.appendChild(div.children[0]);
-//   }
-// }
-// var html = '<h1 id="title">Some Title</h1><span style="display:inline-block; width=100px;">Some arbitrary text</span>';
-// appendHtml(document.body, html);
-
-// lets just do a next and last, seems easier. 
-// function tabcount_by20(start,total){
-// }
-</script>
 
 
+  }
+
+  function addCollection(buttoncounter,ISBN){
+      user_forsend=localStorage.getItem('curr_user')
+      fetch('http://localhost:3001/addCollection', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ 
+          user_name:user_forsend, 
+          ISBN:ISBN, 
+
+        }),
+      })
+      .then(response => response.json())
+      .then(data => {
+        alert(data.message || data.error);
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        // alert('A Local error occurred. Please try again.');
+      });
+      console.log("button"+buttoncounter)
+      HTMLOBJCET=document.getElementById("button"+buttoncounter)
+      HTMLOBJCET.style='background-color: crimson;color: white;border-radius: 10px;'
+      HTMLOBJCET.innerHTML='Remove From Collection-'
+      // HTMLOBJCET.oncick="removeCollection("+buttoncounter+","+ISBN+")"
+      click="removeCollection("+buttoncounter+","+ISBN+");"
+      HTMLOBJCET.setAttribute( "onClick", click );
+      updatelocalCollectionlist()
+      // = '<button id="button'+buttoncounter+'" style="background-color: crimson;color: white;border-radius: 10px;" '+' onclick="addCollection('+buttoncounter+','+ISBN+')">'+'Remove From Collection-'+'</button>';
+
+    
+    }
+    ///need to update localling stored collection value
+    
+function removeCollection(buttoncounter,ISBN){
+  user_forsend=localStorage.getItem('curr_user')
+      fetch('http://localhost:3001/removeCollection', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ 
+          user_name:user_forsend, 
+          ISBN:ISBN, 
+
+        }),
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log(JSON.stringify(data.collection))
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        // alert('A Local error occurred. Please try again.');
+      });
+      console.log("button"+buttoncounter)
+      HTMLOBJCET=document.getElementById("button"+buttoncounter)
+      HTMLOBJCET.style=''
+      HTMLOBJCET.style='border-radius:10px;'
+      HTMLOBJCET.innerHTML='Add to Collection +'
+      click="addCollection("+buttoncounter+","+ISBN+");"
+      HTMLOBJCET.setAttribute( "onClick", click );
+      updatelocalCollectionlist()
+
+      // = '<button id="button'+buttoncounter+'" style="background-color: crimson;color: white;border-radius: 10px;" '+' onclick="addCollection('+buttoncounter+','+ISBN+')">'+'Remove From Collection-'+'</button>';
+
+      //'<button id="button'+buttoncounter+'" style="border-radius:10px;" '+' onclick="addCollection('+buttoncounter+','+row.ISBN+')">'+'Add to Collection +'+'</button>';
+
+    }
 
 
 
-<!-- 
-//username: "exampleUser",
-///password: "examplePassword"
-// Make a POST request to the server
- -->
+    function updatelocalCollectionlist() {
+      const username = localStorage.getItem("user");
+      const password = localStorage.getItem("passsword");
+      console.log(username)
+
+      console.log(password)
+      //username: "exampleUser",
+      ///password: "examplePassword"
+      // Make a POST request to the server
+      fetch('http://localhost:3001/updatelocalCollectionlist', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ user_name:username, pass_word:password }),
+      })
+      .then(response => response.json())
+      .then(data => {
+        var collection_array=(JSON.stringify(data.collection)).replaceAll('"', "").split(",")
+        collection_array = collection_array.filter(function(item) { 
+              return item.length > 2;
+            });
+        localStorage.setItem("collection_log",collection_array)
+        console.log(collection_array)
+
+      })
+      .catch(error => {
+        console.log('update failed')
+        console.log('Error:', error);
+        alert(error)
+
+      });
+    }
 
 
-<!--I relaly want to add a top by with a title and maybe like a settings at the top rihgt. Dark Mode? wWould just make pages look complete  -->
-<!-- Search bar? That could be a cool thing. Could use very basic horspool search of all post titles. Perhaps master index of posts should include id and title.   -->
-<!-- Tab on Search Bar that Lets You Search for Users?? -->
-<!-- Notes for server side: There is a link format for retrieving youtbe thumnails. We could either download this servise or just link them. Later is probably easier, will require a lot of requests but im guesing it wont be a problem unless -->
-<!--  Format is as follow: 
-https://www.youtube.com/watch?v=AD5aAd8Oy84-------_>https://img.youtube.com/vi/AD5aAd8Oy84/mqdefault.jpg
-note identifier shared between links
-this is only for Medium Quality (320x180). Should be all we need for thumnails. 
-Im thinking these links should be stored in whatever json we generate to contain posts. on that note, need to determine how data will be stored in jsons and where in relation to poster and time. 
--->
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// <script>
+//           // alert(data.message || data.error);
+
+
+//         // localStorage.setItem("post_request",username)
+//         // localStorage.setItem("user_request",null);
+//         // // // submitLoginForm();
+//         // // alert("success:")
+//         // window.open('mainpage.html',"_self");
+
+//   // function tabcount(m){
+// //   n=m/20
+// //   for(let i=0;i<=n;i)
+// //   var div = document.getElementById("bottom_tabs").createElement('button');
+// //   div.innerHTML = str;
+// //   while (div.children.length > 0) {
+// //     el.appendChild(div.children[0]);
+// //   }
+// // }
+// // var html = '<h1 id="title">Some Title</h1><span style="display:inline-block; width=100px;">Some arbitrary text</span>';
+// // appendHtml(document.body, html);
+
+// // lets just do a next and last, seems easier. 
+// // function tabcount_by20(start,total){
+// // }
+
+
+
+
+
+// <!-- 
+// //username: "exampleUser",
+// ///password: "examplePassword"
+// // Make a POST request to the server
+//  -->
+
+
+// <!--I relaly want to add a top by with a title and maybe like a settings at the top rihgt. Dark Mode? wWould just make pages look complete  -->
+// <!-- Search bar? That could be a cool thing. Could use very basic horspool search of all post titles. Perhaps master index of posts should include id and title.   -->
+// <!-- Tab on Search Bar that Lets You Search for Users?? -->
+// <!-- Notes for server side: There is a link format for retrieving youtbe thumnails. We could either download this servise or just link them. Later is probably easier, will require a lot of requests but im guesing it wont be a problem unless -->
+// <!--  Format is as follow: 
+// https://www.youtube.com/watch?v=AD5aAd8Oy84-------_>https://img.youtube.com/vi/AD5aAd8Oy84/mqdefault.jpg
+// note identifier shared between links
+// this is only for Medium Quality (320x180). Should be all we need for thumnails. 
+// Im thinking these links should be stored in whatever json we generate to contain posts. on that note, need to determine how data will be stored in jsons and where in relation to poster and time. 
+// -->
