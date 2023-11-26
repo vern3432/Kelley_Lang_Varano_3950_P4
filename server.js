@@ -165,29 +165,6 @@ const { promisify } = require('util');
 const dbRun = promisify(db.run.bind(db));
 const dbAll = promisify(db.all.bind(db));
 
-// function loadCollection(username){
-//   db.get('SELECT * FROM users WHERE (username) IN ( VALUES (?))', [username], (err, row) => {
-//     console.log("running loadcollection")
-//     if (err) {
-//       console.log("this error")
-//       res.status(500).send(err.message);
-//     }
-//     else if (row) {
-//       // Username already exists
-//       console.log("row found")
-//       console.log(row.collection)
-//       var array=row.collection.replaceAll("'","").replaceAll('"',"").replaceAll(',,',",").replaceAll(',,',",").replaceAll(',,',",").replaceAll(',,',",").replaceAll(' ',"").split(",")
-//       console.log(array)
-//       filtered=array.filter(function(item){
-//           return item.length>1
-
-//       } )
-//       return filtered;
-//     }
-//   });
-// }
-
-
 
 
 
@@ -198,7 +175,6 @@ const dbAll = promisify(db.all.bind(db));
 
 
 app.use(express.json());
-// Express route to handle the client request
 app.post('/getMenuItems', async (req, res) => {
   try {
     const { username } = req.body;
@@ -224,28 +200,6 @@ function queryDatabase(sql, params) {
     });
   });
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -489,4 +443,29 @@ app.listen(port, () => {
 //     res.json(rows);
 //   });
 // });
+
+
+
+
+// function loadCollection(username){
+//   db.get('SELECT * FROM users WHERE (username) IN ( VALUES (?))', [username], (err, row) => {
+//     console.log("running loadcollection")
+//     if (err) {
+//       console.log("this error")
+//       res.status(500).send(err.message);
+//     }
+//     else if (row) {
+//       // Username already exists
+//       console.log("row found")
+//       console.log(row.collection)
+//       var array=row.collection.replaceAll("'","").replaceAll('"',"").replaceAll(',,',",").replaceAll(',,',",").replaceAll(',,',",").replaceAll(',,',",").replaceAll(' ',"").split(",")
+//       console.log(array)
+//       filtered=array.filter(function(item){
+//           return item.length>1
+
+//       } )
+//       return filtered;
+//     }
+//   });
+// }
 
