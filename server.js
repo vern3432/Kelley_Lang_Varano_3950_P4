@@ -3,6 +3,7 @@ const sqlite3 = require('sqlite3');
 const path = require('path');
 const app = express();
 const port = 3001;
+var async=require('async')
 
 const dbPath = path.resolve(__dirname, 'memory.db');
 const db = new sqlite3.Database(dbPath);
@@ -117,6 +118,43 @@ app.post('/tab_page_request', (req, res) => {
 
 
   
+});
+//080652121X this isbn wasnt found. need to find out why that is 
+app.post('/loadCollection', (req, res) => {
+  console.log('getting data for table:loadCollection')
+  const username = req.body.username;
+  console.log(username)
+  db.get('SELECT * FROM users WHERE (username) IN ( VALUES (?))', [username], (err, row) => {
+    if (err) {
+      console.log("this error")
+      res.status(500).send(err.message);
+    }
+    else if (row) {
+      // Username already exists
+      console.log("row found")
+      console.log(row.collection)
+      var array=row.collection.replaceAll("'","").replaceAll('"',"").replaceAll(',,',",").replaceAll(',,',",").replaceAll(',,',",").replaceAll(',,',",").replaceAll(' ',"").split(",")
+      console.log(array)
+      var rows= ["butts"]
+      for(let i=0;i<array.length;i++){
+        if(array[i].length>1){
+        const query = 'SELECT * FROM menuItems '+' WHERE ISBN="'+array[i]+'"';
+        console.log(query)
+        db.all(query, [], (err2, row2) => {
+          if (err2) {
+            console.log("SQL ERROR.Likely book not found:"+array[i])
+            // res.status(500).send(err2.message);
+          } else if(row2){
+              console.log(row2)
+              rows.push(JSON.stringify(row2))
+          }
+        });
+      }
+    }
+    }
+    res.json(rows)
+
+  });  
 });
 
 

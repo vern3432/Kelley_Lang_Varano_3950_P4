@@ -106,7 +106,7 @@
       .then(response => response.json())
       .then(data => {
         alert(data.message || data.error);
-        localStorage.setItem("user",username)
+        localStorage.setItem("curr_user",username)
         localStorage.setItem("password",password);
         localStorage.setItem("user_request",null);
         // // submitLoginForm();
