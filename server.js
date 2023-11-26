@@ -1,5 +1,5 @@
 const express = require('express');
-const sqlite3 = require('sqlite3');
+const sqlite3 = require('sqlite3').verbose();
 const path = require('path');
 const app = express();
 const port = 3001;
@@ -120,55 +120,147 @@ app.post('/tab_page_request', (req, res) => {
   
 });
 //080652121X this isbn wasnt found. need to find out why that is 
-app.post('/loadCollection', (req, res) => {
-  console.log('getting data for table:loadCollection')
-  const username = req.body.username;
-  console.log(username)
-///go back and make for loop async
-  db.get('SELECT * FROM users WHERE (username) IN ( VALUES (?))', [username], (err, row) => {
-    if (err) {
-      console.log("this error")
-      res.status(500).send(err.message);
-    }
-    else if (row) {
-      // Username already exists
-      console.log("row found")
-      console.log(row.collection)
-      var array=row.collection.replaceAll("'","").replaceAll('"',"").replaceAll(',,',",").replaceAll(',,',",").replaceAll(',,',",").replaceAll(',,',",").replaceAll(' ',"").split(",")
-      console.log(array)
-      array=array.filter(function(item){
-          return item.length>1
+// app.post('/failed', (req, res) => {
+//   console.log('getting data for table:loadCollection')
+//   const username = req.body.username;
+//   console.log(username)
+// ///go back and make for loop async
+//   db.get('SELECT * FROM users WHERE (username) IN ( VALUES (?))', [username], (err, row) => {
+//     if (err) {
+//       console.log("this error")
+//       res.status(500).send(err.message);
+//     }
+//     else if (row) {
+//       // Username already exists
+//       console.log("row found")
+//       console.log(row.collection)
+//       var array=row.collection.replaceAll("'","").replaceAll('"',"").replaceAll(',,',",").replaceAll(',,',",").replaceAll(',,',",").replaceAll(',,',",").replaceAll(' ',"").split(",")
+//       console.log(array)
+//       array=array.filter(function(item){
+//           return item.length>1
 
-      })
-      var rows= []
-      console.log(array.length)
-      for(let i=0;i<=array.length;i++){
-        const query = 'SELECT * FROM menuItems '+' WHERE ISBN="'+array[i]+'"';
-        console.log(query)
-        db.all(query, [], (err2, row2) => {
-          if (err2) {
-            console.log("SQL ERROR.Likely book not found:"+array[i])
-            // res.status(500).send(err2.message);
-          } else if(row2){
-              // console.log(row2)
-              if(i==array.length){
-                console.log("sending")
-                res.json(rows);
+//       })
+//       var rows= '{}'
+//       console.log(array.length)
+//       for(let i=0;i<=array.length;i++){
+//         const query = 'SELECT * FROM menuItems '+' WHERE ISBN="'+array[i]+'"';
+//         console.log(query)
 
-              }
-              rows.push(JSON.stringify(row2))
-              console.log(i)
-
-            }
-        });
       
 
-    }
-    }
+//     }
+//     }
 
-  });  
+//   });  
+// });
+
+
+// const sqlite3 = require('sqlite3').verbose();
+const { promisify } = require('util');
+
+
+// SQLite database setup
+
+// Promisify the query function to use async/await
+const dbRun = promisify(db.run.bind(db));
+const dbAll = promisify(db.all.bind(db));
+
+// function loadCollection(username){
+//   db.get('SELECT * FROM users WHERE (username) IN ( VALUES (?))', [username], (err, row) => {
+//     console.log("running loadcollection")
+//     if (err) {
+//       console.log("this error")
+//       res.status(500).send(err.message);
+//     }
+//     else if (row) {
+//       // Username already exists
+//       console.log("row found")
+//       console.log(row.collection)
+//       var array=row.collection.replaceAll("'","").replaceAll('"',"").replaceAll(',,',",").replaceAll(',,',",").replaceAll(',,',",").replaceAll(',,',",").replaceAll(' ',"").split(",")
+//       console.log(array)
+//       filtered=array.filter(function(item){
+//           return item.length>1
+
+//       } )
+//       return filtered;
+//     }
+//   });
+// }
+
+
+
+
+
+
+
+
+
+
+
+app.use(express.json());
+// Express route to handle the client request
+app.post('/getMenuItems', async (req, res) => {
+  try {
+    const { username } = req.body;
+    const collectionResult = await queryDatabase(`SELECT collection FROM users WHERE username = ?`, [username]);
+    const collectionArray = collectionResult.length > 0 ? collectionResult[0].collection.split(',') : [];
+    console.log(collectionArray)
+    const menuItemsResult = await queryDatabase(`SELECT * FROM menuItems WHERE ISBN IN (${collectionArray.map(() => '?').join(', ')})`, collectionArray);
+
+    res.json(menuItemsResult);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
 });
+function queryDatabase(sql, params) {
+  return new Promise((resolve, reject) => {
+    db.all(sql, params, (err, rows) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(rows);
+      }
+    });
+  });
+}
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//write an ascyn node js that splits an string into an array by commas, then finds all rows in an sqlite3 data base from a table called menuItems where ISBN is eqaul to one of the values in the array, and then sends the array as a part of an express app
+async function get_all_emails() {
+  const emails = (await db.all("SELECT * FROM menuItems "+' WHERE ISBN= ?', [])).map((row) => row.collections);
+
+  return emails;
+}
 
 
 app.post('/selectorFill', (req, res) => {
@@ -358,7 +450,25 @@ app.listen(port, () => {
 
 
 
+// db.all(query, [], (err2, row2) => {
+//   if (err2) {
+//     console.log("SQL ERROR.Likely book not found:"+array[i])
+//     // res.status(500).send(err2.message);
+//   } else if(row2){
+//       // console.log(row2)
+//       if(i==array.length){
+//         console.log("sending")
+//         if(i=0){
+//         rows='{'
 
+//         }
+//         res.json(rows);
+
+//       }
+//       rows.push(row2)
+//       console.log(i)
+//     }
+// });
 
 
 

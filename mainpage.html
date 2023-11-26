@@ -146,6 +146,7 @@ function submitTab(num_start) {
                     
                     dataBody.innerHTML='<div  style="display: flex;"> <input style="length: 20px;" type="text" name="city" list="cityname" id="filterSelector"> <datalist id="cityname"> </datalist> <select  id="typeSelector" onchange=""> <option value="Book_Author">Author</option> <option value="Year_Of_Publication">Year</option> </select> - </div><div class="button-container" style="  display: flex;"><button  style="  margin-left: 40px;" onclick="skipback()">&laquo;</button> <button class="tabbutton" onclick="prev()" class="previous">&laquo; Previous</button><button onclick="next()" class="next">Next &raquo;</button><button  onclick="skipforward()">&raquo;</button></div>'
                     var buttoncounter=1;
+                    console.log(data)
                     data.forEach(row => {
                       // console.log(row.ISBN)
                         var rowHTML = '<div id="books" style="  margin-left: 45px;" >';
