@@ -1,3 +1,10 @@
+<!-- To To 
+Browsing filters
+  -Year drop down menu
+  -Drop down which will add them too little bubbles above and can be indivdually deleted
+  -
+
+-->
 <!DOCTYPE html>
 <html>
 
@@ -7,63 +14,170 @@
     <link rel="stylesheet" href="./styleA.css">
     
 </head>
+<div class="top-banner">
+  <!-- <img class="banner_logo" src="templogo.png" alt=""> -->
+  <form action=""></form>   <input type="text" id="fname" name="fname"><button class="searchbutton" onclick="search()">Search</button >
+ <select name="searchtab" id="searchtype">
+    <option value="Book_Title">Title</option>
+    <option value="Book_Author">Author</option>
+    <option value="Year_Of_Publication">Year</option>
+
+  </select> -
+
+</div>
+<div id="sidebarcontainer">
+  <div id="full_SideBar" class="sidebar">
+    <script src="sidebar.js"></script>
+
+    <a href="mainpage.html">
+      <img id="home" class="icon" src="./home_white.png" alt="" />
+      <b class="sidebar_text" id="home" style="font-size: 23px;color: #ffffff;">Home</b>
+      <br />
+    </a>
+
+    <a href="./makepost.html">
+      <img id="Post" class="icon" src="./make_post_white.png" alt="" />
+      <b class="sidebar_text" id="Post" style="font-size: 23px;color: #ffffff;">Post</b>
+      <br />
+    </a>
+    <a href="./users_collectionpage.html">
+      <img id="friend" class="icon" src="./collcetion_save_white.png" alt="" />
+      <b class="sidebar_text" id="friend" style="font-size: 23px;color: #ffffff;">My Collection</b>
+      <br />
+    </a>
+    <a onclick="loadcurrUserPage()">
+      <img id="profile" class="icon" src="./profile_white.png" alt="" />
+      <b class="sidebar_text" id="friend" style="font-size: 23px;color: #ffffff;">My Page</b>
+      <br />
+    </a>
+    
+   <a href="google.com">
+
+    <img id="closenav"    class="icon" src="" alt=""> <b class="sidebar_text"  id="Post" style="  font-size: 23px;" ></b> <br>
+
+   </a>
+   <div id="main">
+    <button id="sidebar_close"  class="open_button"   onclick="closeNav()"><img src="sidebarclose2.png" alt="" id="sidebarclose"> </button>  
+    <br>
+    <button id="sidebar_open" class="open_button" onclick="openNav()"><img src="sidebarclose2.png" alt="" id="sidebarclose" style="  transform: scaleX(-1);"> </button>  
+
+  </div>
+    
+    
+  </div>
+
+
+
+  <div id="main">
+    <!-- <button class="open_button" onclick="openNav()"><img src="sidebarclose2.png" alt="" id="sidebarclose"> </button>   -->
+  
+  </div>
+</div>
+<script>
+    // fetchMenuItems()
+    //   function fetchMenuItems() {
+    //     var username=localStorage.getItem("curr_user")
+    //     console.log(username)
+    //   // Make a GET request to the server
+    //   fetch(`http://localhost:3001/process/${username}`)
+    //     .then(response => {
+    //       if (!response.ok) {
+    //         throw new Error(`HTTP error! Status: ${response.status}`);
+    //       }
+    //       return response.json();
+    //     })
+    //     .then(data => {
+    //       console.log('Response from server:', data);
+    //       // Handle the data as needed
+    //     })
+    //     .catch(error => {
+    //       console.error('Error:', error);
+    //       // Handle errors
+    //     });
+    // }
+</script>
+
 
 <script>
-    window.onload = function(){document.getElementById("signupbutton2").style.visibility = "hidden"; };
-    function Signup(){
-        tabcontent = document.getElementsByClassName("tabcontent");
-        document.getElementsByClassName('signup')[0].style.visibility = 'visible';
-        document.getElementsByClassName('signup')[1].style.visibility = 'visible';
-        // document.getElementsByClassName('signup')[2].style.visibility = 'visible';
-        document.getElementsByClassName('login_button')[0].style.display = 'none';
-        document.getElementsByClassName('login_button')[1].style.display = 'none';
-        document.getElementsByClassName('login_button')[1].style.display = 'none';
-        document.getElementsByClassName('signupbutton')[0].style.display = 'none';
-        // document.getElementsByClassName('signupbutton')[0].style.display = 'none';
-        document.getElementById('signupbutton2').style.visibility = 'visible';
+  window.onload=updatelocalCollectionlist();
+  getCollection()
+function getCollection(){
 
-        function user(u, p){
-          this.user = u;
-          this.pass = p;
-        }
-    ////this function should be the xml request for signup proccess . When it returns a valid sign up, redirect to feed while changing storage value of current users
- 
-    
-    }
+  var username=localStorage.getItem("curr_user")
+  var buttoncounter=1;
+  updatelocalCollectionlist()
 
-    function Signup_login(){
-        tabcontent = document.getElementsByClassName("tabcontent");
-        document.getElementsByClassName('signup')[0].style.visibility = 'invisible';
-        document.getElementsByClassName('signup')[1].style.visibility = 'invisible';
-        // document.getElementsByClassName('signup')[2].style.visibility = 'visible';
-        document.getElementsByClassName('login_button')[0].style.display = 'none';
-        document.getElementsByClassName('login_button')[1].style.display = 'none';
-        document.getElementsByClassName('login_button')[1].style.display = 'none';
-        document.getElementsByClassName('signupbutton')[0].style.display = 'none';
-        // document.getElementsByClassName('signupbutton')[0].style.display = 'none';
-        document.getElementById('signupbutton2').style.visibility = 'visible';
+fetch('http://localhost:3001/getMenuItems', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({ username }),
+})
+  .then(response => response.json())
+  .then(menuItems => {
+    var dataBody = document.getElementById('books_container');
+    dataBody.innerHTML=''
 
-        function user(u, p){
-          this.user = u;
-          this.pass = p;
-        }
-    ////this function should be the xml request for signup proccess . When it returns a valid sign up, redirect to feed while changing storage value of current users
- 
-    
-    }
+    menuItems.forEach(row => {
+      console.log(row.ISBN)
+                      // console.log(row.ISBN)
+                        var rowHTML = '<div id="books">';
+                        rowHTML +="<div id='book'>"
+                        rowHTML += '<img src="' + row.Image_URL_L+'">' ;
+                        rowHTML += '<br>' + row.ISBN ;
+                        rowHTML += '<br>' + row.Book_Title ;
+                        rowHTML += '<br>' + row.Book_Author ;
+                        rowHTML += '<br>' + row.Year_Of_Publication+'<br>';
+                        //remeber to add function that calls collection list so that we can precheck this box. I think that it should probably just laod a users collection on login. 
+                        //Then provide a remove from colleciton option 
+                        if(localStorage.getItem('collection_log').includes(row.ISBN)){
+                          rowHTML += '<button id="button'+buttoncounter+'" style="background-color: crimson;color: white;border-radius: 10px;" '+' ">'+'Remove From Collection-'+'</button>';
+                          console.log(' inclued')
+                          rowHTML +="</div>"
+                        console.log(rowHTML)
+                        dataBody.innerHTML += rowHTML;
+                          document.getElementById("button"+buttoncounter).setAttribute( "onclick", 'removeCollection('+buttoncounter+',"'+row.ISBN+'")')
 
-    function submitSignupForm() {
-      const username = document.getElementById('signupUsername').value;
-      const password = document.getElementById('signupPassword').value;
-      //username: "exampleUser",
-      ///password: "examplePassword"
-      // Make a POST request to the server
-      fetch('http://localhost:3001/signup', {
+                        }else{
+                          console.log('not inclued')
+                          rowHTML += '<button id="button'+buttoncounter+'" style="border-radius:10px;" '+'">'+'Add to Collection +'+'</button>';
+                          rowHTML +="</div>"
+                        console.log(rowHTML)
+                        dataBody.innerHTML += rowHTML;
+                          document.getElementById("button"+buttoncounter).setAttribute( "onclick", 'addCollection('+buttoncounter+',"'+row.ISBN+'")')
+
+                        }                     
+
+                        //rowHTML += '<br>' + row.Image_URL_S ;
+                        //rowHTML += '<br>' + row.Image_URL_M;
+                        //rowHTML += '<br>' + row.Image_URL_L ;
+                        //rowHTML += '<br>';
+
+                          console.log('removeCollection('+buttoncounter+',"'+row.ISBN+'")')
+                          // HTMLOBJCET.addCollection( "onClick", 'onclick="removeCollection('+buttoncounter+',"'+row.ISBN+'")');
+                        console.log('finished:')
+                        buttoncounter=buttoncounter+1
+
+    });
+  })
+  .catch(error => {
+    console.error(error);
+  });
+}
+
+function addCollection(buttoncounter,ISBN){
+      user_forsend=localStorage.getItem('curr_user')
+      fetch('http://localhost:3001/addCollection', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ user_name:username, pass_word:password }),
+        body: JSON.stringify({ 
+          user_name:user_forsend, 
+          ISBN:ISBN, 
+
+        }),
       })
       .then(response => response.json())
       .then(data => {
@@ -71,55 +185,72 @@
       })
       .catch(error => {
         console.error('Error:', error);
-        alert('An error occurred. Please try again.');
+        // alert('A Local error occurred. Please try again.');
       });
+      console.log("button"+buttoncounter)
+      HTMLOBJCET=document.getElementById("button"+buttoncounter)
+      HTMLOBJCET.style='background-color: crimson;color: white;border-radius: 10px;'
+      HTMLOBJCET.innerHTML='Remove From Collection-'
+      // HTMLOBJCET.oncick="removeCollection("+buttoncounter+","+ISBN+")"
+      click="removeCollection("+buttoncounter+","+'"'+ISBN+'"'+");"
+      console.log(click)
+      console.log("setting attribute")
+      HTMLOBJCET.setAttribute( "onClick", click );
+      updatelocalCollectionlist()
+      // = '<button id="button'+buttoncounter+'" style="background-color: crimson;color: white;border-radius: 10px;" '+' onclick="addCollection('+buttoncounter+','+ISBN+')">'+'Remove From Collection-'+'</button>';
+
+    
     }
-
-
-    function submitSignupForm() {
-      const username = document.getElementById('user').value;
-      const password = document.getElementById('password').value;
-      const pfp = document.getElementById('pfp').value;
-      const bio = document.getElementById('Body').value;
-
-      //username: "exampleUser",
-      ///password: "examplePassword"
-      // Make a POST request to the server
-      fetch('http://localhost:3001/signup', {
+    ///need to update localling stored collection value
+    
+function removeCollection(buttoncounter,ISBN){
+  user_forsend=localStorage.getItem('curr_user')
+      fetch('http://localhost:3001/removeCollection', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ 
-          user_name:username, 
-          pass_word:password,
-          pfp:pfp,
-          bio:bio,
+          user_name:user_forsend, 
+          ISBN:ISBN, 
 
         }),
       })
       .then(response => response.json())
       .then(data => {
-        alert(data.message || data.error);
-        document.getElementById('user').value=username;
-        document.getElementById('password').value=password
-        location.reload();
-
+        console.log(JSON.stringify(data.collection))
       })
       .catch(error => {
-        alert('Error:', error);
-        alert('A Local error occurred. Please try again.');
+        console.error('Error:', error);
+        // alert('A Local error occurred. Please try again.');
       });
+      console.log("button"+buttoncounter)
+      HTMLOBJCET=document.getElementById("button"+buttoncounter)
+      HTMLOBJCET.style=''
+      HTMLOBJCET.style='border-radius:10px;'
+      HTMLOBJCET.innerHTML='Add to Collection +'
+      click="addCollection("+buttoncounter+","+'"'+ISBN+'"'+");"
+      HTMLOBJCET.setAttribute( "onClick", click );
+      updatelocalCollectionlist()
+
+      // = '<button id="button'+buttoncounter+'" style="background-color: crimson;color: white;border-radius: 10px;" '+' onclick="addCollection('+buttoncounter+','+ISBN+')">'+'Remove From Collection-'+'</button>';
+
+      //'<button id="button'+buttoncounter+'" style="border-radius:10px;" '+' onclick="addCollection('+buttoncounter+','+row.ISBN+')">'+'Add to Collection +'+'</button>';
+
     }
 
-    function submitLoginForm() {
-      const username = document.getElementById('user').value;
-      const password = document.getElementById('password').value;
-      
+
+
+    function updatelocalCollectionlist() {
+      const username = localStorage.getItem("user");
+      const password = localStorage.getItem("passsword");
+      console.log(username)
+
+      console.log(password)
       //username: "exampleUser",
       ///password: "examplePassword"
       // Make a POST request to the server
-      fetch('http://localhost:3001/login', {
+      fetch('http://localhost:3001/updatelocalCollectionlist', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -128,272 +259,83 @@
       })
       .then(response => response.json())
       .then(data => {
-        alert(data.message || data.error);
-        localStorage.setItem("curr_user",username)
-        localStorage.setItem("user",username)
-        localStorage.setItem("password",password);
-        localStorage.setItem("user_request",null);
-        localStorage.setItem("collection_log",null);
-        localStorage.setItem("Year_Of_Publication",null);
-        localStorage.setItem("current_user",null);
-
-        // // submitLoginForm();
-        alert("success:")
-        window.open('mainpage.html',"_self");
-
+        var collection_array=(JSON.stringify(data.collection)).replaceAll('"', "").split(",")
+        collection_array = collection_array.filter(function(item) { 
+              return item.length > 2;
+            });
+        localStorage.setItem("collection_log",collection_array)
+        console.log(collection_array)
 
       })
       .catch(error => {
+        console.log('update failed')
         console.log('Error:', error);
         alert(error)
 
       });
     }
-  //  console.log('storage change')
-    //localStorage.setItem("post_request",username)
-    //localStorage.setItem("user_request",null);
-    //localStorage.setItem("post_request",null)
-    //window.open('mainpage.html',"_self");
+
+    function updatelocalCollectionlist() {
+      const username = localStorage.getItem("user");
+      const password = localStorage.getItem("passsword");
+      console.log(username)
+
+      console.log(password)
+      //username: "exampleUser",
+      ///password: "examplePassword"
+      // Make a POST request to the server
+      fetch('http://localhost:3001/updatelocalCollectionlist', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ user_name:username, pass_word:password }),
+      })
+      .then(response => response.json())
+      .then(data => {
+        var collection_array=(JSON.stringify(data.collection)).replaceAll('"', "").split(",")
+        collection_array = collection_array.filter(function(item) { 
+              return item.length > 2;
+            });
+        localStorage.setItem("collection_log",collection_array)
+        console.log(collection_array)
+
+      })
+      .catch(error => {
+        console.log('update failed')
+        console.log('Error:', error);
+        alert(error)
+
+      });
+    }
 
 </script>
 
 
 
-<style>
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      -webkit-box-sizing: border-box;
-      -moz-box-sizing: border-box;
-      -webkit-font-smoothing: antialiased;
-      -moz-font-smoothing: antialiased;
-      -o-font-smoothing: antialiased;
-      text-rendering: optimizeLegibility;
-    }
-    
-    body {
-      font-family: "Roboto", Helvetica, Arial, sans-serif;
-      font-weight: 100;
-      font-size: 12px;
-      line-height: 30px;
-      color: #777;
-      background: #FFFDD0;;
-    }
-    
-    .container {
-      max-width: 400px;
-      width: 100%;
-      margin: 0 auto;
-      position: relative;
-    }
 
 
-    #post {
-      border-radius: 10px;
-    
-      background: #F9F9F9;
-      padding: 25px;
-      margin: 150px 0;
-      box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
-    }
-    
-    #post h3 {
-      display: block;
-      font-size: 30px;
-      font-weight: 300;
-      margin-bottom: 10px;
-    }
-    
-    #post h4 {
-      margin: 5px 0 15px;
-      display: block;
-      font-size: 13px;
-      font-weight: 400;
-    }
-    
-    fieldset {
-      border: medium none !important;
-      margin: 0 0 10px;
-      min-width: 100%;
-      padding: 0;
-      width: 100%;
-    }
-    
-    #post input[type="text"],
-    #post input[type="email"],
-    #post input[type="tel"],
-    #post input[type="url"],
-    #post textarea {
-      width: 100%;
-      border: 1px solid #ccc;
-      background: #FFF;
-      margin: 0 0 5px;
-      padding: 10px;
-    }
-    
-    #post input[type="text"]:hover,
-    #post input[type="email"]:hover,
-    #post input[type="tel"]:hover,
-    #post input[type="url"]:hover,
-    #post textarea:hover {
-      -webkit-transition: border-color 0.3s ease-in-out;
-      -moz-transition: border-color 0.3s ease-in-out;
-      transition: border-color 0.3s ease-in-out;
-      border: 1px solid #aaa;
-    }
-    
-    #post textarea {
-      height: 100px;
-      max-width: 100%;
-      resize: none;
-    }
-    
-    #post button {
-      cursor: pointer;
-      width: 100%;
-      border: none;
-      background: #0B504F;
-      color: #FFF;
-      margin: 0 0 5px;
-      padding: 10px;
-      font-size: 15px;
-    }
-    
-    #post button:hover {
-      background: #43A047;
-      -webkit-transition: background 0.3s ease-in-out;
-      -moz-transition: background 0.3s ease-in-out;
-      transition: background-color 0.3s ease-in-out;
-    }
-    
-    #post button:active {
-      box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.5);
-    }
-    
-    
-    #post input:focus,
-    #post textarea:focus {
-      outline: 0;
-      border: 1px solid #aaa;
-    }
-    
-    ::-webkit-input-placeholder {
-      color: #888;
-    }
-    
-    :-moz-placeholder {
-      color: #888;
-    }
-    
-    ::-moz-placeholder {
-      color: #888;
-    }
-    
-    :-ms-input-placeholder {
-      color: #888;
-    }
-    </style>
-    </html>
-    <!-- <script src="./storage.js">
-    </script> -->
-    <body  style="background-color: #0B504F;">
-        <!-- <img style="height: 300px; overflow-x: hidden;  position: absolute;
-        top: -10px;
-        left: 150px;      display: block; " src="./templogo.png" alt=""> -->
 
-    <div class="container">  
 
-      <form id="post" action="" method="post">
 
-        <div class="logincontainer" style="display: block;width: 60%; margin: auto; ">
-        <input id = "user" placeholder="Username" type="text" id="fname" name="username" required>
-        <br>
-        <input id = "password" placeholder="Password" type="text" id="fname" name="password" required>
-        <br>
-        <input class="signup"  placeholder="Link to Profile Picture" type="text" id="pfp" name="fname" style=" visibility: hidden;">
-       <br>
-       <!-- <input class="signup"  placeholder="Link to Profile Picture" type="text" id="pfp" name="fname" style=" visibility: hidden;"> -->
-       <textarea  placeholder="Account Bio" id="Body" name="Body" class="signup" rows="6" maxlength="3000" onclick="" oninput=""  style="width: 250px;visibility: hidden;"></textarea>
-       <br>
-        <button type="submit" class="login_button" onclick="submitLoginForm()">login</button>
-        <p class="login_button"  style="color: white;">or</p>
-        <button type="button" class="signupbutton"  onclick="Signup()">Sign up</button style=" text-align: center;">
-           <br>
-       <button type="button" id="signupbutton2" class="signupbutton" onclick="submitSignupForm()">Sign up!</button style=" text-align: center; =">
+</script>
+<body id="pagecontent">
+  <div id="books_container">
 
-      </form>
-    </div>
+    <!-- <button type="button">Click Me!</button> -->
+
+
+<!--     
+    <a href="#" class="previous round">&#8249;</a>
+    <a href="#" class="next round">&#8250;</a>
+       -->
+      </div>
     </body>
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-    
-    <!-- 
-    <form class="pagecontent">
-      <label class="pagecontent" for="title">Post Title</label><br>
-      <input class="pagecontent" type="text" id="title" name="title" placeholder="Post Title Here"><br>
-      <label  class="pagecontent"for="url">Last name:</label><br>
-      <input class="pagecontent" type="text" id="url" name="url" placeholder="Url Here"><br><br>
-    
-      <button>Make Post</button>
-    </form>  -->
-    
-
-
-
-
-
-
-<!-- <body  style="background-color: #6d0000;">
-    <div class="logincontainer" style="display: block;width: 60%; margin: auto; ">
-    <img style="height: 300px;display: block;margin: auto;  " src="./templogo.png" alt="">
-    <br>
-        <form action="" style="  text-align: center;">
-             <input placeholder="Username" type="text" id="fname" name="username" required>
-             <br>
-             <input placeholder="Password" type="text" id="fname" name="password" required>
-             <br>
-             <input class="signup"  placeholder="Link to Profile Picture" type="text" id="pfp" name="fname" style=" visibility: hidden;">
-            <br> -->
-            <!-- <input class="signup"  placeholder="Link to Profile Picture" type="text" id="pfp" name="fname" style=" visibility: hidden;"> -->
-            <!-- <textarea  placeholder="Account Bio" id="Body" name="Body" class="signup" rows="6" maxlength="3000" onclick="" oninput="" required style="width: 250px;visibility: hidden;"></textarea>
-            <br>
-             <button class="login_button">login</button>
-                
-             <p class="login_button"  style="color: white;">or</p>
-             <button class="signupbutton"  onclick="Signup()">Sign up</button style=" text-align: center;">
-                <br>
-            <button id="signupbutton2" class="signupbutton" onclick="">Sign up</button style=" text-align: center; =">
-
-            </form>
-
-            <br>
-        </div>
 </body>
-<html></html> -->
+<!-- <button onclick="updatelocalCollectionlist()">update</button> -->
+</html>
+
+
+
+
+
