@@ -100,6 +100,8 @@ Browsing filters
 
 <script>
   getCollection()
+  updatelocalCollectionlist()
+
 function getCollection(){
 
   var username=localStorage.getItem("curr_user")
@@ -163,6 +165,150 @@ fetch('http://localhost:3001/getMenuItems', {
     console.error(error);
   });
 }
+
+function addCollection(buttoncounter,ISBN){
+      user_forsend=localStorage.getItem('curr_user')
+      fetch('http://localhost:3001/addCollection', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ 
+          user_name:user_forsend, 
+          ISBN:ISBN, 
+
+        }),
+      })
+      .then(response => response.json())
+      .then(data => {
+        alert(data.message || data.error);
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        // alert('A Local error occurred. Please try again.');
+      });
+      console.log("button"+buttoncounter)
+      HTMLOBJCET=document.getElementById("button"+buttoncounter)
+      HTMLOBJCET.style='background-color: crimson;color: white;border-radius: 10px;'
+      HTMLOBJCET.innerHTML='Remove From Collection-'
+      // HTMLOBJCET.oncick="removeCollection("+buttoncounter+","+ISBN+")"
+      click="removeCollection("+buttoncounter+","+'"'+ISBN+'"'+");"
+      console.log(click)
+      console.log("setting attribute")
+      HTMLOBJCET.setAttribute( "onClick", click );
+      updatelocalCollectionlist()
+      // = '<button id="button'+buttoncounter+'" style="background-color: crimson;color: white;border-radius: 10px;" '+' onclick="addCollection('+buttoncounter+','+ISBN+')">'+'Remove From Collection-'+'</button>';
+
+    
+    }
+    ///need to update localling stored collection value
+    
+function removeCollection(buttoncounter,ISBN){
+  user_forsend=localStorage.getItem('curr_user')
+      fetch('http://localhost:3001/removeCollection', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ 
+          user_name:user_forsend, 
+          ISBN:ISBN, 
+
+        }),
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log(JSON.stringify(data.collection))
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        // alert('A Local error occurred. Please try again.');
+      });
+      console.log("button"+buttoncounter)
+      HTMLOBJCET=document.getElementById("button"+buttoncounter)
+      HTMLOBJCET.style=''
+      HTMLOBJCET.style='border-radius:10px;'
+      HTMLOBJCET.innerHTML='Add to Collection +'
+      click="addCollection("+buttoncounter+","+'"'+ISBN+'"'+");"
+      HTMLOBJCET.setAttribute( "onClick", click );
+      updatelocalCollectionlist()
+
+      // = '<button id="button'+buttoncounter+'" style="background-color: crimson;color: white;border-radius: 10px;" '+' onclick="addCollection('+buttoncounter+','+ISBN+')">'+'Remove From Collection-'+'</button>';
+
+      //'<button id="button'+buttoncounter+'" style="border-radius:10px;" '+' onclick="addCollection('+buttoncounter+','+row.ISBN+')">'+'Add to Collection +'+'</button>';
+
+    }
+
+
+
+    function updatelocalCollectionlist() {
+      const username = localStorage.getItem("user");
+      const password = localStorage.getItem("passsword");
+      console.log(username)
+
+      console.log(password)
+      //username: "exampleUser",
+      ///password: "examplePassword"
+      // Make a POST request to the server
+      fetch('http://localhost:3001/updatelocalCollectionlist', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ user_name:username, pass_word:password }),
+      })
+      .then(response => response.json())
+      .then(data => {
+        var collection_array=(JSON.stringify(data.collection)).replaceAll('"', "").split(",")
+        collection_array = collection_array.filter(function(item) { 
+              return item.length > 2;
+            });
+        localStorage.setItem("collection_log",collection_array)
+        console.log(collection_array)
+
+      })
+      .catch(error => {
+        console.log('update failed')
+        console.log('Error:', error);
+        alert(error)
+
+      });
+    }
+
+    function updatelocalCollectionlist() {
+      const username = localStorage.getItem("user");
+      const password = localStorage.getItem("passsword");
+      console.log(username)
+
+      console.log(password)
+      //username: "exampleUser",
+      ///password: "examplePassword"
+      // Make a POST request to the server
+      fetch('http://localhost:3001/updatelocalCollectionlist', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ user_name:username, pass_word:password }),
+      })
+      .then(response => response.json())
+      .then(data => {
+        var collection_array=(JSON.stringify(data.collection)).replaceAll('"', "").split(",")
+        collection_array = collection_array.filter(function(item) { 
+              return item.length > 2;
+            });
+        localStorage.setItem("collection_log",collection_array)
+        console.log(collection_array)
+
+      })
+      .catch(error => {
+        console.log('update failed')
+        console.log('Error:', error);
+        alert(error)
+
+      });
+    }
+
 </script>
 
 
@@ -204,7 +350,6 @@ fetch('http://localhost:3001/getMenuItems', {
 
 
 <script>
-  updatelocalCollectionlist()
   
   // function loadCollection(){
   //   var username=localStorage.getItem("curr_user")
@@ -265,112 +410,112 @@ fetch('http://localhost:3001/getMenuItems', {
 
   // }
 
-  function addCollection(buttoncounter,ISBN){
-      user_forsend=localStorage.getItem('curr_user')
-      fetch('http://localhost:3001/addCollection', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ 
-          user_name:user_forsend, 
-          ISBN:ISBN, 
+//   function addCollection(buttoncounter,ISBN){
+//       user_forsend=localStorage.getItem('curr_user')
+//       fetch('http://localhost:3001/addCollection', {
+//         method: 'POST',
+//         headers: {
+//           'Content-Type': 'application/json',
+//         },
+//         body: JSON.stringify({ 
+//           user_name:user_forsend, 
+//           ISBN:ISBN, 
 
-        }),
-      })
-      .then(response => response.json())
-      .then(data => {
-        alert(data.message || data.error);
-      })
-      .catch(error => {
-        console.error('Error:', error);
-        // alert('A Local error occurred. Please try again.');
-      });
-      console.log("button"+buttoncounter)
-      HTMLOBJCET=document.getElementById("button"+buttoncounter)
-      HTMLOBJCET.style='background-color: crimson;color: white;border-radius: 10px;'
-      HTMLOBJCET.innerHTML='Remove From Collection-'
-      // HTMLOBJCET.oncick="removeCollection("+buttoncounter+","+ISBN+")"
-      click="removeCollection("+buttoncounter+","+ISBN+");"
-      HTMLOBJCET.setAttribute( "onClick", click );
-      updatelocalCollectionlist()
-      // = '<button id="button'+buttoncounter+'" style="background-color: crimson;color: white;border-radius: 10px;" '+' onclick="addCollection('+buttoncounter+','+ISBN+')">'+'Remove From Collection-'+'</button>';
+//         }),
+//       })
+//       .then(response => response.json())
+//       .then(data => {
+//         alert(data.message || data.error);
+//       })
+//       .catch(error => {
+//         console.error('Error:', error);
+//         // alert('A Local error occurred. Please try again.');
+//       });
+//       console.log("button"+buttoncounter)
+//       HTMLOBJCET=document.getElementById("button"+buttoncounter)
+//       HTMLOBJCET.style='background-color: crimson;color: white;border-radius: 10px;'
+//       HTMLOBJCET.innerHTML='Remove From Collection-'
+//       // HTMLOBJCET.oncick="removeCollection("+buttoncounter+","+ISBN+")"
+//       click="removeCollection("+buttoncounter+","+ISBN+");"
+//       HTMLOBJCET.setAttribute( "onClick", click );
+//       updatelocalCollectionlist()
+//       // = '<button id="button'+buttoncounter+'" style="background-color: crimson;color: white;border-radius: 10px;" '+' onclick="addCollection('+buttoncounter+','+ISBN+')">'+'Remove From Collection-'+'</button>';
 
     
-    }
-    ///need to update localling stored collection value
+//     }
+//     ///need to update localling stored collection value
     
-function removeCollection(buttoncounter,ISBN){
-  user_forsend=localStorage.getItem('curr_user')
-      fetch('http://localhost:3001/removeCollection', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ 
-          user_name:user_forsend, 
-          ISBN:ISBN, 
+// function removeCollection(buttoncounter,ISBN){
+//   user_forsend=localStorage.getItem('curr_user')
+//       fetch('http://localhost:3001/removeCollection', {
+//         method: 'POST',
+//         headers: {
+//           'Content-Type': 'application/json',
+//         },
+//         body: JSON.stringify({ 
+//           user_name:user_forsend, 
+//           ISBN:ISBN, 
 
-        }),
-      })
-      .then(response => response.json())
-      .then(data => {
-        console.log(JSON.stringify(data.collection))
-      })
-      .catch(error => {
-        console.error('Error:', error);
-        // alert('A Local error occurred. Please try again.');
-      });
-      console.log("button"+buttoncounter)
-      HTMLOBJCET=document.getElementById("button"+buttoncounter)
-      HTMLOBJCET.style=''
-      HTMLOBJCET.style='border-radius:10px;'
-      HTMLOBJCET.innerHTML='Add to Collection +'
-      click="addCollection("+buttoncounter+","+ISBN+");"
-      HTMLOBJCET.setAttribute( "onClick", click );
-      updatelocalCollectionlist()
+//         }),
+//       })
+//       .then(response => response.json())
+//       .then(data => {
+//         console.log(JSON.stringify(data.collection))
+//       })
+//       .catch(error => {
+//         console.error('Error:', error);
+//         // alert('A Local error occurred. Please try again.');
+//       });
+//       console.log("button"+buttoncounter)
+//       HTMLOBJCET=document.getElementById("button"+buttoncounter)
+//       HTMLOBJCET.style=''
+//       HTMLOBJCET.style='border-radius:10px;'
+//       HTMLOBJCET.innerHTML='Add to Collection +'
+//       click="addCollection("+buttoncounter+","+ISBN+");"
+//       HTMLOBJCET.setAttribute( "onClick", click );
+//       updatelocalCollectionlist()
 
-      // = '<button id="button'+buttoncounter+'" style="background-color: crimson;color: white;border-radius: 10px;" '+' onclick="addCollection('+buttoncounter+','+ISBN+')">'+'Remove From Collection-'+'</button>';
+//       // = '<button id="button'+buttoncounter+'" style="background-color: crimson;color: white;border-radius: 10px;" '+' onclick="addCollection('+buttoncounter+','+ISBN+')">'+'Remove From Collection-'+'</button>';
 
-      //'<button id="button'+buttoncounter+'" style="border-radius:10px;" '+' onclick="addCollection('+buttoncounter+','+row.ISBN+')">'+'Add to Collection +'+'</button>';
+//       //'<button id="button'+buttoncounter+'" style="border-radius:10px;" '+' onclick="addCollection('+buttoncounter+','+row.ISBN+')">'+'Add to Collection +'+'</button>';
 
-    }
+//     }
 
 
 
-    function updatelocalCollectionlist() {
-      const username = localStorage.getItem("user");
-      const password = localStorage.getItem("passsword");
-      console.log(username)
+//     function updatelocalCollectionlist() {
+//       const username = localStorage.getItem("user");
+//       const password = localStorage.getItem("passsword");
+//       console.log(username)
 
-      console.log(password)
-      //username: "exampleUser",
-      ///password: "examplePassword"
-      // Make a POST request to the server
-      fetch('http://localhost:3001/updatelocalCollectionlist', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ user_name:username, pass_word:password }),
-      })
-      .then(response => response.json())
-      .then(data => {
-        var collection_array=(JSON.stringify(data.collection)).replaceAll('"', "").split(",")
-        collection_array = collection_array.filter(function(item) { 
-              return item.length > 2;
-            });
-        localStorage.setItem("collection_log",collection_array)
-        console.log(collection_array)
+//       console.log(password)
+//       //username: "exampleUser",
+//       ///password: "examplePassword"
+//       // Make a POST request to the server
+//       fetch('http://localhost:3001/updatelocalCollectionlist', {
+//         method: 'POST',
+//         headers: {
+//           'Content-Type': 'application/json',
+//         },
+//         body: JSON.stringify({ user_name:username, pass_word:password }),
+//       })
+//       .then(response => response.json())
+//       .then(data => {
+//         var collection_array=(JSON.stringify(data.collection)).replaceAll('"', "").split(",")
+//         collection_array = collection_array.filter(function(item) { 
+//               return item.length > 2;
+//             });
+//         localStorage.setItem("collection_log",collection_array)
+//         console.log(collection_array)
 
-      })
-      .catch(error => {
-        console.log('update failed')
-        console.log('Error:', error);
-        alert(error)
+//       })
+//       .catch(error => {
+//         console.log('update failed')
+//         console.log('Error:', error);
+//         alert(error)
 
-      });
-    }
+//       });
+//     }
 
 
   </script>
