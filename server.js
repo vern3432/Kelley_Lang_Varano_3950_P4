@@ -257,7 +257,7 @@ app.post('/addCollection', (req, res) => {
     console.log('row codition met:'+row.toString())
     // updaterow=row+","+ISBN;
     // db.run('UPDATE users SET collection ="'+updaterow+'" WHERE username='+'"'+user_name+'"')
-    forrun='UPDATE users SET collection = collection || '+'"'+','+ISBN+'"'+' WHERE username='+'"'+user_name+'"';
+    forrun='UPDATE users SET collection = collection || '+"'"+ISBN+','+"'"+' WHERE username='+'"'+user_name+'"';
     console.log(forrun)
     db.run(forrun)
 
@@ -267,44 +267,54 @@ app.post('/addCollection', (req, res) => {
 });
 });
 
-app.post('/removeCollection', (req, res) => {
-  console.log('collection add began t')
-  const user_name = req.body.user_name;
-  const ISBN = req.body.ISBN;
- console.log(user_name)
- console.log(ISBN)
- db.get('SELECT collection FROM users WHERE (username) IN ( VALUES (?))', [user_name], (err, row) => {
-  if (err) {
-    res.status(400).send("errror 400");
-    console.log('error was sent')
-    return;
+
+app.post('/removeCollection', async (req, res) => {
+
+  username=req.body.user_name;
+  isbn=req.body.ISBN;
+  const collectionResult = await queryDatabase(`SELECT collection FROM users WHERE username = ?`, [username]);
+  const collectionArray = collectionResult.length > 0 ? collectionResult[0].collection.split(','): [];
+  console.log(collectionArray.filter(function(a){return a  !== isbn|''|'"'}))
+  console.log(typeof(isbn))
+  console.log(typeof("butt".toString()))
+  collectionArray2=collectionArray.filter(function(a){return a.toString()  !== isbn.toString()})
+  console.log('isbn at 0:'+collectionArray2[0])
+  const updatedCollection =  await collectionArray2.join(',');
+
+  try {
+
+    // query='SELECT * FROM users WHERE username="'+username+'"'
+    // // Retrieve the current collection for the userc
+    // console.log(query)
+    // const userData = await db.get(query);
+    // await console.log('char at 0:'+userData[0])
+    // If user not found, return an error
+    if (!collectionArray) {
+      console.log("user not found")
+      res.status(404) .json({ error: 'User not found' });
+      return;
+    }else{
+//.replaceAll('"','').replaceAll(',,',',').replaceAll(',,',',').replaceAll(',,',',')
+  // const collectionResult = await queryDatabase(`SELECT collection FROM users WHERE username = ?`, [username]);
+    
+    // console.log('Current collection:', currentCollection);
+
+    // Remove the specified ISBN from the collection
+
+    // Update the collection in the database
+    await db.run('UPDATE users SET collection = ? WHERE username = ?', [updatedCollection, username]);
   }
-  if (row) {
-    // Username already exists
-    console.log('row codition met:'+row)
-    // quiry="SELECT * FROM users WHERE username = '"+ user_name +"';"
-    // console.log(quiry)
-    string_returned=JSON.stringify(row.collection)
-    array=string_returned.split(',')
-    for_send_assing=""
-    for(let i=0;i<array.length;i++){
-        if(array[i]==ISBN){
-        }else{
-          console.log(i)
-          console.log(array[i])
-          for_send_assing=for_send_assing+array[i]+','
-        }}
-        for_send_assing = for_send_assing.replace('"', '');
-        for_send_assing = for_send_assing.replace('"', '');
-        console.log(for_send_assing)
-        forrun='UPDATE users SET collection='+'"'+for_send_assing+'"'+' WHERE username= '+'"'+user_name+'"';
-        console.log(forrun)
-        db.run(forrun)
-        res.send()
-  }else{ console.log("login failed");
-}
+
+    res.json({ success: true, updatedCollection });
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
 });
-});
+
+
+
+
 
 app.post('/search', (req, res) => {
   console.log('getting data for table:search')
@@ -378,7 +388,6 @@ db.get('SELECT * FROM users WHERE (username) IN ( VALUES (?))', [username], (err
   }
   else if (row) {
     // Username already exists
-    console.log("row found")
     res.json(row);
   } 
 });
@@ -470,3 +479,44 @@ app.listen(port, () => {
 //   });
 // }
 
+
+
+
+// app.post('/removeCollection', (req, res) => {
+//   console.log('collection add began t')
+//   const user_name = req.body.user_name;
+//   const ISBN = req.body.ISBN;
+//  console.log(user_name)
+//  console.log(ISBN)
+//  db.get('SELECT collection FROM users WHERE (username) IN ( VALUES (?))', [user_name], (err, row) => {
+//   if (err) {
+//     res.status(400).send("errror 400");
+//     console.log('error was sent')
+//     return;
+//   }
+//   if (row) {
+//     // Username already exists
+//     console.log('row codition met:'+row)
+//     // quiry="SELECT * FROM users WHERE username = '"+ user_name +"';"
+//     // console.log(quiry)
+//     string_returned=JSON.stringify(row.collection)
+//     array=string_returned.split(',')
+//     for_send_assing=""
+//     for(let i=0;i<array.length;i++){
+//         if(array[i]==ISBN){
+//         }else{
+//           console.log(i)
+//           console.log(array[i])
+//           for_send_assing=for_send_assing+array[i]+','
+//         }}
+//         for_send_assing = for_send_assing.replace('"', '');
+//         for_send_assing = for_send_assing.replace('"', '');
+//         console.log(for_send_assing)
+//         forrun='UPDATE users SET collection='+'"'+for_send_assing+'"'+' WHERE username= '+'"'+user_name+'"';
+//         console.log(forrun)
+//         db.run(forrun)
+//         res.send()
+//   }else{ console.log("login failed");
+// }
+// });
+// });

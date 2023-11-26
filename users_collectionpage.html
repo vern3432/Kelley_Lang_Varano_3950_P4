@@ -130,23 +130,33 @@ fetch('http://localhost:3001/getMenuItems', {
                         //remeber to add function that calls collection list so that we can precheck this box. I think that it should probably just laod a users collection on login. 
                         //Then provide a remove from colleciton option 
                         if(localStorage.getItem('collection_log').includes(row.ISBN)){
-                          rowHTML += '<button id="button'+buttoncounter+'" style="background-color: crimson;color: white;border-radius: 10px;" '+' onclick="removeCollection('+buttoncounter+','+row.ISBN+')">'+'Remove From Collection-'+'</button>';
+                          rowHTML += '<button id="button'+buttoncounter+'" style="background-color: crimson;color: white;border-radius: 10px;" '+' ">'+'Remove From Collection-'+'</button>';
                           console.log(' inclued')
+                          rowHTML +="</div>"
+                        console.log(rowHTML)
+                        dataBody.innerHTML += rowHTML;
+                          document.getElementById("button"+buttoncounter).setAttribute( "onclick", 'removeCollection('+buttoncounter+',"'+row.ISBN+'")')
+
                         }else{
                           console.log('not inclued')
-                          rowHTML += '<button id="button'+buttoncounter+'" style="border-radius:10px;" '+' onclick="addCollection('+buttoncounter+','+row.ISBN+')">'+'Add to Collection +'+'</button>';
-                          
+                          rowHTML += '<button id="button'+buttoncounter+'" style="border-radius:10px;" '+'">'+'Add to Collection +'+'</button>';
+                          rowHTML +="</div>"
+                        console.log(rowHTML)
+                        dataBody.innerHTML += rowHTML;
+                          document.getElementById("button"+buttoncounter).setAttribute( "onclick", 'addCollection('+buttoncounter+',"'+row.ISBN+'")')
+
                         }                     
-                        buttoncounter=buttoncounter+1
 
                         //rowHTML += '<br>' + row.Image_URL_S ;
                         //rowHTML += '<br>' + row.Image_URL_M;
                         //rowHTML += '<br>' + row.Image_URL_L ;
                         //rowHTML += '<br>';
-                        rowHTML +="</div>"
-                        console.log(rowHTML)
-                        dataBody.innerHTML += rowHTML;
+
+                          console.log('removeCollection('+buttoncounter+',"'+row.ISBN+'")')
+                          // HTMLOBJCET.addCollection( "onClick", 'onclick="removeCollection('+buttoncounter+',"'+row.ISBN+'")');
                         console.log('finished:')
+                        buttoncounter=buttoncounter+1
+
     });
   })
   .catch(error => {
@@ -187,7 +197,7 @@ fetch('http://localhost:3001/getMenuItems', {
 
 
 
-
+  
 
 
 
@@ -195,65 +205,65 @@ fetch('http://localhost:3001/getMenuItems', {
 
 <script>
   updatelocalCollectionlist()
-  loadCollection()
-  function loadCollection(){
-    var username=localStorage.getItem("curr_user")
-    fetch('http://localhost:3001/loadCollection', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        username:username}),
-    })
-    .then(response => response.json())
-    .then(data => {
-      console.log(data)
-      var dataBody = document.getElementById('books_container');
-        var buttoncounter=1;
-      data.forEach(row => {
-                    console.log(row.ISBN)
-                    // console.log(row.ISBN)
-                      var rowHTML = '<div id="books">';
-                      rowHTML +="<div id='book'>"
-                      rowHTML += '<img src="' + row.Image_URL_L+'">' ;
-                      rowHTML += '<br>' + row.ISBN ;
-                      rowHTML += '<br>' + row.Book_Title ;
-                      rowHTML += '<br>' + row.Book_Author ;
-                      rowHTML += '<br>' + row.Year_Of_Publication+'<br>';
-                      //remeber to add function that calls collection list so that we can precheck this box. I think that it should probably just laod a users collection on login. 
-                      //Then provide a remove from colleciton option 
-                      if(localStorage.getItem('collection_log').includes(row.ISBN)){
-                        rowHTML += '<button id="button'+buttoncounter+'" style="background-color: crimson;color: white;border-radius: 10px;" '+' onclick="removeCollection('+buttoncounter+','+row.ISBN+')">'+'Remove From Collection-'+'</button>';
-                        console.log(' inclued')
-                      }else{
-                        console.log('not inclued')
-                        rowHTML += '<button id="button'+buttoncounter+'" style="border-radius:10px;" '+' onclick="addCollection('+buttoncounter+','+row.ISBN+')">'+'Add to Collection +'+'</button>';
+  
+  // function loadCollection(){
+  //   var username=localStorage.getItem("curr_user")
+  //   fetch('http://localhost:3001/loadCollection', {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //     },
+  //     body: JSON.stringify({
+  //       username:username}),
+  //   })
+  //   .then(response => response.json())
+  //   .then(data => {
+  //     console.log(data)
+  //     var dataBody = document.getElementById('books_container');
+  //       var buttoncounter=1;
+  //     data.forEach(row => {
+  //                   console.log(row.ISBN)
+  //                   // console.log(row.ISBN)
+  //                     var rowHTML = '<div id="books">';
+  //                     rowHTML +="<div id='book'>"
+  //                     rowHTML += '<img src="' + row.Image_URL_L+'">' ;
+  //                     rowHTML += '<br>' + row.ISBN ;
+  //                     rowHTML += '<br>' + row.Book_Title ;
+  //                     rowHTML += '<br>' + row.Book_Author ;
+  //                     rowHTML += '<br>' + row.Year_Of_Publication+'<br>';
+  //                     //remeber to add function that calls collection list so that we can precheck this box. I think that it should probably just laod a users collection on login. 
+  //                     //Then provide a remove from colleciton option 
+  //                     if(localStorage.getItem('collection_log').includes(row.ISBN)){
+  //                       rowHTML += '<button id="button'+buttoncounter+'" style="background-color: crimson;color: white;border-radius: 10px;" '+' onclick="removeCollection('+buttoncounter+','+row.ISBN+')">'+'Remove From Collection-'+'</button>';
+  //                       console.log(' inclued')
+  //                     }else{
+  //                       console.log('not inclued')
+  //                       rowHTML += '<button id="button'+buttoncounter+'" style="border-radius:10px;" '+' onclick="addCollection('+buttoncounter+','+row.ISBN+')">'+'Add to Collection +'+'</button>';
                         
-                      }                     
-                      buttoncounter=buttoncounter+1
+  //                     }                     
+  //                     buttoncounter=buttoncounter+1
 
-                      //rowHTML += '<br>' + row.Image_URL_S ;
-                      //rowHTML += '<br>' + row.Image_URL_M;
-                      //rowHTML += '<br>' + row.Image_URL_L ;
-                      //rowHTML += '<br>';
-                      rowHTML +="</div>"
+  //                     //rowHTML += '<br>' + row.Image_URL_S ;
+  //                     //rowHTML += '<br>' + row.Image_URL_M;
+  //                     //rowHTML += '<br>' + row.Image_URL_L ;
+  //                     //rowHTML += '<br>';
+  //                     rowHTML +="</div>"
 
-                      dataBody.innerHTML += rowHTML;
-                  });
+  //                     dataBody.innerHTML += rowHTML;
+  //                 });
 
-    })
-    .catch(error => {
-      console.log('update failed')
-      console.log('Error:', error);
-      alert(error)
+  //   })
+  //   .catch(error => {
+  //     console.log('update failed')
+  //     console.log('Error:', error);
+  //     alert(error)
 
-    });
-
-
+  //   });
 
 
-  }
+
+
+  // }
 
   function addCollection(buttoncounter,ISBN){
       user_forsend=localStorage.getItem('curr_user')

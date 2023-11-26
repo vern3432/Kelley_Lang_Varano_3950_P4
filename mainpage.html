@@ -109,12 +109,21 @@ function search(){
                         //remeber to add function that calls collection list so that we can precheck this box. I think that it should probably just laod a users collection on login. 
                         //Then provide a remove from colleciton option 
                         if(localStorage.getItem('collection_log').includes(row.ISBN)){
-                          rowHTML += '<button id="button'+buttoncounter+'" style="background-color: crimson;color: white;border-radius: 10px;" '+' onclick="removeCollection('+buttoncounter+','+row.ISBN+')">'+'Remove From Collection-'+'</button>';
+                          rowHTML += '<button id="button'+buttoncounter+'" style="background-color: crimson;color: white;border-radius: 10px;" '+' ">'+'Remove From Collection-'+'</button>';
                           console.log(' inclued')
+                          rowHTML +="</div>"
+                        console.log(rowHTML)
+                        dataBody.innerHTML += rowHTML;
+                          document.getElementById("button"+buttoncounter).setAttribute( "onclick", 'removeCollection('+buttoncounter+',"'+row.ISBN+'")')
+
+                          
                         }else{
                           console.log('not inclued')
-                          rowHTML += '<button id="button'+buttoncounter+'" style="border-radius:10px;" '+' onclick="addCollection('+buttoncounter+','+row.ISBN+')">'+'Add to Collection +'+'</button>';
-                          
+                          rowHTML += '<button id="button'+buttoncounter+'" style="border-radius:10px;" '+'">'+'Add to Collection +'+'</button>';
+                          rowHTML +="</div>"
+                        console.log(rowHTML)
+                        dataBody.innerHTML += rowHTML;
+                          document.getElementById("button"+buttoncounter).setAttribute( "onclick", 'addCollection('+buttoncounter+',"'+row.ISBN+'")')
                         }                     
                         buttoncounter=buttoncounter+1
 
@@ -122,9 +131,9 @@ function search(){
                         //rowHTML += '<br>' + row.Image_URL_M;
                         //rowHTML += '<br>' + row.Image_URL_L ;
                         //rowHTML += '<br>';
-                        rowHTML +="</div>"
+                        // rowHTML +="</div>"
 
-                        dataBody.innerHTML += rowHTML;
+                        // dataBody.innerHTML += rowHTML;
                     });
                 })
                 .catch(error => console.log('Error fetching data: ', error));
@@ -159,23 +168,28 @@ function submitTab(num_start) {
                         //remeber to add function that calls collection list so that we can precheck this box. I think that it should probably just laod a users collection on login. 
                         //Then provide a remove from colleciton option 
                         if(localStorage.getItem('collection_log').includes(row.ISBN)){
-                          rowHTML += '<button id="button'+buttoncounter+'" style="background-color: crimson;color: white;border-radius: 10px;" '+' onclick="removeCollection('+buttoncounter+','+row.ISBN+')">'+'Remove From Collection-'+'</button>';
+                          rowHTML += '<button id="button'+buttoncounter+'" style="background-color: crimson;color: white;border-radius: 10px;" '+' ">'+'Remove From Collection-'+'</button>';
                           console.log(' inclued')
-                          console.log(row.ISBN)
-
+                          rowHTML +="</div>"
+                        console.log(rowHTML)
+                        dataBody.innerHTML += rowHTML;
+                          document.getElementById("button"+buttoncounter).setAttribute( "onclick", 'removeCollection('+buttoncounter+',"'+row.ISBN+'")')
 
                         }else{
                           console.log('not inclued')
-                          rowHTML += '<button id="button'+buttoncounter+'" style="border-radius:10px;" '+' onclick="addCollection('+buttoncounter+','+row.ISBN+')">'+'Add to Collection +'+'</button>';
-                          
+                          rowHTML += '<button id="button'+buttoncounter+'" style="border-radius:10px;" '+'">'+'Add to Collection +'+'</button>';
+                          rowHTML +="</div>"
+                        console.log(rowHTML)
+                        dataBody.innerHTML += rowHTML;
+                          document.getElementById("button"+buttoncounter).setAttribute( "onclick", 'addCollection('+buttoncounter+',"'+row.ISBN+'")')
                         }
                         buttoncounter=buttoncounter+1
                         //rowHTML += '<br>' + row.Image_URL_S ;
                         //rowHTML += '<br>' + row.Image_URL_M;
                         //rowHTML += '<br>' + row.Image_URL_L ;
                         //rowHTML += '<br>';
-                        rowHTML +="</div>"
-                        dataBody.innerHTML += rowHTML;
+                        // rowHTML +="</div>"
+                        // dataBody.innerHTML += rowHTML;
 //                    dataBody.innerHTML='<div  style="display: flex;"> <input type="text" name="city" list="cityname" id="filterSelector"> <datalist id="cityname"> </datalist> <select  id="typeSelector" onchange=""> <option value="Book_Author">Author</option> <option value="Year_Of_Publication">Year</option> </select> - </div><div class="button-container" style="  display: flex;"><button  style="  margin-left: 40px;" onclick="skipback()">&laquo;</button> <button class="tabbutton" onclick="prev()" class="previous">&laquo; Previous</button><button onclick="next()" class="next">Next &raquo;</button><button  onclick="skipforward()">&raquo;</button></div>'
 
                         //                        document.getElementById("typeSelector").onchange =   selectorFill('cityname',document.getElementById('typeSelector').value)
@@ -291,7 +305,9 @@ function addCollection(buttoncounter,ISBN){
       HTMLOBJCET.style='background-color: crimson;color: white;border-radius: 10px;'
       HTMLOBJCET.innerHTML='Remove From Collection-'
       // HTMLOBJCET.oncick="removeCollection("+buttoncounter+","+ISBN+")"
-      click="removeCollection("+buttoncounter+","+ISBN+");"
+      click="removeCollection("+buttoncounter+","+'"'+ISBN+'"'+");"
+      console.log(click)
+      console.log("setting attribute")
       HTMLOBJCET.setAttribute( "onClick", click );
       updatelocalCollectionlist()
       // = '<button id="button'+buttoncounter+'" style="background-color: crimson;color: white;border-radius: 10px;" '+' onclick="addCollection('+buttoncounter+','+ISBN+')">'+'Remove From Collection-'+'</button>';
@@ -326,7 +342,7 @@ function removeCollection(buttoncounter,ISBN){
       HTMLOBJCET.style=''
       HTMLOBJCET.style='border-radius:10px;'
       HTMLOBJCET.innerHTML='Add to Collection +'
-      click="addCollection("+buttoncounter+","+ISBN+");"
+      click="addCollection("+buttoncounter+","+'"'+ISBN+'"'+");"
       HTMLOBJCET.setAttribute( "onClick", click );
       updatelocalCollectionlist()
 
