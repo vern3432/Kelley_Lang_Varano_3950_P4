@@ -13,25 +13,38 @@ const db = new sqlite3.Database(dbPath);
 
 
 
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+  res.setHeader('Access-Control-Allow-Credentials', true);
+
+  next();
+});
 
 
 //test code here
-app.post("/updateFill_complete", (req, res) => {
-  console.log("getting data for table:search");
-  const search_term = req.body.search_term;
-  const type = req.body.type;
-
+app.use(express.json());
+app.post("/updateFillcomplete", (req, res) => {
+  console.log("getting data for table:updateFillcomplete");
+  const author = req.body.author1;
+  const type=req.body.type;
+  console.log()
   // const type='Book_Title'
-  console.log(search_term);
+  console.log(author);
   ///expression [ NOT ] SIMILAR TO pattern [ ESCAPE 'escape_char' ]
-  //  const query = 'SELECT * FROM menuItems where '+type+' SIMILAR TO pattern '+ search_term;
+  //  const query = 'SELECT * FROM menuItems tal '+type+' SIMILAR TO pattern '+ search_term;
   //  const query = 'SELECT * FROM menuItems WHERE '+type+' LIKE '+ '%'+search_term+ '%';
 
   const query =
     "SELECT * FROM menuItems WHERE " +
     type +
     ' LIKE "%' +
-    search_term +
+    author +
     '%"' +
     "COLLATE SQL_Latin1_General_CP1_CI_AS";
   console.log(query);
@@ -71,14 +84,6 @@ app.post("/updateFill_complete", (req, res) => {
 
 
 
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
-  );
-  next();
-});
 app.use(express.json());
 
 app.get("/data", (req, res) => {
@@ -94,7 +99,7 @@ app.get("/data", (req, res) => {
 });
 
 
-/
+
 app.post('/fetchDataAdvanced', (req, res) => {
   console.log("Fetching advanced")
    const author=req.body.author;
@@ -107,12 +112,13 @@ app.post('/fetchDataAdvanced', (req, res) => {
  
 
    if (author) {
-      query =query+ ` AND Book_Author ='${author}'`+'';
+      query =query+ ` AND Book_Author LIKE '${author}'`+'';
    }
 
     if (year) {
-      query =query+` AND Year_Of_Publication =${year}`+'';
+      query =query+` AND Year_Of_Publication LIKE ${year}`+'';
   }
+  
   console.log(query)
    db.all(query, (err, rows) => {
       if (err) {

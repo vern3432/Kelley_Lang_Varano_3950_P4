@@ -483,29 +483,28 @@ function breadcrumb(type,text){
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>Book Browser</title>
 </head>
+<form id="filterForm">
+    <label for="browser">Select author:</label>
+    <input list="author2" name="author" id="author" oninput="updateFill_complete()">
+    <datalist id="author2">
+        <option value="United Kingdom">United Kingdom</option>
 
-    <body id="pagecontent">
+    </datalist>
+
+
+     <label for="year">Select year:</label>
+     <select id="year" name="year">
+     </select>
+
+     <button type="button" onclick="submitAdvanced()">Fetch Data</button>
+  </form>
+
+<body id="pagecontent">
 
 
    <div id="app">
 
 
-      <form id="filterForm">
-        <label for="browser">Select author:</label>
-        <input list="author2" name="author" id="author">
-        <datalist id="author2">
-            <option value="United Kingdom">United Kingdom</option>
-
-        </datalist>
-        </input>
-
-
-         <label for="year">Select year:</label>
-         <select id="year" name="year">
-         </select>
-
-         <button type="button" onclick="submitAdvanced()">Fetch Data</button>
-      </form>
 
       <div id="result">
          <!-- Display the fetched data here -->
