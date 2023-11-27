@@ -40,14 +40,17 @@ app.post("/submitpost", (req, res) => {
   // res.json(req.body);
   // jsson=res.json(req.body)
   // console.log(jsson)
-  const username = req.body.user_name;
-  const password = req.body.pass_word;
-  const pfp = req.body.pfp;
-  const bio = req.body.bio;
+  const title = req.body.title;
+  const Lurl = req.body.Lurl;
+  const ISBN = req.body.ISBN;
+  const Pub_Year = req.body.Pub_Year;
+  const Publisher = req.body.Publisher;
+  const Author = req.body.Author;
+  const Poster = req.body.Poster;
 
-  console.log(username);
+  console.log(Poster);
   // Check if username is unique
-  db.get("SELECT * FROM menuItems WHERE ISBN = ?", [username], (err, row) => {
+  db.get("SELECT * FROM menuItems WHERE ISBN = ?", [ISBN], (err, row) => {
     if (err) {
       res.status(500).send(err.message);
       return;
@@ -61,8 +64,8 @@ app.post("/submitpost", (req, res) => {
     } else {
       // Username is unique, proceed with signup
       db.run(
-        "INSERT INTO users (username, password,profile_url,bio,collection) VALUES (?, ?,?,?,?)",
-        [username, password, pfp, bio,''],
+        'insert into menuItems (ISBN,Book_Title,Book_Author,Year_Of_Publication,Publisher,Image_URL_S,Image_URL_M,Image_URL_L,poster) VALUES (?, ?,?,?,?,?,?,?,?)',
+        [ISBN, title, Author, Pub_Year,Publisher,null,null,Lurl,Poster],
         (err) => {
           if (err) {
             res.status(500).send(err.message);
@@ -70,7 +73,7 @@ app.post("/submitpost", (req, res) => {
             return;
           }
 
-          res.status(200).json({ message: "Signup successful. Please Login" });
+          res.status(200).json({ message: "Post successful. Redirecting to new Post Page" });
         }
       );
     }
