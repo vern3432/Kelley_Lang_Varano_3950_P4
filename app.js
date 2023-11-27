@@ -56,9 +56,11 @@ function loadYearsAdvanced() {
     })
       .then((response) => response.json())
       .then((data) => {
-        var author2 = document.getElementById("year");
+        var year = document.getElementById("year");
         var buttoncounter = 1;
-        author2.innerHTML = "";
+        year.innerHTML = "";
+        var option = document.createElement("option");
+        year.appendChild(option);
         data.forEach((row) => {
             console.log("row value"+row)
           if (!checkForUnique.includes(row.Year_Of_Publication.toUpperCase())) {
