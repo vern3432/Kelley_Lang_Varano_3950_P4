@@ -103,7 +103,9 @@
         alert(data.message || data.error);
         document.getElementById('user').value=username;
         document.getElementById('password').value=password
-        location.reload();
+        submitLoginForm();
+
+        // location.reload();
 
       })
       .catch(error => {
@@ -136,7 +138,6 @@
         localStorage.setItem("collection_log",null);
         localStorage.setItem("Year_Of_Publication",null);
         localStorage.setItem("current_user",null);
-
         // // submitLoginForm();
         alert("success:")
         window.open('mainpage.html',"_self");
