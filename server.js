@@ -60,7 +60,6 @@ app.post("/updateFillcomplete", (req, res) => {
   });
 });
 
-
 app.post("/loadYearsAdvanced", (req, res) => {
   console.log("getting data for table:loadYearsAdvanced");
   const author = req.body.author1;
@@ -73,7 +72,9 @@ app.post("/loadYearsAdvanced", (req, res) => {
   //  const query = 'SELECT * FROM menuItems WHERE '+type+' LIKE '+ '%'+search_term+ '%';
 
   const query =
-    "SELECT DISTINCT "+type+ " FROM menuItems WHERE Book_Author" +
+    "SELECT DISTINCT " +
+    type +
+    " FROM menuItems WHERE Book_Author" +
     ' LIKE "%' +
     author +
     '%"' +
@@ -88,10 +89,6 @@ app.post("/loadYearsAdvanced", (req, res) => {
     res.json(rows);
   });
 });
-
-
-
-
 
 //test code here
 
@@ -115,21 +112,22 @@ app.post("/fetchDataAdvanced", (req, res) => {
   const year = req.body.year;
   console.log("author:" + author);
   console.log("year:" + year);
-  collation='COLLATE SQL_Latin1_General_CP1_CI_AS'
+  collation = "COLLATE SQL_Latin1_General_CP1_CI_AS";
   let query = "SELECT * FROM menuItems WHERE 1=1";
   if (year) {
     query = query + ` AND Year_Of_Publication = ${year}` + "";
   }
 
   if (author) {
-    query = query + ' AND Book_Author LIKE "%' +
-    author +
-    '%"' +
-    " COLLATE SQL_Latin1_General_CP1_CI_AS"
+    query =
+      query +
+      ' AND Book_Author LIKE "%' +
+      author +
+      '%"' +
+      " COLLATE SQL_Latin1_General_CP1_CI_AS";
   }
 
-
-  "COLLATE SQL_Latin1_General_CP1_CI_AS"
+  ("COLLATE SQL_Latin1_General_CP1_CI_AS");
 
   console.log(query);
   db.all(query, (err, rows) => {

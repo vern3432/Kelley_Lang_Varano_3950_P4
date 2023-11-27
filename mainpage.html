@@ -136,6 +136,10 @@ function search(){
 
                         // dataBody.innerHTML += rowHTML;
                     });
+                    const element = document.getElementById("typeSelector");
+                    element.remove();
+                    const element2 = document.getElementById("filterSelector");
+                    element2.remove();
                 })
                 .catch(error => console.log('Error fetching data: ', error));
     }
@@ -209,6 +213,10 @@ function submitTab(num_start) {
                         document.getElementById( "typeSelector" ).setAttribute( "onchange", "selectorFill('cityname',document.getElementById('typeSelector').value)" );
 
                     });
+                    const element = document.getElementById("typeSelector");
+                    element.remove();
+                    const element2 = document.getElementById("filterSelector");
+                    element2.remove();
                 })
                 .catch(error => console.log('Error fetching data: ', error));
     }
@@ -489,7 +497,7 @@ function breadcrumb(type,text){
     </div>
   
 
-<button onclick="selectorFill('cityname','Book_Author')">ctest click</button>
+<!-- <button onclick="selectorFill('cityname','Book_Author')">ctest click</button> -->
 
 
 
