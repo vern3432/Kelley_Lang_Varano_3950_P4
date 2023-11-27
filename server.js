@@ -15,8 +15,37 @@ const db = new sqlite3.Database(dbPath);
 
 
 
+//test code here
+app.post("/updateFill_complete", (req, res) => {
+  console.log("getting data for table:search");
+  const search_term = req.body.search_term;
+  const type = req.body.type;
 
+  // const type='Book_Title'
+  console.log(search_term);
+  ///expression [ NOT ] SIMILAR TO pattern [ ESCAPE 'escape_char' ]
+  //  const query = 'SELECT * FROM menuItems where '+type+' SIMILAR TO pattern '+ search_term;
+  //  const query = 'SELECT * FROM menuItems WHERE '+type+' LIKE '+ '%'+search_term+ '%';
 
+  const query =
+    "SELECT * FROM menuItems WHERE " +
+    type +
+    ' LIKE "%' +
+    search_term +
+    '%"' +
+    "COLLATE SQL_Latin1_General_CP1_CI_AS";
+  console.log(query);
+  db.all(query, [], (err, rows) => {
+    if (err) {
+      res.status(500).send(err.message);
+      return;
+    }
+    console.log("sending");
+    res.json(rows);
+  });
+});
+
+//test code here
 
 
 
@@ -65,12 +94,7 @@ app.get("/data", (req, res) => {
 });
 
 
-//test code here
-
-
-// Handle AJAX requests
-
-// API endpoint for fetching data based on filters
+/
 app.post('/fetchDataAdvanced', (req, res) => {
   console.log("Fetching advanced")
    const author=req.body.author;
@@ -78,7 +102,6 @@ app.post('/fetchDataAdvanced', (req, res) => {
    console.log("author:"+author)
    console.log("year:"+year)
 
-   // Construct your SQL query based on the filters
    let query = 'SELECT * FROM menuItems WHERE 1=1';
 
  
@@ -91,7 +114,6 @@ app.post('/fetchDataAdvanced', (req, res) => {
       query =query+` AND Year_Of_Publication =${year}`+'';
   }
   console.log(query)
-   // Execute the query
    db.all(query, (err, rows) => {
       if (err) {
          console.error(err.message);

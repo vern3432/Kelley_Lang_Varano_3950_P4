@@ -488,24 +488,17 @@ function breadcrumb(type,text){
 
 
    <div id="app">
-    <datalist id="cityname">
-        <option value="Boston">
-        <option value="Cambridge">
-   
-      </datalist>
+
+
       <form id="filterForm">
-        <!-- <select  id="typeSelector">
-            <option value="Book_Author">Author</option>
-            <option value="Year_Of_Publication">Year</option>
-          </select> - -->
+        <label for="browser">Select author:</label>
+        <input list="author2" name="author" id="author">
+        <datalist id="author2">
+            <option value="United Kingdom">United Kingdom</option>
 
+        </datalist>
+        </input>
 
-         <label for="author">Select author:</label>
-         <select id="author" name="author">
-            <option value="null"></option>
-            <option value="Jane Austen">Jane Austen</option>
-
-         </select>
 
          <label for="year">Select year:</label>
          <select id="year" name="year">
