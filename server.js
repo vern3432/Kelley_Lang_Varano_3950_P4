@@ -115,16 +115,21 @@ app.post("/fetchDataAdvanced", (req, res) => {
   const year = req.body.year;
   console.log("author:" + author);
   console.log("year:" + year);
-
+  collation='COLLATE SQL_Latin1_General_CP1_CI_AS'
   let query = "SELECT * FROM menuItems WHERE 1=1";
+  if (year) {
+    query = query + ` AND Year_Of_Publication = ${year}` + "";
+  }
 
   if (author) {
-    query = query + ` AND Book_Author LIKE '${author}'` + "";
+    query = query + ' AND Book_Author LIKE "%' +
+    author +
+    '%"' +
+    " COLLATE SQL_Latin1_General_CP1_CI_AS"
   }
 
-  if (year) {
-    query = query + ` AND Year_Of_Publication LIKE '${year}'` + "";
-  }
+
+  "COLLATE SQL_Latin1_General_CP1_CI_AS"
 
   console.log(query);
   db.all(query, (err, rows) => {
