@@ -10,6 +10,75 @@ const db = new sqlite3.Database(dbPath);
 // const userDbPath = path.resolve(__dirname, 'user.db');
 // const userDb = new sqlite3.Database(userDbPath);
 
+
+
+
+
+
+//test code here
+
+
+// Handle AJAX requests
+
+// API endpoint for fetching data based on filters
+app.post('fetchDataAdvanced', (req, res) => {
+   const { year, author } = req.body;
+
+   // Construct your SQL query based on the filters
+   let query = 'SELECT * FROM menuItems WHERE 1=1';
+
+ 
+
+   if (author) {
+      query += ` AND Book_Author = '${author}'`;
+   }
+   
+   if (year) {
+    query += ` AND Year_Of_Publication = ${year}`;
+ }
+
+   // Execute the query
+   db.all(query, (err, rows) => {
+      if (err) {
+         console.error(err.message);
+         res.status(500).json({ error: 'Internal Server Error' });
+      } else {
+         res.json(rows);
+      }
+   });
+});
+
+
+
+//test code here
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
   res.header(

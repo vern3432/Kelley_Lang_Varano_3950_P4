@@ -212,7 +212,7 @@ function submitTab(num_start) {
                 })
                 .catch(error => console.log('Error fetching data: ', error));
     }
-    submitTab(localStorage.getItem("counter"))
+    // submitTab(localStorage.getItem("counter"))
 
     function next(){
       if(parseInt(localStorage.getItem('counter'))+20>100000000){
@@ -473,23 +473,64 @@ function breadcrumb(type,text){
 
 
     </html> 
-    
 
-    <div style="display: flex;">
+<!-- public/index.html -->
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Book Browser</title>
+</head>
+<body>
+   <div id="app">
+      <form id="filterForm">
+         <label for="year">Select Year:</label>
+         <select id="year" name="year">
+            <!-- Populate options dynamically using JavaScript -->
+         </select>
+
+         <label for="author">Select Author:</label>
+         <select id="author" name="author">
+            <!-- Populate options dynamically using JavaScript -->
+         </select>
+
+         <button type="button" onclick="fetchData()">Fetch Data</button>
+      </form>
+
+      <div id="result">
+         <!-- Display the fetched data here -->
+      </div>
+   </div>
+   <script src="script.js"></script>
+</body>
+</html>
+
+
+
+</html>
+
+
+
+
+
+
+    <!-- <div style="display: flex;">
       <input type="text" name="city" list="cityname" id="filterSelector">
       <datalist id="cityname">
         <!-- <option value="Boston">
         <option value="Cambridge">
    -->
-      </datalist>
+      <!-- </datalist>
       <select  id="typeSelector">
         <option value="Book_Author">Author</option>
         <option value="Year_Of_Publication">Year</option>
       </select> -
     </div>
-  
+   -->
 
-<button onclick="selectorFill('cityname','Book_Author')">ctest click</button>
+<!-- <button onclick="selectorFill('cityname','Book_Author')">ctest click</button> -->
 
 
 
@@ -554,6 +595,20 @@ function selectorFill(form,type){
   // selectorFill("cityname","year")
 
 </script>
+
+<script>
+    
+</script>
+
+
+
+
+
+
+
+
+
+
 
 
 
