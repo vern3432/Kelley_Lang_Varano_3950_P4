@@ -17,3 +17,4 @@ Type into the author feild, which, as it types will have a live updating recomen
 As this updates, the year selector is additionally filled out with first, a value of nothing, which has not specification for 
 year and is the default. The rest is years avalible in the search for the author. Press fetch button data 
 to retrieve given search. 
+As one browses, breadcrumbs are genreated
