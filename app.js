@@ -175,6 +175,12 @@ function submitAdvanced(num_start) {
             "onchange",
             "selectorFill('cityname',document.getElementById('typeSelector').value)"
           );
+          const element = document.getElementById("typeSelector");
+          element.remove();
+          const element2 = document.getElementById("filterSelector");
+          element2.remove();
+
+
       });
     })
     .catch((error) => console.log("Error fetching data: ", error));
