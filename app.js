@@ -1,7 +1,8 @@
-function submitTab(num_start) {
+function submitAdvanced(num_start) {
+    console.log("fetching filter")
     console.log( 'collection log:'+localStorage.getItem('collection_log'))
-    var selected_year=getElementById('year').value
-    var author=getElementById('author').value
+    var selected_year=document.getElementById('year').value
+    var author=document.getElementById('author').value
 
       fetch('http://localhost:3001/fetchDataAdvanced', {
         method: 'POST',

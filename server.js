@@ -15,43 +15,6 @@ const db = new sqlite3.Database(dbPath);
 
 
 
-//test code here
-
-
-// Handle AJAX requests
-
-// API endpoint for fetching data based on filters
-app.post('fetchDataAdvanced', (req, res) => {
-   const { year, author } = req.body;
-
-   // Construct your SQL query based on the filters
-   let query = 'SELECT * FROM menuItems WHERE 1=1';
-
- 
-
-   if (author) {
-      query += ` AND Book_Author = '${author}'`;
-   }
-   
-   if (year) {
-    query += ` AND Year_Of_Publication = ${year}`;
- }
-
-   // Execute the query
-   db.all(query, (err, rows) => {
-      if (err) {
-         console.error(err.message);
-         res.status(500).json({ error: 'Internal Server Error' });
-      } else {
-         res.json(rows);
-      }
-   });
-});
-
-
-
-//test code here
-
 
 
 
@@ -100,6 +63,58 @@ app.get("/data", (req, res) => {
     res.json(rows);
   });
 });
+
+
+//test code here
+
+
+// Handle AJAX requests
+
+// API endpoint for fetching data based on filters
+app.post('/fetchDataAdvanced', (req, res) => {
+  console.log("Fetching advanced")
+   const author=req.body.author;
+   const year=req.body.year;
+   console.log("author:"+author)
+   console.log("year:"+year)
+
+   // Construct your SQL query based on the filters
+   let query = 'SELECT * FROM menuItems WHERE 1=1';
+
+ 
+
+   if (author) {
+      query =query+ ` AND Book_Author ='${author}'`+'';
+   }
+
+    if (year) {
+      query =query+` AND Year_Of_Publication =${year}`+'';
+  }
+  console.log(query)
+   // Execute the query
+   db.all(query, (err, rows) => {
+      if (err) {
+         console.error(err.message);
+         res.status(500).json({ error: 'Internal Server Error' });
+      } else {
+         res.json(rows);
+      }
+   });
+});
+
+
+
+//test code here
+
+
+
+
+
+
+
+
+
+
 
 
 

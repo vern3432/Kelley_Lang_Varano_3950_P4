@@ -476,36 +476,48 @@ function breadcrumb(type,text){
 
 <!-- public/index.html -->
 <!-- index.html -->
-<!DOCTYPE html>
-<html lang="en">
+<script src="app.js"></script>
+
 <head>
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>Book Browser</title>
 </head>
-<body>
+
+    <body id="pagecontent">
+
+
    <div id="app">
       <form id="filterForm">
-         <label for="year">Select Year:</label>
-         <select id="year" name="year">
-            <!-- Populate options dynamically using JavaScript -->
-         </select>
-
-         <label for="author">Select Author:</label>
+         <label for="author">Select author:</label>
          <select id="author" name="author">
-            <!-- Populate options dynamically using JavaScript -->
+            <option value="null"></option>
+            <option value="Jane Austen">Jane Austen</option>
+
          </select>
 
-         <button type="button" onclick="fetchData()">Fetch Data</button>
+         <label for="year">Select year:</label>
+         <select id="year" name="year">
+         </select>
+
+         <button type="button" onclick="submitAdvanced()">Fetch Data</button>
       </form>
 
       <div id="result">
          <!-- Display the fetched data here -->
       </div>
    </div>
-   <script src="script.js"></script>
+   <div id="books_container">
+      
+    <!-- <button type="button">Click Me!</button> -->
+
+
+<!--     
+    <a href="#" class="previous round">&#8249;</a>
+    <a href="#" class="next round">&#8250;</a>
+       -->
+      </div>
 </body>
-</html>
 
 
 
