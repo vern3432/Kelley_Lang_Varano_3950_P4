@@ -32,6 +32,59 @@ app.get("/data", (req, res) => {
   });
 });
 
+
+
+app.post("/submitpost", (req, res) => {
+  console.log(" sign up request received called");
+  // const { username, password } = req.body;
+  // res.json(req.body);
+  // jsson=res.json(req.body)
+  // console.log(jsson)
+  const username = req.body.user_name;
+  const password = req.body.pass_word;
+  const pfp = req.body.pfp;
+  const bio = req.body.bio;
+
+  console.log(username);
+  // Check if username is unique
+  db.get("SELECT * FROM menuItems WHERE ISBN = ?", [username], (err, row) => {
+    if (err) {
+      res.status(500).send(err.message);
+      return;
+    }
+
+    if (row) {
+      // Username already exists
+      res
+        .status(400)
+        .json({ error: "ISBN already exists. Please choose another." });
+    } else {
+      // Username is unique, proceed with signup
+      db.run(
+        "INSERT INTO users (username, password,profile_url,bio,collection) VALUES (?, ?,?,?,?)",
+        [username, password, pfp, bio,''],
+        (err) => {
+          if (err) {
+            res.status(500).send(err.message);
+            console.log("insert failed");
+            return;
+          }
+
+          res.status(200).json({ message: "Signup successful. Please Login" });
+        }
+      );
+    }
+  });
+  console.log("sign up successful");
+});
+
+
+
+
+
+
+
+
 app.post("/signup", (req, res) => {
   console.log(" sign up request received called");
   // const { username, password } = req.body;
@@ -135,45 +188,9 @@ app.post("/tab_page_request", (req, res) => {
     res.json(rows);
   });
 });
-//080652121X this isbn wasnt found. need to find out why that is
-// app.post('/failed', (req, res) => {
-//   console.log('getting data for table:loadCollection')
-//   const username = req.body.username;
-//   console.log(username)
-// ///go back and make for loop async
-//   db.get('SELECT * FROM users WHERE (username) IN ( VALUES (?))', [username], (err, row) => {
-//     if (err) {
-//       console.log("this error")
-//       res.status(500).send(err.message);
-//     }
-//     else if (row) {
-//       // Username already exists
-//       console.log("row found")
-//       console.log(row.collection)
-//       var array=row.collection.replaceAll("'","").replaceAll('"',"").replaceAll(',,',",").replaceAll(',,',",").replaceAll(',,',",").replaceAll(',,',",").replaceAll(' ',"").split(",")
-//       console.log(array)
-//       array=array.filter(function(item){
-//           return item.length>1
 
-//       })
-//       var rows= '{}'
-//       console.log(array.length)
-//       for(let i=0;i<=array.length;i++){
-//         const query = 'SELECT * FROM menuItems '+' WHERE ISBN="'+array[i]+'"';
-//         console.log(query)
-
-//     }
-//     }
-
-//   });
-// });
-
-// const sqlite3 = require('sqlite3').verbose();
 const { promisify } = require("util");
 
-// SQLite database setup
-
-// Promisify the query function to use async/await
 const dbRun = promisify(db.run.bind(db));
 const dbAll = promisify(db.all.bind(db));
 
@@ -523,3 +540,39 @@ app.listen(port, () => {
 // }
 // });
 // });
+
+
+//080652121X this isbn wasnt found. need to find out why that is
+// app.post('/failed', (req, res) => {
+//   console.log('getting data for table:loadCollection')
+//   const username = req.body.username;
+//   console.log(username)
+// ///go back and make for loop async
+//   db.get('SELECT * FROM users WHERE (username) IN ( VALUES (?))', [username], (err, row) => {
+//     if (err) {
+//       console.log("this error")
+//       res.status(500).send(err.message);
+//     }
+//     else if (row) {
+//       // Username already exists
+//       console.log("row found")
+//       console.log(row.collection)
+//       var array=row.collection.replaceAll("'","").replaceAll('"',"").replaceAll(',,',",").replaceAll(',,',",").replaceAll(',,',",").replaceAll(',,',",").replaceAll(' ',"").split(",")
+//       console.log(array)
+//       array=array.filter(function(item){
+//           return item.length>1
+
+//       })
+//       var rows= '{}'
+//       console.log(array.length)
+//       for(let i=0;i<=array.length;i++){
+//         const query = 'SELECT * FROM menuItems '+' WHERE ISBN="'+array[i]+'"';
+//         console.log(query)
+
+//     }
+//     }
+
+//   });
+// });
+
+// const sqlite3 = require('sqlite3').verbose();

@@ -74,21 +74,233 @@ Browsing filters
   </div>
 </div>
 
+<style>
+    * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-font-smoothing: antialiased;
+  -o-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
 
+body {
+  font-family: "Roboto", Helvetica, Arial, sans-serif;
+  font-weight: 100;
+  font-size: 12px;
+  line-height: 30px;
+  color: #777;
+  background: #FFFDD0;;
+}
+
+.container {
+  max-width: 400px;
+  width: 100%;
+  margin: 0 auto;
+  position: relative;
+}
+
+#post input[type="text"],
+#post input[type="email"],
+#post input[type="tel"],
+#post input[type="url"],
+#post textarea,
+#post button[type="submit"] {
+  font: 400 12px/16px "Roboto", Helvetica, Arial, sans-serif;
+}
+
+#post {
+  border-radius: 10px;
+
+  background: #F9F9F9;
+  padding: 25px;
+  margin: 150px 0;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+
+#post h3 {
+  display: block;
+  font-size: 30px;
+  font-weight: 300;
+  margin-bottom: 10px;
+}
+
+#post h4 {
+  margin: 5px 0 15px;
+  display: block;
+  font-size: 13px;
+  font-weight: 400;
+}
+
+fieldset {
+  border: medium none !important;
+  margin: 0 0 10px;
+  min-width: 100%;
+  padding: 0;
+  width: 100%;
+}
+
+#post input[type="text"],
+#post input[type="email"],
+#post input[type="tel"],
+#post input[type="url"],
+#post textarea {
+  width: 100%;
+  border: 1px solid #ccc;
+  background: #FFF;
+  margin: 0 0 5px;
+  padding: 10px;
+}
+
+#post input[type="text"]:hover,
+#post input[type="email"]:hover,
+#post input[type="tel"]:hover,
+#post input[type="url"]:hover,
+#post textarea:hover {
+  -webkit-transition: border-color 0.3s ease-in-out;
+  -moz-transition: border-color 0.3s ease-in-out;
+  transition: border-color 0.3s ease-in-out;
+  border: 1px solid #aaa;
+}
+
+#post textarea {
+  height: 100px;
+  max-width: 100%;
+  resize: none;
+}
+
+#post button[type="button"] {
+  cursor: pointer;
+  width: 100%;
+  border: none;
+  background: #6d0000;
+  color: #FFF;
+  margin: 0 0 5px;
+  padding: 10px;
+  font-size: 15px;
+}
+
+#post button[type="button"]:hover {
+  background: #43A047;
+  -webkit-transition: background 0.3s ease-in-out;
+  -moz-transition: background 0.3s ease-in-out;
+  transition: background-color 0.3s ease-in-out;
+}
+
+#post button[type="button"]:active {
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+#post input:focus,
+#post textarea:focus {
+  outline: 0;
+  border: 1px solid #aaa;
+}
+
+::-webkit-input-placeholder {
+  color: #888;
+}
+
+:-moz-placeholder {
+  color: #888;
+}
+
+::-moz-placeholder {
+  color: #888;
+}
+
+:-ms-input-placeholder {
+  color: #888;
+}
+</style>
 
 <body id="pagecontent">
-  <div id="books_container">
+    <div class="container">  
+        <form id="post" action="" method="post">
+          <h3>Add a Book to Our Collection</h3>
+          <fieldset>
+            <label class="pagecontent" for="title">Book Title</label><br>
+            <input class="pagecontent" type="text" id="title" name="title" placeholder="Book Title Here"><br>    </fieldset>
+          <fieldset>
+            <label  class="pagecontent"for="url">Book Cover Url
+            </label><br>
+            <input class="pagecontent" type="text" id="url" name="url" placeholder="Image Url Here"><br>
+              </fieldset>
+              <fieldset>
+                <label  class="pagecontent"for="ISBN">ISBN
+                </label><br>
+                <input class="pagecontent" type="text" id="ISBN" name="ISBN" placeholder="Book ISBN  Here"><br>
+                  </fieldset>
+              <fieldset>
+                <fieldset>
+                    <label  class="pagecontent"for="Pub_Year">Publication Year
+                    </label><br>
+                    <input class="pagecontent" type="text" id="Pub_Year" name="Pub_Year" placeholder="Book Publication Year Here"><br>
+                      </fieldset>
+                  <fieldset>
+                    <fieldset>
+                        <label  class="pagecontent"for="Publisher">Publisher
+                        </label><br>
+                        <input class="pagecontent" type="text" id="Publisher" name="Publisher" placeholder="Publisher Year Here"><br>
+                          </fieldset>
+                      <fieldset>
 
-    <!-- <button type="button">Click Me!</button> -->
-
-
-<!--     
-    <a href="#" class="previous round">&#8249;</a>
-    <a href="#" class="next round">&#8250;</a>
-       -->
+                    <fieldset>
+                        <label  class="pagecontent"for="Author">Book Author
+                        </label><br>
+                        <input class="pagecontent" type="text" id="Author" name="Author" placeholder="Book Author Here"><br><br>
+                          </fieldset>
+                      <fieldset>
+            <button name="submit" type="button" onclick = "submitpost()" id="post-submit" data-submit="...Sending">Submit</button>
+          </fieldset>
+        </form>
       </div>
+    
     </body>
 </body>
+
+
+<script>
+    function submitpost(){
+        const title = document.getElementById('title').value;
+        const Lurl = document.getElementById('url').value;
+        const ISBN = document.getElementById('ISBN').value;
+        const Pub_Year = document.getElementById('Pub_Year').value;
+        const Publisher = document.getElementById('Publisher').value;
+        const Author = document.getElementById('Author').value;
+        const Poster = localStorage.getItem("curr_user")
+
+        fetch('http://localhost:3001/submitpost', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ 
+            title:title, 
+            Lurl:Lurl,
+            ISBN:ISBN,
+            Pub_Year:Pub_Year,
+            Publisher:Publisher,
+            Author:Author,
+            Poster:Poster,
+
+        }),
+      })
+      .then(response => response.json())
+      .then(data => {
+        alert(data.message || data.error);
+
+
+      })
+      .catch(error => {
+        alert('Error:', error);
+        alert('A Local error occurred. Please try again.');
+      });
+    }
+</script>
 <!-- <button onclick="updatelocalCollectionlist()">update</button> -->
 </html>
 
