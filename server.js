@@ -60,6 +60,39 @@ app.post("/updateFillcomplete", (req, res) => {
   });
 });
 
+
+app.post("/loadYearsAdvanced", (req, res) => {
+  console.log("getting data for table:loadYearsAdvanced");
+  const author = req.body.author1;
+  const type = req.body.type;
+  console.log();
+  // const type='Book_Title'
+  console.log(author);
+  ///expression [ NOT ] SIMILAR TO pattern [ ESCAPE 'escape_char' ]
+  //  const query = 'SELECT * FROM menuItems tal '+type+' SIMILAR TO pattern '+ search_term;
+  //  const query = 'SELECT * FROM menuItems WHERE '+type+' LIKE '+ '%'+search_term+ '%';
+
+  const query =
+    "SELECT DISTINCT "+type+ " FROM menuItems WHERE Book_Author" +
+    ' LIKE "%' +
+    author +
+    '%"' +
+    "COLLATE SQL_Latin1_General_CP1_CI_AS";
+  console.log(query);
+  db.all(query, [], (err, rows) => {
+    if (err) {
+      res.status(500).send(err.message);
+      return;
+    }
+    console.log("sending");
+    res.json(rows);
+  });
+});
+
+
+
+
+
 //test code here
 
 app.use(express.json());
@@ -90,7 +123,7 @@ app.post("/fetchDataAdvanced", (req, res) => {
   }
 
   if (year) {
-    query = query + ` AND Year_Of_Publication LIKE ${year}` + "";
+    query = query + ` AND Year_Of_Publication LIKE '${year}'` + "";
   }
 
   console.log(query);

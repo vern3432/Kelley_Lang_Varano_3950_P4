@@ -31,13 +31,49 @@ function updateFill_complete() {
             author2.appendChild(option);
           }
         });
+        loadYearsAdvanced() 
       })
       .catch((error) => console.log("Error fetching data: ", error));
   }
 }
 
-function loadYearsAdvanced() {}
-
+function loadYearsAdvanced() {
+  console.log("rnning fill years column");
+  const author1 = document.getElementById("author").value;
+  var checkForUnique = [];
+  if (author1.length > 1) {
+    console.log(author1);
+    var searchtype = "Year_Of_Publication";
+    fetch("http://localhost:3001/loadYearsAdvanced", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        author1: author1,
+        type: searchtype,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        var author2 = document.getElementById("year");
+        var buttoncounter = 1;
+        author2.innerHTML = "";
+        data.forEach((row) => {
+            console.log("row value"+row)
+          if (!checkForUnique.includes(row.Year_Of_Publication.toUpperCase())) {
+            checkForUnique.push(row.Year_Of_Publication.toUpperCase());
+            console.log(row.Year_Of_Publication);
+            var option = document.createElement("option");
+            option.value = row.Year_Of_Publication;
+            option.innerHTML = row.Year_Of_Publication;
+            year.appendChild(option);
+          }
+        });
+      })
+      .catch((error) => console.log("Error fetching data: ", error));
+  }
+}
 
 function submitAdvanced(num_start) {
   console.log("fetching filter");
