@@ -8,7 +8,7 @@ console.log("imported")
 // create table
 
 //  db.exec( 'DROP TABLE menuItems;' );
-db.exec('DROP TABLE IF EXISTS menuItemsuser');
+db.exec('DROP TABLE IF EXISTS menuItems');
 console.log("table dropped")
 db.exec( 'CREATE TABLE IF NOT EXISTS menuItems (ISBN TEXT, Book_Title TEXT,Book_Author TEXT,Year_Of_Publication TEXT,Publisher TEXT,Image_URL_S TEXT,Image_URL_M TEXT, Image_URL_L TEXT, poster TEXT );' );
 console.log("executed")
@@ -18,7 +18,7 @@ fs.createReadStream('data2.csv')
   .pipe(csv({"separator":","}))
   .on('data', (row) => {
     console.log(row)
-    insrow.run(row.ISBN,row.Book_Title,row.Book_Author,row.Year_Of_Publication,row.Publisher,row.Image_URL_S,row.Image_URL_M,row.Image_URL_L,'NAN');
+    insrow.run(row.ISBN,row.Book_Title,row.Book_Author,row.Year_Of_Publication,row.Publisher,row.Image_URL_S,row.Image_URL_M,row.Image_URL_L,'');
     console.log(row);
   })
   .on('end', () => {
