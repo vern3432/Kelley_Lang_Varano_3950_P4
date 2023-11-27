@@ -10,30 +10,32 @@ const db = new sqlite3.Database(dbPath);
 // const userDbPath = path.resolve(__dirname, 'user.db');
 // const userDb = new sqlite3.Database(userDbPath);
 
-
-
-
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
   res.header(
     "Access-Control-Allow-Headers",
     "Origin, X-Requested-With, Content-Type, Accept"
   );
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
-  res.setHeader('Access-Control-Allow-Credentials', true);
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "GET, POST, OPTIONS, PUT, PATCH, DELETE"
+  );
+  res.setHeader(
+    "Access-Control-Allow-Headers",
+    "X-Requested-With,content-type"
+  );
+  res.setHeader("Access-Control-Allow-Credentials", true);
 
   next();
 });
-
 
 //test code here
 app.use(express.json());
 app.post("/updateFillcomplete", (req, res) => {
   console.log("getting data for table:updateFillcomplete");
   const author = req.body.author1;
-  const type=req.body.type;
-  console.log()
+  const type = req.body.type;
+  console.log();
   // const type='Book_Title'
   console.log(author);
   ///expression [ NOT ] SIMILAR TO pattern [ ESCAPE 'escape_char' ]
@@ -60,30 +62,6 @@ app.post("/updateFillcomplete", (req, res) => {
 
 //test code here
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 app.use(express.json());
 
 app.get("/data", (req, res) => {
@@ -98,53 +76,35 @@ app.get("/data", (req, res) => {
   });
 });
 
+app.post("/fetchDataAdvanced", (req, res) => {
+  console.log("Fetching advanced");
+  const author = req.body.author;
+  const year = req.body.year;
+  console.log("author:" + author);
+  console.log("year:" + year);
 
+  let query = "SELECT * FROM menuItems WHERE 1=1";
 
-app.post('/fetchDataAdvanced', (req, res) => {
-  console.log("Fetching advanced")
-   const author=req.body.author;
-   const year=req.body.year;
-   console.log("author:"+author)
-   console.log("year:"+year)
-
-   let query = 'SELECT * FROM menuItems WHERE 1=1';
-
- 
-
-   if (author) {
-      query =query+ ` AND Book_Author LIKE '${author}'`+'';
-   }
-
-    if (year) {
-      query =query+` AND Year_Of_Publication LIKE ${year}`+'';
+  if (author) {
+    query = query + ` AND Book_Author LIKE '${author}'` + "";
   }
-  
-  console.log(query)
-   db.all(query, (err, rows) => {
-      if (err) {
-         console.error(err.message);
-         res.status(500).json({ error: 'Internal Server Error' });
-      } else {
-         res.json(rows);
-      }
-   });
+
+  if (year) {
+    query = query + ` AND Year_Of_Publication LIKE ${year}` + "";
+  }
+
+  console.log(query);
+  db.all(query, (err, rows) => {
+    if (err) {
+      console.error(err.message);
+      res.status(500).json({ error: "Internal Server Error" });
+    } else {
+      res.json(rows);
+    }
+  });
 });
 
-
-
 //test code here
-
-
-
-
-
-
-
-
-
-
-
-
 
 app.post("/submitpost", (req, res) => {
   console.log(" sign up request received called");
@@ -176,8 +136,8 @@ app.post("/submitpost", (req, res) => {
     } else {
       // Username is unique, proceed with signup
       db.run(
-        'insert into menuItems (ISBN,Book_Title,Book_Author,Year_Of_Publication,Publisher,Image_URL_S,Image_URL_M,Image_URL_L,poster) VALUES (?, ?,?,?,?,?,?,?,?)',
-        [ISBN, title, Author, Pub_Year,Publisher,null,null,Lurl,Poster],
+        "insert into menuItems (ISBN,Book_Title,Book_Author,Year_Of_Publication,Publisher,Image_URL_S,Image_URL_M,Image_URL_L,poster) VALUES (?, ?,?,?,?,?,?,?,?)",
+        [ISBN, title, Author, Pub_Year, Publisher, null, null, Lurl, Poster],
         (err) => {
           if (err) {
             res.status(500).send(err.message);
@@ -185,20 +145,15 @@ app.post("/submitpost", (req, res) => {
             return;
           }
 
-          res.status(200).json({ message: "Post successful. Redirecting to new Post Page" });
+          res
+            .status(200)
+            .json({ message: "Post successful. Redirecting to new Post Page" });
         }
       );
     }
   });
   console.log("sign up successful");
 });
-
-
-
-
-
-
-
 
 app.post("/signup", (req, res) => {
   console.log(" sign up request received called");
@@ -228,7 +183,7 @@ app.post("/signup", (req, res) => {
       // Username is unique, proceed with signup
       db.run(
         "INSERT INTO users (username, password,profile_url,bio,collection) VALUES (?, ?,?,?,?)",
-        [username, password, pfp, bio,''],
+        [username, password, pfp, bio, ""],
         (err) => {
           if (err) {
             res.status(500).send(err.message);
@@ -374,7 +329,7 @@ app.post("/selectorFill", (req, res) => {
 
 app.post("/addCollection", (req, res) => {
   console.log("collection add began t");
-  console.log('adding books')
+  console.log("adding books");
   const user_name = req.body.user_name;
   const ISBN = req.body.ISBN;
   console.log(user_name);
@@ -470,8 +425,6 @@ app.post("/removeCollection", async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
-
-
 
 app.post("/search", (req, res) => {
   console.log("getting data for table:search");
@@ -655,7 +608,6 @@ app.listen(port, () => {
 // }
 // });
 // });
-
 
 //080652121X this isbn wasnt found. need to find out why that is
 // app.post('/failed', (req, res) => {
