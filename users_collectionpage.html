@@ -14,6 +14,13 @@ Browsing filters
     <link rel="stylesheet" href="./styleA.css">
     
 </head>
+
+<script>
+  if(!localStorage.getItem("curr_user")){
+    window.open('login.html',"_self");
+
+  }
+</script>
 <div class="top-banner">
   <!-- <img class="banner_logo" src="templogo.png" alt=""> -->
   <!-- <form action=""></form>   <input type="text" id="fname" name="fname"><button class="searchbutton" onclick="search()">Search</button >

@@ -33,7 +33,13 @@
             cursor: pointer;
         }
     </style>
-</head> 
+</head>
+<script>
+    if(!localStorage.getItem("curr_user")){
+      window.open('login.html',"_self");
+  
+    }
+  </script> 
 <body>
     <form id="loginForm">
         <h2>Login</h2>
