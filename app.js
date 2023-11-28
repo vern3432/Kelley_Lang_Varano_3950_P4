@@ -210,9 +210,26 @@ if(document.getElementById("arrow")){
 }
 
 function back_to_Author(){
-  document.getElementById("breadcrumb").remove();
-  document.getElementById("breadcrumb2").remove();
-  document.getElementById("arrow").remove();
+  if(document.getElementById("breadcrumb")){
+    document.getElementById("breadcrumb").remove();
+    if(document.getElementById("breadcrumb")){
+    document.getElementById("breadcrumb").remove();
+    
+  
+  }
+  
+  }
+  if(document.getElementById("breadcrumb2")){
+    document.getElementById("breadcrumb2").remove();
+  
+  
+  }
+  
+  if(document.getElementById("arrow")){
+    document.getElementById("arrow").remove();
+  
+  
+  }
   document.getElementById("books").innerHTML='';
   document.getElementById("year").value='';
   submitAdvanced()
