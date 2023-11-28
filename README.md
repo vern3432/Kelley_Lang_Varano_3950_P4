@@ -30,7 +30,8 @@ All presentations of books accross the site allow the user to remove and add the
 
 #3. Examine the sidebar. The second, option is a post function which allows a user to add a book to the site. 
 This is done with unique IBSN'S
-#3Next, the third option on the sidebar is the collection page. This displays the users collection. Allow them to view 
+
+#4 Next, the third option on the sidebar is the collection page. This displays the users collection. Allow them to view 
 and edit it. 
 
 
