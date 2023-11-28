@@ -78,6 +78,18 @@ function loadYearsAdvanced() {
 }
 
 function submitAdvanced(num_start) {
+
+  if(document.getElementById("breadcrumb")){
+    document.getElementById("breadcrumb").remove();
+  }
+  if(document.getElementById("breadcrumb2")){
+    document.getElementById("breadcrumb2").remove();
+  
+    
+  }
+  if(document.getElementById("arrow")){
+    document.getElementById("arrow").remove();
+  }
   console.log("fetching filter");
   console.log("collection log:" + localStorage.getItem("collection_log"));
   var selected_year = document.getElementById("year").value;
@@ -93,9 +105,11 @@ function submitAdvanced(num_start) {
     .then((response) => response.json())
     .then((data) => {
       var dataBody = document.getElementById("books_container");
-
-      dataBody.innerHTML =
-        '<div  style="display: flex;"> <input style="length: 20px;" type="text" name="city" list="cityname" id="filterSelector"> <datalist id="cityname"> </datalist> <select  id="typeSelector" onchange=""> <option value="Book_Author">Author</option> <option value="Year_Of_Publication">Year</option> </select> - </div><div class="button-container" style="  display: flex;"><button  style="  margin-left: 40px;" onclick="skipback()">&laquo;</button> <button class="tabbutton" onclick="prev()" class="previous">&laquo; Previous</button><button onclick="next()" class="next">Next &raquo;</button><button  onclick="skipforward()">&raquo;</button></div>';
+      if(document.getElementById("books")){
+        document.getElementById("books").remove()
+      }
+      // dataBody.innerHTML ='<div  style="display: flex;"> <input style="length: 20px;" type="text" name="city" list="cityname" id="filterSelector"> <datalist id="cityname"> </datalist> <select  id="typeSelector" onchange=""> <option value="Book_Author">Author</option> <option value="Year_Of_Publication">Year</option> </select> - </div><div class="button-container" style="  display: flex;"><button  style="  margin-left: 40px;" onclick="skipback()">&laquo;</button> <button class="tabbutton" onclick="prev()" class="previous">&laquo; Previous</button><button onclick="next()" class="next">Next &raquo;</button><button  onclick="skipforward()">&raquo;</button></div>';
+      dataBody.innerHTM=''
       var buttoncounter = 1;
       console.log(data);
       data.forEach((row) => {
@@ -151,6 +165,12 @@ function submitAdvanced(num_start) {
             "</button>";
           rowHTML += "</div>";
           console.log(rowHTML);
+          var yearbuttons='';
+          if(document.getElementById("year").value.length>1){
+              yearbuttons="<i id='arrow'>-->></i>"+'<button id="breadcrumb2" onclick="back_to_Author()'+'">'+document.getElementById("year").value+'</button>'
+          }
+          rowHTML='<button id="breadcrumb" onclick="back_to_Author()'+'">'+author+'</button>'+yearbuttons+rowHTML
+         
           dataBody.innerHTML += rowHTML;
           document
             .getElementById("button" + buttoncounter)
@@ -184,6 +204,17 @@ function submitAdvanced(num_start) {
       });
     })
     .catch((error) => console.log("Error fetching data: ", error));
+}
+
+function back_to_Author(){
+  document.getElementById("breadcrumb").remove();
+  document.getElementById("breadcrumb2").remove();
+  document.getElementById("arrow").remove();
+  document.getElementById("books").innerHTML='';
+  document.getElementById("year").value='';
+  submitAdvanced()
+
+
 }
 
 
