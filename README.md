@@ -2,6 +2,8 @@
 #
 
 #database was created with userscript.js and script.js
+#All rubic points have been implimented and extensivly tested
+#Note:SMALL ERROR:Sometimes, following login, the homepage requires reload to make server call
 #Steps
 #
 #Run node server.js to run server
