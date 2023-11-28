@@ -5,7 +5,8 @@
 #All rubic points have been implimented and extensivly tested
 #Note:SMALL ERROR:Sometimes, following login, the homepage requires reload to make server call
 #Note:Hi proffesor, I have an incredibly strange and old install of firefox on this system where almost nothing works, 
-while this site works extremely well on all other browsers for me, it does not work on my firefox. Please let me know if you 
+while this site works extremely well on all other browsers for me as well as my WINDOWS firefox, it does not work on my Linux MINT firefox. Please let me know if you run into issues like this. 
+
 #Steps
 #
 #Run node server.js to run server
