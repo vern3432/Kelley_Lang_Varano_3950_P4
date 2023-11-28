@@ -1,6 +1,10 @@
 # Kelley_Lang_Varano_3950_P4
 #
+
+#database was created with userscript.js and script.js
 #Steps
+#
+#Run node server.js to run server
 #1. Open login.html, unless this is done. User will be redirected to login.html. Signup and then use the same password and username to log the username
 The user will then be automically logged in and brought to the homepage for the site. 
 #Expand sidebar for labels 
@@ -15,6 +19,6 @@ and edit it.
 #4. Next is the advanced browsing, which is essentially the implimentation of the hierarchal browsing. 
 Type into the author feild, which, as it types will have a live updating recomendation for terms using a server call. 
 As this updates, the year selector is additionally filled out with first, a value of nothing, which has not specification for 
-year and is the default. The rest is years avalible in the search for the author. Press fetch button data 
-to retrieve given search. 
-As one browses, breadcrumbs are genreated
+year and is the default. The rest is years avalible in the search for the author. Press fetch button data to retrieve given paramter. 
+As one browses using paramaters, breadcrumbs are genreated. These this is represented by two buttons,
+click on the first button to return to the search of just the author depicted in the name. 
