@@ -37,7 +37,7 @@ and edit it.
 
 
 
-#4. Next is the advanced browsing, which is essentially the implimentation of the hierarchal browsing. 
+#5. Next is the advanced browsing, which is essentially the implimentation of the hierarchal browsing. 
 Type into the author feild, which, as it types will have a live updating recomendation for terms using a server call as a part of a live updating datlist.
 
 As this updates, the year selector is additionally filled out with first, a value of nothing, which has not specification for 
