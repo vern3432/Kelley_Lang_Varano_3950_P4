@@ -117,19 +117,20 @@
     function submitLoginForm() {
       const username = document.getElementById('user').value;
       const password = document.getElementById('password').value;
+      
       //username: "exampleUser",
       ///password: "examplePassword"
       // Make a POST request to the server
-      console.log(username)
-    fetch('http://localhost:3001/login',{
+      fetch('http://localhost:3001/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ user_name:username, pass_word:password, }),
+        body: JSON.stringify({ user_name:username, pass_word:password }),
       })
       .then(response => response.json())
       .then(data => {
+        alert(data.message || data.error);
         localStorage.setItem("curr_user",username)
         localStorage.setItem("user",username)
         localStorage.setItem("password",password);
@@ -137,9 +138,8 @@
         localStorage.setItem("collection_log",null);
         localStorage.setItem("Year_Of_Publication",null);
         localStorage.setItem("current_user",null);
-        alert(data.message || data.error);
         // // submitLoginForm();
-        alert("success:")
+        // alert("success:")
         window.open('mainpage.html',"_self");
 
 
