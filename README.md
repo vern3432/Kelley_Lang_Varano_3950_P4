@@ -2,10 +2,12 @@
 #
 
 #database was created with userscript.js and script.js
-#All rubic points have been implimented and extensivly tested
+#All rubic points have been implimented and extensivly tested. 
+
 #Note:SMALL ERROR:Sometimes, following login, the homepage requires reload to make server call
 #Note:Hi proffesor, I have an incredibly strange and old install of firefox on this system where almost nothing works, 
-while this site works extremely well on all other browsers for me, it does not work on my firefox. Please let me know if you 
+while this site works extremely well on all other browsers for me as well as my WINDOWS firefox, it does not work on my Linux MINT firefox. Please let me know if you run into issues like this. 
+
 #Steps
 #
 #Run node server.js to run server
@@ -28,13 +30,14 @@ All presentations of books accross the site allow the user to remove and add the
 
 #3. Examine the sidebar. The second, option is a post function which allows a user to add a book to the site. 
 This is done with unique IBSN'S
-#3Next, the third option on the sidebar is the collection page. This displays the users collection. Allow them to view 
+
+#4 Next, the third option on the sidebar is the collection page. This displays the users collection. Allow them to view 
 and edit it. 
 
 
 
 
-#4. Next is the advanced browsing, which is essentially the implimentation of the hierarchal browsing. 
+#5. Next is the advanced browsing, which is essentially the implimentation of the hierarchal browsing. 
 Type into the author feild, which, as it types will have a live updating recomendation for terms using a server call as a part of a live updating datlist.
 
 As this updates, the year selector is additionally filled out with first, a value of nothing, which has not specification for 
