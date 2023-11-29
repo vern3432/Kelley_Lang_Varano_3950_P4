@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <meta charset="UTF-8" />
     <title>Book Repo</title>
@@ -25,7 +24,6 @@
         document.getElementsByClassName('signupbutton')[0].style.display = 'none';
         // document.getElementsByClassName('signupbutton')[0].style.display = 'none';
         document.getElementById('signupbutton2').style.visibility = 'visible';
-
         function user(u, p){
           this.user = u;
           this.pass = p;
@@ -34,7 +32,6 @@
  
     
     }
-
     function Signup_login(){
         tabcontent = document.getElementsByClassName("tabcontent");
         document.getElementsByClassName('signup')[0].style.visibility = 'invisible';
@@ -46,7 +43,6 @@
         document.getElementsByClassName('signupbutton')[0].style.display = 'none';
         // document.getElementsByClassName('signupbutton')[0].style.display = 'none';
         document.getElementById('signupbutton2').style.visibility = 'visible';
-
         function user(u, p){
           this.user = u;
           this.pass = p;
@@ -55,7 +51,6 @@
  
     
     }
-
     function submitSignupForm() {
       const username = document.getElementById('signupUsername').value;
       const password = document.getElementById('signupPassword').value;
@@ -78,14 +73,11 @@
         alert('An error occurred. Please try again.');
       });
     }
-
-
     function submitSignupForm() {
       const username = document.getElementById('user').value;
       const password = document.getElementById('password').value;
       const pfp = document.getElementById('pfp').value;
       const bio = document.getElementById('Body').value;
-
       //username: "exampleUser",
       ///password: "examplePassword"
       // Make a POST request to the server
@@ -99,7 +91,6 @@
           pass_word:password,
           pfp:pfp,
           bio:bio,
-
         }),
       })
       .then(response => response.json())
@@ -108,20 +99,18 @@
         document.getElementById('user').value=username;
         document.getElementById('password').value=password
         submitLoginForm();
-
         // location.reload();
-
       })
       .catch(error => {
         alert('Error:', error);
         alert('A Local error occurred. Please try again.');
       });
     }
-
     function submitLoginForm() {
       const username = document.getElementById('user').value;
       const password = document.getElementById('password').value;
-      
+
+      console.log(username)
       //username: "exampleUser",
       ///password: "examplePassword"
       // Make a POST request to the server
@@ -142,13 +131,13 @@
         localStorage.setItem("collection_log",null);
         localStorage.setItem("Year_Of_Publication",null);
         localStorage.setItem("current_user",null);
-        // // submitLoginForm();
-        // alert("success:")
+        alert("success:")
         window.open('mainpage.html',"_self");
 
 
       })
       .catch(error => {
+        alert('Error:', error);
         console.log('Error:', error);
         alert(error)
 
@@ -159,13 +148,8 @@
     //localStorage.setItem("user_request",null);
     //localStorage.setItem("post_request",null)
     //window.open('mainpage.html',"_self");
-
 </script>
-
-
-
 <style>
-
     * {
       margin: 0;
       padding: 0;
@@ -193,8 +177,6 @@
       margin: 0 auto;
       position: relative;
     }
-
-
     #post {
       border-radius: 10px;
     
@@ -307,11 +289,8 @@
         <!-- <img style="height: 300px; overflow-x: hidden;  position: absolute;
         top: -10px;
         left: 150px;      display: block; " src="./templogo.png" alt=""> -->
-
     <div class="container">  
-
       <form id="post" action="" method="post">
-
         <div class="logincontainer" style="display: block;width: 60%; margin: auto; ">
         <input id = "user" placeholder="Username" type="text" id="fname" name="username" required>
         <br>
@@ -327,36 +306,10 @@
         <button type="button" class="signupbutton"  onclick="Signup()">Sign up</button style=" text-align: center;">
            <br>
        <button type="button" id="signupbutton2" class="signupbutton" onclick="submitSignupForm()">Sign up!</button style=" text-align: center; =">
-
       </form>
     </div>
     </body>
     
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     
     
     <!-- 
@@ -369,12 +322,6 @@
       <button>Make Post</button>
     </form>  -->
     
-
-
-
-
-
-
 <!-- <body  style="background-color: #6d0000;">
     <div class="logincontainer" style="display: block;width: 60%; margin: auto; ">
     <img style="height: 300px;display: block;margin: auto;  " src="./templogo.png" alt="">
@@ -395,9 +342,7 @@
              <button class="signupbutton"  onclick="Signup()">Sign up</button style=" text-align: center;">
                 <br>
             <button id="signupbutton2" class="signupbutton" onclick="">Sign up</button style=" text-align: center; =">
-
             </form>
-
             <br>
         </div>
 </body>
