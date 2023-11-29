@@ -52,28 +52,28 @@
     
     }
 
-    function submitSignupForm() {
-      const username = document.getElementById('signupUsername').value;
-      const password = document.getElementById('signupPassword').value;
-      //username: "exampleUser",
-      ///password: "examplePassword"
-      // Make a POST request to the server
-      fetch('http://localhost:3001/signup', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ user_name:username, pass_word:password }),
-      })
-      .then(response => response.json())
-      .then(data => {
-        alert(data.message || data.error);
-      })
-      .catch(error => {
-        console.error('Error:', error);
-        alert('An error occurred. Please try again.');
-      });
-    }
+    // function submitSignupForm() {
+    //   const username = document.getElementById('signupUsername').value;
+    //   const password = document.getElementById('signupPassword').value;
+    //   //username: "exampleUser",
+    //   ///password: "examplePassword"
+    //   // Make a POST request to the server
+    //   fetch('http://localhost:3001/signup', {
+    //     method: 'POST',
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //     },
+    //     body: JSON.stringify({ user_name:username, pass_word:password }),
+    //   })
+    //   .then(response => response.json())
+    //   .then(data => {
+    //     alert(data.message || data.error);
+    //   })
+    //   .catch(error => {
+    //     console.error('Error:', error);
+    //     alert('An error occurred. Please try again.');
+    //   });
+    // }
 
 
     function submitSignupForm() {
@@ -117,20 +117,19 @@
     function submitLoginForm() {
       const username = document.getElementById('user').value;
       const password = document.getElementById('password').value;
-      console.log(username)
       //username: "exampleUser",
       ///password: "examplePassword"
       // Make a POST request to the server
-      fetch('http://localhost:3001/login', {
+      console.log(username)
+    fetch('http://localhost:3001/login',{
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ user_name:username, pass_word:password }),
+        body: JSON.stringify({ user_name:username, pass_word:password, }),
       })
       .then(response => response.json())
       .then(data => {
-        alert(data.message || data.error);
         localStorage.setItem("curr_user",username)
         localStorage.setItem("user",username)
         localStorage.setItem("password",password);
@@ -138,11 +137,14 @@
         localStorage.setItem("collection_log",null);
         localStorage.setItem("Year_Of_Publication",null);
         localStorage.setItem("current_user",null);
+        alert(data.message || data.error);
+        // // submitLoginForm();
         alert("success:")
         window.open('mainpage.html',"_self");
+
+
       })
       .catch(error => {
-        alert('Error:', error);
         console.log('Error:', error);
         alert(error)
 

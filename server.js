@@ -245,30 +245,28 @@ app.post("/login", (req, res) => {
   // res.json(req.body);
   // jsson=res.json(req.body)
   // console.log(jsson)
-  const username = req.body.user_name;
-  const password = req.body.pass_word;
+  var username = req.body.user_name;
+  var password = req.body.pass_word;
   // const pfp = req.body.pfp;
   // const bio = req.body.bio;
-
   console.log(username);
   // Check if username is unique
-  db.get(
-    "SELECT * FROM users WHERE (username, password) IN ( VALUES (?, ?))",
-    [username, password],
+  db.get(express.query,
     (err, row) => {
       if (err) {
         res.status(500).send(err.message);
         return;
-      } else if (row) {
-        // Username already exists
-        console.log("row found");
-        res
-          .status(200)
-          .json({ message: "Login successful.Directing to main page" });
       }
+      if (row) {
+        // Username already exists
+        console.log(row)
+        res
+              .status(200)
+              .json({ message: "Login successful. Please Login" });
+      } 
     }
   );
-  console.log("log up successful");
+  console.log("sign up successful");
 });
 
 app.post("/tab_page_request", (req, res) => {
