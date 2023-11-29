@@ -251,7 +251,9 @@ app.post("/login", (req, res) => {
   // const bio = req.body.bio;
   console.log(username);
   // Check if username is unique
-  db.get(express.query,
+  db.get(
+    "SELECT * FROM users WHERE (username, password) IN ( VALUES (?, ?))",
+    [username, password],
     (err, row) => {
       if (err) {
         res.status(500).send(err.message);
@@ -262,7 +264,7 @@ app.post("/login", (req, res) => {
         console.log(row)
         res
               .status(200)
-              .json({ message: "Login successful. Please Login" });
+              .json({ message: "Signup successful. Please Login" });
       } 
     }
   );
