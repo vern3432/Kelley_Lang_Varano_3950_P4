@@ -226,7 +226,6 @@ app.post("/signup", (req, res) => {
             console.log("insert failed");
             return;
           }
-
           res.status(200).json({ message: "Signup successful. Please Login" });
         }
       );
@@ -262,8 +261,7 @@ app.post("/login", (req, res) => {
       if (row) {
         // Username already exists
         console.log(row)
-        res
-              .status(200)
+        res.status(200)
               .json({ message: "Signup successful. Please Login" });
       } 
     }
