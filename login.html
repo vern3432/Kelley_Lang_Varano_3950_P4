@@ -117,7 +117,7 @@
     function submitLoginForm() {
       const username = document.getElementById('user').value;
       const password = document.getElementById('password').value;
-      
+      console.log(username)
       //username: "exampleUser",
       ///password: "examplePassword"
       // Make a POST request to the server
@@ -138,13 +138,11 @@
         localStorage.setItem("collection_log",null);
         localStorage.setItem("Year_Of_Publication",null);
         localStorage.setItem("current_user",null);
-        // // submitLoginForm();
-        // alert("success:")
+        alert("success:")
         window.open('mainpage.html',"_self");
-
-
       })
       .catch(error => {
+        alert('Error:', error);
         console.log('Error:', error);
         alert(error)
 

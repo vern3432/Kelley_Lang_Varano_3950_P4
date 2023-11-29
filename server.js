@@ -273,8 +273,12 @@ app.post("/login", (req, res) => {
 
 app.post("/tab_page_request", (req, res) => {
   console.log("getting data for table:tab_page_request");
-  const num_start = parseInt(req.body.start);
-  const finish = req.body.finish;
+  var num_start = parseInt(req.body.start);
+  var finish = req.body.finish;
+    if (!num_start | (finish == null)) {
+       num_start = 1;
+       finish = num_start + 20;
+    }
   console.log(num_start);
   console.log(finish);
   const query =
