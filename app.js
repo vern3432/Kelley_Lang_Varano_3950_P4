@@ -136,7 +136,13 @@ if(document.getElementById("arrow")){
         // console.log(row.ISBN)
         var rowHTML = '<div id="books" style="  margin-left: 45px;" >';
         rowHTML += "<div id='book' style=''>";
-        rowHTML += '<img src="' + row.Image_URL_L + '">';
+        rowHTML +=
+          '<img id="bookcover' +
+          buttoncounter +
+          '" src="' +
+          row.Image_URL_L +
+          '"' +
+          'onerror="" alt="https://islandpress.org/sites/default/files/default_book_cover_2015.jpg ">';
         rowHTML += "<br>" + row.ISBN;
         rowHTML += "<br>" + row.Book_Title;
         rowHTML += "<br>" + row.Book_Author;
@@ -161,6 +167,16 @@ if(document.getElementById("arrow")){
               "onclick",
               "removeCollection(" + buttoncounter + ',"' + row.ISBN + '")'
             );
+           document
+                      .getElementById("bookcover" + buttoncounter)
+                      .setAttribute(
+                        "onerror",
+                        'onerror=this.onerror=null;this.src="https://islandpress.org/sites/default/files/default_book_cover_2015.jpg '
+                      );
+            
+
+
+            
         } else {
           console.log("not inclued");
           rowHTML +=
@@ -181,6 +197,12 @@ if(document.getElementById("arrow")){
               "onclick",
               "addCollection(" + buttoncounter + ',"' + row.ISBN + '")'
             );
+                       document
+                         .getElementById("bookcover" + buttoncounter)
+                         .setAttribute(
+                           "onerror",
+                           'onerror=this.onerror=null;this.src="https://islandpress.org/sites/default/files/default_book_cover_2015.jpg '
+                         );
         }
         buttoncounter = buttoncounter + 1;
         //rowHTML += '<br>' + row.Image_URL_S ;
