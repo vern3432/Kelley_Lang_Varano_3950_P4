@@ -8,6 +8,10 @@
     
 </head>
 
+<div class = "loginTitle">
+  <p>Book Repository</p>
+</div>
+
 <script>
     window.onload = function(){document.getElementById("signupbutton2").style.visibility = "hidden"; };
     function Signup(){
@@ -117,7 +121,7 @@
     function submitLoginForm() {
       const username = document.getElementById('user').value;
       const password = document.getElementById('password').value;
-      console.log(username)
+      
       //username: "exampleUser",
       ///password: "examplePassword"
       // Make a POST request to the server
@@ -138,11 +142,13 @@
         localStorage.setItem("collection_log",null);
         localStorage.setItem("Year_Of_Publication",null);
         localStorage.setItem("current_user",null);
-        alert("success:")
+        // // submitLoginForm();
+        // alert("success:")
         window.open('mainpage.html',"_self");
+
+
       })
       .catch(error => {
-        alert('Error:', error);
         console.log('Error:', error);
         alert(error)
 
