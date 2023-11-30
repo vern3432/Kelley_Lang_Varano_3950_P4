@@ -10,6 +10,54 @@ const db = new sqlite3.Database(dbPath);
 // const userDbPath = path.resolve(__dirname, 'user.db');
 // const userDb = new sqlite3.Database(userDbPath);
 
+
+
+
+// Handle the POST request for authentication
+app.post("/auth", (req, res) => {
+  console.log("auth running");
+
+  const username = req.body.username;
+    const password = req.body.password;
+
+  // Check if the username and password exist in the 'users' table
+  const query = "SELECT * FROM users WHERE username = ? AND password = ?";
+  db.get(query, [username, password], (err, row) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send("Internal Server Error");
+      return;
+    }
+
+    if (!row) {
+      // Username not found
+      res.status(404).send("Username not found");
+      return;
+    }
+
+    // Username and password match, redirect to mainpage.html
+    res.redirect("/mainpage.html");
+  });
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
   res.header(

@@ -35,6 +35,39 @@
     
     }
 
+
+    function authenticate() {
+            const username = document.getElementById('user').value;
+            const password = document.getElementById('password').value;
+        console.log("running")
+            fetch('http://localhost:3001/auth', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ username:username, password:password }),
+            })
+            .then(response => {
+                if (response.ok) {
+                    // Redirect to mainpage.html on successful login
+                } else if (response.status === 404) {
+                    // Display alert if username not found
+                    alert('Username not found');
+                } else {
+                    // Handle other errors
+                    alert('Error logging in');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An unexpected error occurred');
+            });
+        }
+
+
+
+
+
     function Signup_login(){
         tabcontent = document.getElementsByClassName("tabcontent");
         document.getElementsByClassName('signup')[0].style.visibility = 'invisible';
@@ -322,7 +355,7 @@
        <!-- <input class="signup"  placeholder="Link to Profile Picture" type="text" id="pfp" name="fname" style=" visibility: hidden;"> -->
        <textarea  placeholder="Account Bio" id="Body" name="Body" class="signup" rows="6" maxlength="3000" onclick="" oninput=""  style="width: 250px;visibility: hidden;"></textarea>
        <br>
-        <button type="submit" class="login_button" onclick="submitLoginForm()">login</button>
+        <button type="button" class="login_button" onclick="submitLoginForm()">login</button>
         <p class="login_button"  style="color: white;">or</p>
         <button type="button" class="signupbutton"  onclick="Signup()">Sign up</button style=" text-align: center;">
            <br>
