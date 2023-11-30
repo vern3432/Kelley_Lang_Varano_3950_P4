@@ -16,7 +16,12 @@ Browsing filters
 </head>
 <div class="top-banner">
   <!-- <img class="banner_logo" src="templogo.png" alt=""> -->
-<h2 style="color: white;padding: top 400; ;">Make Post</h2>
+<h2 style="color: white;padding: top 400; ;">
+  Make Post
+  <img class = "background-image" src = "./make_post_white.png" 
+  height = "20"
+  width = "20">
+</h2>
   <!-- <form action=""></form>   <input type="text" id="fname" name="fname"><button class="searchbutton" onclick="search()">Search</button >
  <select name="searchtab" id="searchtype">
     <option value="Book_Title">Title</option>
@@ -86,6 +91,14 @@ Browsing filters
   -moz-font-smoothing: antialiased;
   -o-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+}
+
+form {
+  position: relative;
+}
+
+form *:focus-within{
+  background: lightcyan;
 }
 
 body {
@@ -223,27 +236,43 @@ fieldset {
         <form id="post" action="" method="post">
           <h3>Add a Book to Our Collection</h3>
           <fieldset>
-            <label class="pagecontent" for="title">Book Title</label><br>
+            <label class="pagecontent" for="title">Book Title
+              <img src = "open-book-icon-transparent-2.jpg"
+                      height = "10"
+                      width = "10">
+            </label><br>
             <input class="pagecontent" type="text" id="title" name="title" placeholder="Book Title Here"><br>    </fieldset>
           <fieldset>
-            <label  class="pagecontent"for="url">Book Cover Url
+            <label  class="pagecontent"for="url">Book Cover URL
+              <img src = "internet.png"
+                      height = "10"
+                      width = "10">
             </label><br>
-            <input class="pagecontent" type="text" id="url" name="url" placeholder="Image Url Here"><br>
+            <input class="pagecontent" type="text" id="url" name="url" placeholder="Image URL Here"><br>
               </fieldset>
               <fieldset>
                 <label  class="pagecontent"for="ISBN">ISBN
+                  <img src = "barcode_img.png"
+                      height = "10"
+                      width = "15">
                 </label><br>
                 <input class="pagecontent" type="text" id="ISBN" name="ISBN" placeholder="Book ISBN  Here"><br>
                   </fieldset>
               <fieldset>
                 <fieldset>
                     <label  class="pagecontent"for="Pub_Year">Publication Year
+                      <img src = "calendar_img.png"
+                      height = "10"
+                      width = "10">
                     </label><br>
                     <input class="pagecontent" type="text" id="Pub_Year" name="Pub_Year" placeholder="Book Publication Year Here"><br>
                       </fieldset>
                   <fieldset>
                     <fieldset>
                         <label  class="pagecontent"for="Publisher">Publisher
+                          <img src = "publishing_img.png"
+                          height = "10"
+                          width = "10">
                         </label><br>
                         <input class="pagecontent" type="text" id="Publisher" name="Publisher" placeholder="Publisher Year Here"><br>
                           </fieldset>
