@@ -13,32 +13,6 @@ const db = new sqlite3.Database(dbPath);
 
 
 
-// Handle the POST request for authentication
-app.post("/auth", (req, res) => {
-  console.log("auth running");
-
-  const username = req.body.username;
-    const password = req.body.password;
-
-  // Check if the username and password exist in the 'users' table
-  const query = "SELECT * FROM users WHERE username = ? AND password = ?";
-  db.get(query, [username, password], (err, row) => {
-    if (err) {
-      console.error(err);
-      res.status(500).send("Internal Server Error");
-      return;
-    }
-
-    if (!row) {
-      // Username not found
-      res.status(404).send("Username not found");
-      return;
-    }
-
-    // Username and password match, redirect to mainpage.html
-    res.redirect("/mainpage.html");
-  });
-});
 
 
 
@@ -695,6 +669,32 @@ app.listen(port, () => {
 // });
 // });
 
+// Handle the POST request for authentication
+// app.post("/auth", (req, res) => {
+//   console.log("auth running");
+
+//   const username = req.body.username;
+//     const password = req.body.password;
+
+//   // Check if the username and password exist in the 'users' table
+//   const query = "SELECT * FROM users WHERE username = ? AND password = ?";
+//   db.get(query, [username, password], (err, row) => {
+//     if (err) {
+//       console.error(err);
+//       res.status(500).send("Internal Server Error");
+//       return;
+//     }
+
+//     if (!row) {
+//       // Username not found
+//       res.status(404).send("Username not found");
+//       return;
+//     }
+
+//     // Username and password match, redirect to mainpage.html
+//     res.redirect("/mainpage.html");
+//   });
+// });
 //080652121X this isbn wasnt found. need to find out why that is
 // app.post('/failed', (req, res) => {
 //   console.log('getting data for table:loadCollection')

@@ -36,34 +36,8 @@
     }
 
 
-    function authenticate() {
-            const username = document.getElementById('user').value;
-            const password = document.getElementById('password').value;
-        console.log("running")
-            fetch('http://localhost:3001/auth', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ username:username, password:password }),
-            })
-            .then(response => {
-                if (response.ok) {
-                    // Redirect to mainpage.html on successful login
-                } else if (response.status === 404) {
-                    // Display alert if username not found
-                    alert('Username not found');
-                } else {
-                    // Handle other errors
-                    alert('Error logging in');
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('An unexpected error occurred');
-            });
-        }
-
+    // function authenticate() {
+ 
 
 
 
@@ -435,3 +409,33 @@
         </div>
 </body>
 <html></html> -->
+
+<script>
+     //         const username = document.getElementById('user').value;
+    //         const password = document.getElementById('password').value;
+    //     console.log("running")
+    //         fetch('http://localhost:3001/auth', {
+    //             method: 'POST',
+    //             headers: {
+    //                 'Content-Type': 'application/json',
+    //             },
+    //             body: JSON.stringify({ username:username, password:password }),
+    //         })
+    //         .then(response => {
+    //             if (response.ok) {
+    //                 // Redirect to mainpage.html on successful login
+    //             } else if (response.status === 404) {
+    //                 // Display alert if username not found
+    //                 alert('Username not found');
+    //             } else {
+    //                 // Handle other errors
+    //                 alert('Error logging in');
+    //             }
+    //         })
+    //         .catch(error => {
+    //             console.error('Error:', error);
+    //             alert('An unexpected error occurred');
+    //         });
+    //     }
+
+</script>
