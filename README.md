@@ -10,7 +10,7 @@
 
 #Note:Hi proffesor, I have an incredibly strange and old install of firefox on this system where almost nothing works, 
 while this site works extremely well on all other browsers for me as well as my WINDOWS firefox, it does not work on my Linux MINT firefox. Please let me know if you run into issues like this. 
-
+#Notes:Hi professor, the contributions page seems to be showing different numbers from pulse, unsure why this. Would recommend the contributions, seems more accurate
 #Steps
 #
 #Run node server.js to run server
